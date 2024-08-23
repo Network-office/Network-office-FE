@@ -1,7 +1,10 @@
 import { http, HttpResponse } from "msw"
 
 export const handlers = [
-  http.get("https://localhost:3000/user", () => {
-    return HttpResponse.json(null, { status: 200 })
+  http.get("http://localhost:8080/test", () => {
+    return HttpResponse.json(
+      JSON.stringify({ testOk: true, ab: true, asdf: true }),
+      { status: 200 }
+    )
   })
 ]

@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
 import "./globals.css"
-import { MSWComponent } from "@/mock/MSWComponent"
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,7 +13,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <MSWComponent />
       <body>{children}</body>
     </html>
   )
