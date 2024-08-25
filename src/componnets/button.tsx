@@ -1,7 +1,7 @@
-export default function Home() {
+export const Button = () => {
   return (
-    <main className="bg-red text-">
+    <button className="bg-red">
       <h1 className="bg-red text-3xl font-bold underline">Hello world!</h1>
-    </main>
+    </button>
   )
 }
