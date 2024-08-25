@@ -10,6 +10,7 @@
     "mock": "npx tsx watch ./src/mock/http.js"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.52.1",
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "next": "14.2.5",
