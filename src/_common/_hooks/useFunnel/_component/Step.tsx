@@ -7,3 +7,4 @@ const Step = ({ children }: StepProps): ReactElement => {
 };
 
 export default Step;
+  
