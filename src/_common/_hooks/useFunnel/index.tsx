@@ -45,23 +45,20 @@ export const useFunnel = (steps: string[], defaultStep: string = steps[0]) => {
   }
 
   const pushStep = () => {
-    if (step === step[step.length - 1]) {
+    console.log(step, steps[steps.length - 1])
+    if (step === steps[steps.length - 1]) {
       return
     }
-    setStep((nowStep) => {
-      const nowIndex = steps.indexOf(nowStep)
-      return steps[nowIndex + 1]
-    })
+    const nowIndex = steps.indexOf(step)
+    setFunnel(steps[nowIndex + 1])
   }
 
   const popStep = () => {
     if (step === steps[0]) {
       return
     }
-    setStep((nowStep) => {
-      const nowIndex = steps.indexOf(nowStep)
-      return steps[nowIndex - 1]
-    })
+    const nowIndex = steps.indexOf(step)
+    setFunnel(steps[nowIndex - 1])
   }
 
   const setFunnel = (nextFunnel: string) => {
@@ -76,5 +73,11 @@ export const useFunnel = (steps: string[], defaultStep: string = steps[0]) => {
     { Step }
   )
 
-  return { FunnelComponent, setStep: setFunnel, pushStep, popStep } as const
+  return {
+    Funnel: FunnelComponent,
+    setStep: setFunnel,
+    pushStep,
+    popStep,
+    step
+  } as const
 }
