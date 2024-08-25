@@ -27,9 +27,6 @@ importers:
       '@swc/jest':
         specifier: ^0.2.36
         version: 0.2.36(@swc/core@1.7.14(@swc/helpers@0.5.5))
-      '@testing-library/dom':
-        specifier: ^10.4.0
-        version: 10.4.0
       '@testing-library/jest-dom':
         specifier: ^6.4.8
         version: 6.4.8
