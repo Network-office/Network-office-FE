@@ -45,7 +45,6 @@ export const useFunnel = (steps: string[], defaultStep: string = steps[0]) => {
   }
 
   const pushStep = () => {
-    console.log(step, steps[steps.length - 1])
     if (step === steps[steps.length - 1]) {
       return
     }
