@@ -8,10 +8,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    permissions:
-      contents: read
-      issues: write
-
     strategy:
       matrix:
         node-version: [20.x]
@@ -42,7 +38,6 @@ jobs:
               pull_number: context.issue.number,
             });
 
-            // 테스트 파일만 필터링합니다.
             const testFiles = pullRequest
               .map(f => f.filename)
               .filter(f => f.includes('__tests__') || f.includes('.spec.') || f.includes('.test.'));
@@ -51,7 +46,7 @@ jobs:
               console.log("No test files changed.");
               return;
             }
-            
+
             return {
               testFiles: testFiles.join(' ')
             };
@@ -75,7 +70,7 @@ jobs:
             const coverageReport = fs.readFileSync(path, 'utf8');
             const percentageMatch = coverageReport.match(/<span class="strong">(\d+)%<\/span>/);
             const coveragePercentage = percentageMatch ? percentageMatch[1] : 'unknown';
-            
+
             const commentBody = `### Jest Coverage Report\n**Coverage:** ${coveragePercentage}%\n\n[Detailed Coverage Report](./coverage-output/index.html)`;
             github.rest.issues.createComment({
               owner: context.repo.owner,
