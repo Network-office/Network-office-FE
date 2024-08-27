@@ -1,4 +1,4 @@
-name: Run Jest Tests
+name: Run Jest Tests and Post Coverage
 
 on:
   pull_request:
@@ -29,3 +29,30 @@ jobs:
 
       - name: Run Jest tests
         run: pnpm test -- --passWithNoTests
+
+      - name: Save coverage report
+        run: mv coverage/lcov-report coverage-output
+
+      - name: Post coverage report to PR
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const path = './coverage-output/index.html';
+            const coverageReport = fs.readFileSync(path, 'utf8');
+            const percentageMatch = coverageReport.match(/<span class="strong">(\d+)%<\/span>/);
+            const coveragePercentage = percentageMatch ? percentageMatch[1] : 'unknown';
+
+            const commentBody = `### Jest Coverage Report\n**Coverage:** ${coveragePercentage}%\n\n[Detailed Coverage Report](./coverage-output/index.html)`;
+            const { context, github } = require('@actions/github');
+            github.rest.issues.createComment({
+              ...context.repo,
+              issue_number: context.payload.pull_request.number,
+              body: commentBody
+            });
+
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: coverage-output
