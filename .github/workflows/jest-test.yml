@@ -44,10 +44,10 @@ jobs:
             const coveragePercentage = percentageMatch ? percentageMatch[1] : 'unknown';
 
             const commentBody = `### Jest Coverage Report\n**Coverage:** ${coveragePercentage}%\n\n[Detailed Coverage Report](./coverage-output/index.html)`;
-            const { context, github } = require('@actions/github');
             github.rest.issues.createComment({
-              ...context.repo,
-              issue_number: context.payload.pull_request.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
               body: commentBody
             });
 
