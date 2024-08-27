@@ -1,67 +1,29 @@
-name: Jest Unit Test
-
+name: Run Jest Tests and Post Coverage
 on:
-  pull_request_target:
+  pull_request:
     types: [opened, synchronize, reopened]
-
 jobs:
   test:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [20.x]
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-
       - name: Install pnpm
         run: npm install -g pnpm
-
       - name: Install dependencies
         run: pnpm install
-
-      - name: Get changed files
-        id: changed-files
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const { data: pullRequest } = await github.pulls.listFiles({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.issue.number,
-            });
-
-            const testFiles = pullRequest
-              .map(f => f.filename)
-              .filter(f => f.includes('__tests__') || f.includes('.spec.') || f.includes('.test.'));
-              
-            if (testFiles.length === 0) {
-              console.log("No test files changed.");
-              return;
-            }
-
-            return {
-              testFiles: testFiles.join(' ')
-            };
-
-      - name: Run Jest on changed test files
-        if: steps.changed-files.outputs.testFiles != ''
-        run: |
-          pnpm jest --findRelatedTests ${{ steps.changed-files.outputs.testFiles }}
-
+      - name: Run Jest tests
+        run: pnpm test -- --passWithNoTests
       - name: Save coverage report
-        if: steps.changed-files.outputs.testFiles != ''
         run: mv coverage/lcov-report coverage-output
-
       - name: Post coverage report to PR
-        if: steps.changed-files.outputs.testFiles != ''
         uses: actions/github-script@v6
         with:
           script: |
@@ -70,7 +32,6 @@ jobs:
             const coverageReport = fs.readFileSync(path, 'utf8');
             const percentageMatch = coverageReport.match(/<span class="strong">(\d+)%<\/span>/);
             const coveragePercentage = percentageMatch ? percentageMatch[1] : 'unknown';
-
             const commentBody = `### Jest Coverage Report\n**Coverage:** ${coveragePercentage}%\n\n[Detailed Coverage Report](./coverage-output/index.html)`;
             github.rest.issues.createComment({
               owner: context.repo.owner,
@@ -78,9 +39,7 @@ jobs:
               issue_number: context.issue.number,
               body: commentBody
             });
-
       - name: Upload coverage artifact
-        if: steps.changed-files.outputs.testFiles != ''
         uses: actions/upload-artifact@v3
         with:
           name: coverage-report
