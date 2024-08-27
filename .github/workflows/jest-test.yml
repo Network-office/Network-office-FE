@@ -4,10 +4,7 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 
-permissions:
-  issues: write
-  pull_requests: write
-  contents: read
+permissions: write-all
 
 jobs:
   test:
@@ -49,10 +46,10 @@ jobs:
             const cheerio = require('cheerio');
             const path = './coverage-output/index.html';
             const coverageReport = fs.readFileSync(path, 'utf8');
-            
+
             const $ = cheerio.load(coverageReport);
             const coveragePercentage = $('span.coverage').text().match(/\d+/)?.[0] || 'unknown';
-            
+
             const commentBody = `### Jest Coverage Report\n**Coverage:** ${coveragePercentage}%\n\n[Detailed Coverage Report](./coverage-output/index.html)`;
             github.rest.issues.createComment({
               owner: context.repo.owner,
