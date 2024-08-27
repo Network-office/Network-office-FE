@@ -1,12 +1,13 @@
 name: Run Jest Tests and Post Coverage
 
 on:
-  pull_request_target:
+  pull_request:
     types: [opened, synchronize, reopened]
 
 jobs:
   test:
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
         node-version: [20.x]
@@ -34,6 +35,8 @@ jobs:
         run: mv coverage/lcov-report coverage-output
 
       - name: Post coverage report to PR
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         uses: actions/github-script@v6
         with:
           script: |
