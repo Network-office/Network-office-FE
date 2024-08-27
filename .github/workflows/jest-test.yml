@@ -1,9 +1,14 @@
-name: Run Jest Tests and Post Coverage
+name: Run Unit Test
 
 on:
   pull_request:
     types: [opened, synchronize, reopened]
-permissions: write-all
+
+permissions:
+  issues: write
+  pull_requests: write
+  contents: read
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -41,10 +46,13 @@ jobs:
         with:
           script: |
             const fs = require('fs');
+            const cheerio = require('cheerio');
             const path = './coverage-output/index.html';
             const coverageReport = fs.readFileSync(path, 'utf8');
-            const percentageMatch = coverageReport.match(/<span class="strong">(\d+)%<\/span>/);
-            const coveragePercentage = percentageMatch ? percentageMatch[1] : 'unknown';
+            
+            const $ = cheerio.load(coverageReport);
+            const coveragePercentage = $('span.coverage').text().match(/\d+/)?.[0] || 'unknown';
+            
             const commentBody = `### Jest Coverage Report\n**Coverage:** ${coveragePercentage}%\n\n[Detailed Coverage Report](./coverage-output/index.html)`;
             github.rest.issues.createComment({
               owner: context.repo.owner,
