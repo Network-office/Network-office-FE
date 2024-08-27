@@ -3,7 +3,7 @@ name: Run Jest Tests and Post Coverage
 on:
   pull_request:
     types: [opened, synchronize, reopened]
-
+permissions: write-all
 jobs:
   test:
     runs-on: ubuntu-latest
