@@ -1,5 +1,6 @@
 import { cn } from "../../lib/utils"
 import { InputProps } from "./types"
+import { Input as ShadcnInput } from "../../components/ui/input"
 
 const Input = ({
   label,
@@ -30,7 +31,7 @@ const Input = ({
             size={18}
           />
         )}
-        <Input
+        <ShadcnInput
           className={InputClassName}
           {...props}
         />
