@@ -21,6 +21,9 @@ describe("abc function", () => {
   test("should correctly add a positive number and a negative number", () => {
     expect(abc(1, -2)).toBe(1)
   })
+  test("should correctly add a positive number and a negative number", () => {
+    expect(abc(1, -2)).toBe(4)
+  })
   test("should correctly add zero", () => {
     expect(abc(0, 0)).toBe(0)
     expect(abc(0, 5)).toBe(5)
