@@ -14,14 +14,14 @@ describe("abc function", () => {
   test("should correctly add a positive number and a negative number", () => {
     expect(abc(1, -2)).toBe(-2)
   })
-  test("should correctly add a positive number and a negative number", () => {
+  test("should correctly add a positive number and a negative number2", () => {
     expect(abc(1, -2)).toBe(0)
   })
 
-  test("should correctly add a positive number and a negative number", () => {
+  test("should correctly add a positive number and a negative number3", () => {
     expect(abc(1, -2)).toBe(1)
   })
-  test("should correctly add a positive number and a negative number", () => {
+  test("should correctly add a positive number and a negative number4", () => {
     expect(abc(1, -2)).toBe(4)
   })
   test("should correctly add zero", () => {
