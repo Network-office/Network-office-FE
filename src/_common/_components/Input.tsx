@@ -9,9 +9,12 @@ const Input = ({
   iconPosition = "left",
   helper,
   className,
+  labelClassName,
+  helperClassName,
+  errorClassName,
   ...props
 }: InputProps) => {
-  const InputClassName = cn(className, {
+  const inputClassName = cn(className, {
     "pl-10": Icon && iconPosition === "left",
     "pr-10": Icon && iconPosition === "right",
     "border-red-500": error
@@ -20,7 +23,11 @@ const Input = ({
   return (
     <div className="w-full">
       {label && (
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label
+          className={cn(
+            "block text-sm font-medium text-gray-700 mb-1",
+            labelClassName
+          )}>
           {label}
         </label>
       )}
@@ -32,7 +39,7 @@ const Input = ({
           />
         )}
         <ShadcnInput
-          className={InputClassName}
+          className={inputClassName}
           {...props}
         />
         {Icon && iconPosition === "right" && (
@@ -43,9 +50,15 @@ const Input = ({
         )}
       </div>
       {helper && !error && (
-        <p className="mt-1 text-sm text-gray-500">{helper}</p>
+        <p className={cn("mt-1 text-sm text-gray-500", helperClassName)}>
+          {helper}
+        </p>
       )}
-      {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
+      {error && (
+        <p className={cn("mt-1 text-sm text-red-500", errorClassName)}>
+          {error}
+        </p>
+      )}
     </div>
   )
 }
