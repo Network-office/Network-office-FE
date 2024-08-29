@@ -182,6 +182,13 @@ const config = {
   transform: {
     "^.+\\.(js|jsx|ts|tsx)$": "@swc/jest"
   },
+  reporters: [
+    "default",
+    [
+      "jest-junit",
+      { outputDirectory: "./test-results/junit", outputName: "results.xml" }
+    ]
+  ],
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   // transformIgnorePatterns: [
