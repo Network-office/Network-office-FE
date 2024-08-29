@@ -30,11 +30,11 @@ jobs:
         run: pnpm install
 
       - name: Run Jest tests
-        run: pnpm test -- --passWithNoTests
+        run: pnpm test -- --coverage --passWithNoTests
         continue-on-error: true
 
       - name: Save coverage report
-        run: mv coverage/lcov-report coverage-output
+        run: mv coverage/lcov-report ./coverage-output
 
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
