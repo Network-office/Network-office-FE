@@ -10,13 +10,17 @@ const Topbar = ({
   className
 }: TopbarProps) => {
   return (
-    <div className={cn("flex justify-between p-4 border-b-2", className)}>
+    <header
+      className={cn(
+        "flex justify-between p-4 items-center border-b-2",
+        className
+      )}>
       <div className="flex gap-2 w-fit-content">
         {leftContent}
-        {title}
+        {title && <h1>{title}</h1>}
       </div>
       <div>{rightContent}</div>
-    </div>
+    </header>
   )
 }
 
