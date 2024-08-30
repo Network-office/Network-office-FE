@@ -18,8 +18,8 @@ describe("Topbar 컴포넌트", () => {
     )
 
     expect(screen.getByText("Test Topbar")).toBeInTheDocument()
-    expect(screen.getByText("뒤로 가기")).toBeInTheDocument()
-    expect(screen.getByText("사용자")).toBeInTheDocument()
-    expect(screen.getByText("알림")).toBeInTheDocument()
+    expect(screen.getByLabelText("Back")).toBeInTheDocument()
+    expect(screen.getByLabelText("Profile")).toBeInTheDocument()
+    expect(screen.getByLabelText("Alarm")).toBeInTheDocument
   })
 })
