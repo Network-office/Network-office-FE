@@ -3,16 +3,16 @@ import { render, screen } from "@testing-library/react"
 import Topbar from "../Topbar"
 
 describe("Topbar 컴포넌트", () => {
-  it("left, right 컨텐츠를 렌더링 해야한다.", () => {
+  it("title과 left, right Contents를 렌더링 해야한다.", () => {
     render(
       <Topbar
         title="Test Topbar"
         leftContent={<Topbar.BackLink />}
         rightContent={
-          <div>
+          <>
             <Topbar.ProfileLink />
             <Topbar.AlarmLink />
-          </div>
+          </>
         }
       />
     )
