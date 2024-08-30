@@ -1,12 +1,17 @@
-"use client"
-
 import Link from "next/link"
 import { TopbarProps } from "./types"
+import { Bell, ChevronLeft, User } from "lucide-react"
+import { cn } from "../../lib/utils"
 
-const Topbar = ({ title, leftContent, rightContent }: TopbarProps) => {
+const Topbar = ({
+  title,
+  leftContent,
+  rightContent,
+  className
+}: TopbarProps) => {
   return (
-    <div>
-      <div>
+    <div className={cn("flex justify-between p-4 border-b-2", className)}>
+      <div className="flex gap-2 w-fit-content">
         {leftContent}
         {title}
       </div>
@@ -15,11 +20,29 @@ const Topbar = ({ title, leftContent, rightContent }: TopbarProps) => {
   )
 }
 
-const BackLink = () => <Link href="..">뒤로 가기</Link>
+const BackLink = () => (
+  <Link
+    aria-label="Back"
+    href="..">
+    <ChevronLeft />
+  </Link>
+)
 
-const ProfileLink = () => <Link href="/user">사용자</Link>
+const ProfileLink = () => (
+  <Link
+    aria-label="Profile"
+    href="/user">
+    <User />
+  </Link>
+)
 
-const AlarmLink = () => <Link href="/alarm">알림</Link>
+const AlarmLink = () => (
+  <Link
+    aria-label="Alarm"
+    href="/alarm">
+    <Bell />
+  </Link>
+)
 
 Topbar.BackLink = BackLink
 Topbar.ProfileLink = ProfileLink

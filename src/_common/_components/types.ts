@@ -23,6 +23,7 @@ export interface InputProps extends ShadcnInputProps {
 
 export interface TopbarProps {
   title: string
+  className?: string
   leftContent?: React.ReactNode
   rightContent?: React.ReactNode
 }
