@@ -39,6 +39,31 @@ const NaverMap = ({
     }
 
     const map = new naver.maps.Map(mapElement.current, mapOptions)
+
+    addMarkers(map)
+  }
+
+  const searchMap = (searchKeyword: string) => {
+    return naver.maps.Service.geocode(
+      {
+        query: searchKeyword
+      },
+      function (status, response) {
+        if (status === naver.maps.Service.Status.ERROR) {
+          return alert("Something Wrong!")
+        }
+        return response.v2.addresses
+      }
+    )
+  }
+
+  const addMarkers = (map: any) => {
+    Makers?.forEach((newMaker) => {
+      new naver.maps.Marker({
+        position: new naver.maps.LatLng(newMaker.lat, newMaker.lng),
+        map: map
+      })
+    })
   }
 
   useEffect(() => {
