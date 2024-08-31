@@ -26,6 +26,9 @@ dependencies:
   react-dom:
     specifier: ^18
     version: 18.0.0(react@18.0.0)
+  return-fetch:
+    specifier: ^0.4.6
+    version: 0.4.6
 
 devDependencies:
   '@faker-js/faker':
@@ -5109,6 +5112,11 @@ packages:
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
     dev: true
+
+  /return-fetch@0.4.6:
+    resolution: {integrity: sha512-uI0dmvEnVqX98/+s5VBRguLHofJE1Ot+Yi7DSGljc4pt2tkcfhfSXaom2W78IEnx8lYTjvBWfxh9BTHXF9MigA==}
+    requiresBuild: true
+    dev: false
 
   /reusify@1.0.4:
     resolution: {integrity: sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==}
