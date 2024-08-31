@@ -26,8 +26,7 @@ const baseApiFetch = () => {
       }
     })(input, init).then((response) =>
       response.json().then((data: T) => ({
-        data,
-        status: response.status
+        data
       }))
     )
   }
