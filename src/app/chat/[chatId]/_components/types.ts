@@ -4,8 +4,7 @@ export interface MessageBubbleProps {
 }
 
 export interface MessageProps extends Omit<MessageBubbleProps, "align"> {
-  timestamp: number
-  isLast?: boolean
+  timestamp?: number
   align?: "left" | "right"
 }
 

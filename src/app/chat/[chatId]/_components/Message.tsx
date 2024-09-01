@@ -29,12 +29,7 @@ const MessageBubble = ({ align, text }: MessageBubbleProps) => {
 
 export default MessageBubble
 
-export const Message = ({
-  text,
-  align = "left",
-  isLast = false,
-  timestamp
-}: MessageProps) => {
+export const Message = ({ text, align = "left", timestamp }: MessageProps) => {
   return (
     <div
       className={cn(
@@ -50,7 +45,7 @@ export const Message = ({
           align={align}
           text={text}
         />
-        {isLast && (
+        {timestamp && (
           <p className="text-xs h-fit text-slate-500">
             {new Date(timestamp).toLocaleTimeString()}
           </p>
