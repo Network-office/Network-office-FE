@@ -58,9 +58,13 @@ const useNaverMap = (
     if (!mapRef.current) return
 
     makers?.forEach((newMaker) => {
-      new naver.maps.Marker({
+      const maker = new naver.maps.Marker({
         position: new naver.maps.LatLng(newMaker.lat, newMaker.lng),
+        clickable: true,
         map: mapRef.current!
+      })
+      maker.addListener("click", () => {
+        console.log(newMaker)
       })
     })
   }
