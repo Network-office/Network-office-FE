@@ -19,7 +19,7 @@ const Meeting = () => {
     <div className="relative text-black">
       <div className="absolute z-10">
         <Topbar
-          className=" w-screen h-[14px] border-0"
+          className=" w-screen h-[14px] mt-2 border-0"
           rightContent={
             <div className="flex gap-2">
               <Topbar.ProfileLink />
