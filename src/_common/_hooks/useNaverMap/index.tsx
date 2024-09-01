@@ -4,8 +4,7 @@ import { useRef, useEffect, useCallback } from "react"
 import { NaverMapComponentProps, MakersProps } from "./types"
 
 const useNaverMap = (
-  lat: number,
-  lng: number,
+  initial: { lat: number; lng: number },
   makers: Array<{ lat: number; lng: number }> = []
 ) => {
   const mapElement = useRef(null)
@@ -26,7 +25,7 @@ const useNaverMap = (
     if (!mapElement.current || !naver) return
 
     const mapOptions = {
-      center: new naver.maps.LatLng(lat, lng),
+      center: new naver.maps.LatLng(initial.lat, initial.lng),
       zoom: 15,
       zoomControl: true
     }
@@ -42,6 +41,7 @@ const useNaverMap = (
   }
 
   const searchMapInform = (searchKeyword: string) => {
+    if (!mapRef.current || !naver) return
     return naver.maps.Service.geocode(
       {
         query: searchKeyword
@@ -50,6 +50,7 @@ const useNaverMap = (
         if (status === naver.maps.Service.Status.ERROR) {
           return alert("Something Wrong!")
         }
+        console.log(response.v2.addresses)
         return response.v2.addresses
       }
     )
