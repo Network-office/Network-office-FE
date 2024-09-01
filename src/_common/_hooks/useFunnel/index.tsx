@@ -39,7 +39,7 @@ export const useFunnel = (steps: string[], defaultStep: string = steps[0]) => {
   }, [steps, defaultStep])
 
   const shallowRoute = (nextFunnel: string) => {
-    if (pathName) {
+    if (pathName && window.history) {
       window.history.pushState(null, "", `${pathName}?step=${nextFunnel}`)
     }
   }

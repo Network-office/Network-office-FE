@@ -13,7 +13,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className="flex flex-col min-h-screen bg-gray-100">
+        <div className="container max-w-[350px]  mx-auto px-4 py-6">
+          {children}
+        </div>
+      </body>
     </html>
   )
 }
