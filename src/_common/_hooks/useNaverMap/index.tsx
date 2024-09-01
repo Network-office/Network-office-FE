@@ -4,13 +4,9 @@ import { useRef, useEffect, useCallback } from "react"
 import { NaverMapComponentProps, MakersProps } from "./types"
 
 const useNaverMap = (
-  lat = 37.4877974,
-  lng = 126.8255598,
-  makers = [
-    { lat: 36.8595704, lng: 127.105399 },
-    { lat: 36.895704, lng: 127.105399 },
-    { lat: 36.8795704, lng: 127.105399 }
-  ]
+  lat: number,
+  lng: number,
+  makers: Array<{ lat: number; lng: number }> = []
 ) => {
   const mapElement = useRef(null)
   const mapRef = useRef<naver.maps.Map | null>(null)
