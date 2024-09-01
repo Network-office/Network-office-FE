@@ -3,6 +3,7 @@
 import useNaverMap from "@/_common/_hooks/useNaverMap"
 import Topbar from "@/_common/_components/Topbar"
 import SearchBar from "./_components/SearchBar"
+import FootBar from "./_components/FootBar"
 
 const mockData = [
   { lat: 37, lng: 127 },
@@ -16,7 +17,7 @@ const Meeting = () => {
     mockData
   )
   return (
-    <div className="relative text-black">
+    <div className="w-screen h-screen relative text-black">
       <div className="absolute z-10">
         <Topbar
           className=" w-screen h-[14px] mt-2 border-0"
@@ -30,6 +31,7 @@ const Meeting = () => {
         <SearchBar />
       </div>
       <NaverMapComponent className="absolute top-0 z-0" />
+      <FootBar />
     </div>
   )
 }
