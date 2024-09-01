@@ -1,6 +1,7 @@
 "use client"
 import { useRef, useEffect, useCallback } from "react"
 import { NaverMapComponentProps, MakersProps } from "./types"
+import { cn } from "@/lib/utils"
 
 const useNaverMap = (
   initial: { lat: number; lng: number },
@@ -70,10 +71,13 @@ const useNaverMap = (
   }
 
   const NaverMapComponent = useCallback(
-    ({ width = 500, height = 1000 }: NaverMapComponentProps) => {
+    ({ className, width = 500, height = 1000 }: NaverMapComponentProps) => {
       return (
         <div
-          className={`w-screen h-screen max-w-[${width}px] max-h-[${height}]`}>
+          className={cn(
+            `w-screen h-screen max-w-[${width}px] max-h-[${height}]`,
+            className
+          )}>
           <div
             ref={mapElement}
             style={{ width: `100%`, height: `100%` }}

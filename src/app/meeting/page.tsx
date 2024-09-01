@@ -10,8 +10,9 @@ const Meeting = () => {
     mockData
   ])
   return (
-    <div className=" text-black">
+    <div className="relative text-black">
       <Topbar
+        className="absolute w-screen z-10 h-[14px] border-0"
         rightContent={
           <div className="flex gap-2">
             <Topbar.ProfileLink />
@@ -19,7 +20,7 @@ const Meeting = () => {
           </div>
         }
       />
-      <NaverMapComponent />
+      <NaverMapComponent className="absolute top-0 z-0" />
     </div>
   )
 }
