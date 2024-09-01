@@ -7,7 +7,7 @@ import {
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
 
-const MessageBubble = ({ align, text }: MessageBubbleProps) => {
+export const MessageBubble = ({ align, text }: MessageBubbleProps) => {
   const baseClasses = " relative bg-slate-300 w-fit p-2 rounded-xl text-xs"
   const triangleClasses = {
     left: "ml-4 after:top-1/2 after:-left-1.5 after:-translate-y-1/2 after:border-r-slate-300 after:border-r-8 after:border-y-transparent after:border-y-8 after:border-l-0",
@@ -26,8 +26,6 @@ const MessageBubble = ({ align, text }: MessageBubbleProps) => {
     </p>
   )
 }
-
-export default MessageBubble
 
 export const Message = ({ text, align = "left", timestamp }: MessageProps) => {
   return (
