@@ -10,16 +10,15 @@ const useNaverMap = (
   const mapRef = useRef<naver.maps.Map | null>(null)
 
   useEffect(() => {
-    if (typeof window === "undefined") {
-      return
-    }
     const checkNaverMapService = () => {
       if (window.naver && window.naver.maps && window.naver.maps.Service) {
         initializeMap()
+      } else {
+        setTimeout(checkNaverMapService, 100)
       }
     }
     checkNaverMapService()
-  }, [window.naver])
+  }, [])
 
   const initializeMap = () => {
     if (!mapElement.current || !naver) return
@@ -67,12 +66,15 @@ const useNaverMap = (
   }
 
   const NaverMapComponent = useCallback(
-    ({ width = 800, height = 800 }: NaverMapComponentProps) => {
+    ({ width = 500, height = 1000 }: NaverMapComponentProps) => {
       return (
         <div
-          ref={mapElement}
-          style={{ width: `${width}px`, height: `${height}px` }}
-        />
+          className={`w-screen h-screen max-w-[${width}px] max-h-[${height}]`}>
+          <div
+            ref={mapElement}
+            style={{ width: `100%`, height: `100%` }}
+          />
+        </div>
       )
     },
     []
