@@ -20,3 +20,10 @@ export interface InputProps extends ShadcnInputProps {
   helperClassName?: string
   errorClassName?: string
 }
+
+export interface TopbarProps {
+  title?: string
+  className?: string
+  leftContent?: React.ReactNode
+  rightContent?: React.ReactNode
+}
