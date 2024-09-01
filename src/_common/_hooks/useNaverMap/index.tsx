@@ -1,5 +1,4 @@
 "use client"
-
 import { useRef, useEffect, useCallback } from "react"
 import { NaverMapComponentProps, MakersProps } from "./types"
 
@@ -11,15 +10,16 @@ const useNaverMap = (
   const mapRef = useRef<naver.maps.Map | null>(null)
 
   useEffect(() => {
+    if (typeof window === "undefined") {
+      return
+    }
     const checkNaverMapService = () => {
       if (window.naver && window.naver.maps && window.naver.maps.Service) {
         initializeMap()
-      } else {
-        setTimeout(checkNaverMapService, 100)
       }
     }
     checkNaverMapService()
-  }, [])
+  }, [window.naver])
 
   const initializeMap = () => {
     if (!mapElement.current || !naver) return
@@ -50,7 +50,6 @@ const useNaverMap = (
         if (status === naver.maps.Service.Status.ERROR) {
           return alert("Something Wrong!")
         }
-        console.log(response.v2.addresses)
         return response.v2.addresses
       }
     )
