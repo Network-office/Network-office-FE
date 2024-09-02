@@ -27,7 +27,7 @@ const useNaverMap = (
     const mapOptions = {
       center: new naver.maps.LatLng(initial.lat, initial.lng),
       zoom: 15,
-      zoomControl: true
+      zoomControl: false
     }
 
     mapRef.current = new naver.maps.Map(mapElement.current, mapOptions)
