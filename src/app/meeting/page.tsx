@@ -12,7 +12,7 @@ const mockData = [
 ]
 
 const Meeting = () => {
-  const { NaverMapComponent, setMarkers } = useNaverMap(
+  const { NaverMapComponent, setMarkers, setMapPosition } = useNaverMap(
     { lat: 37, lng: 127 },
     mockData
   )
@@ -31,7 +31,7 @@ const Meeting = () => {
         <SearchBar />
       </div>
       <NaverMapComponent className="absolute top-0 z-0" />
-      <FootBar />
+      <FootBar setMapPosition={({ lat, lng }) => setMapPosition(lat, lng)} />
     </div>
   )
 }
