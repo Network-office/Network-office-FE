@@ -74,10 +74,13 @@ const useNaverMap = (
     ({ className, width = 500, height = 1000 }: NaverMapComponentProps) => {
       return (
         <div
-          className={cn(
-            `w-screen h-screen max-w-[${width}px] max-h-[${height}]`,
-            className
-          )}>
+          className={className}
+          style={{
+            width: "100%",
+            height: "100%",
+            maxWidth: `${width}px`,
+            maxHeight: `${height}px`
+          }}>
           <div
             ref={mapElement}
             style={{ width: `100%`, height: `100%` }}
