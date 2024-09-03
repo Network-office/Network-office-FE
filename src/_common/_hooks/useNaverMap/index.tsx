@@ -1,6 +1,7 @@
 "use client"
 import { useRef, useEffect, useCallback } from "react"
 import { NaverMapComponentProps, MakersProps } from "./types"
+import { cn } from "@/lib/utils"
 
 const useNaverMap = (
   initial: { lat: number; lng: number },
@@ -10,16 +11,15 @@ const useNaverMap = (
   const mapRef = useRef<naver.maps.Map | null>(null)
 
   useEffect(() => {
-    if (typeof window === "undefined") {
-      return
-    }
     const checkNaverMapService = () => {
       if (window.naver && window.naver.maps && window.naver.maps.Service) {
         initializeMap()
+      } else {
+        setTimeout(checkNaverMapService, 100)
       }
     }
     checkNaverMapService()
-  }, [window.naver])
+  }, [])
 
   const initializeMap = () => {
     if (!mapElement.current || !naver) return
@@ -59,20 +59,33 @@ const useNaverMap = (
     if (!mapRef.current) return
 
     makers?.forEach((newMaker) => {
-      new naver.maps.Marker({
+      const maker = new naver.maps.Marker({
         position: new naver.maps.LatLng(newMaker.lat, newMaker.lng),
+        clickable: true,
         map: mapRef.current!
+      })
+      maker.addListener("click", () => {
+        console.log(newMaker)
       })
     })
   }
 
   const NaverMapComponent = useCallback(
-    ({ width = 800, height = 800 }: NaverMapComponentProps) => {
+    ({ className, width = 500, height = 1000 }: NaverMapComponentProps) => {
       return (
         <div
-          ref={mapElement}
-          style={{ width: `${width}px`, height: `${height}px` }}
-        />
+          className={className}
+          style={{
+            width: "100%",
+            height: "100%",
+            maxWidth: `${width}px`,
+            maxHeight: `${height}px`
+          }}>
+          <div
+            ref={mapElement}
+            style={{ width: `100%`, height: `100%` }}
+          />
+        </div>
       )
     },
     []
