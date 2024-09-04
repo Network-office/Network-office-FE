@@ -59,7 +59,7 @@ export const MessageHeader = ({
   badgeText
 }: MessageHeaderProps) => {
   return (
-    <div className="flex gap-2 items-center">
+    <div className="flex gap-2 items-center w-full px-2">
       <Avatar
         src={avatarSrc}
         fallbackName={username[0]}
