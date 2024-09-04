@@ -1,12 +1,17 @@
 import { Message, MessageHeader } from "@/app/chat/[chatId]/_components/Message"
 import { OtherMessageProps } from "@/app/chat/[chatId]/_components/types"
 
-const OtherMessages = ({ role, messages, timestamp }: OtherMessageProps) => {
+const OtherMessages = ({
+  role,
+  userInfo: { username, avatarSrc },
+  messages,
+  timestamp
+}: OtherMessageProps) => {
   return (
     <div className="flex flex-col gap-4 pb-4">
       <MessageHeader
-        username="You"
-        avatarSrc="/images/avatar.jpg"
+        username={username}
+        avatarSrc={avatarSrc}
         badgeText={role === "admin" ? "Admin" : ""}
       />
       {messages.map((message, i) => (
