@@ -4,8 +4,7 @@ export interface ModalProps {
   width?: number
   height?: number
   modalType?: "default" | "fullScreen"
-  children: ReactNode
   className?: string
+  children: ReactNode
   isOpen: boolean
 }
-

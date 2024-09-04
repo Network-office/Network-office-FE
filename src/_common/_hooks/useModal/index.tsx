@@ -13,9 +13,17 @@ const useModal = () => {
   const setModalClose = () => {
     setIsModalOpen(false)
   }
-
-  const ModalComponent = ({ children }: Omit<ModalProps, "isOpen">) => {
-    return <Modal isOpen={isModalOpen}>{children}</Modal>
+  const ModalComponent = ({
+    children,
+    ...props
+  }: Omit<ModalProps, "isOpen">) => {
+    return (
+      <Modal
+        isOpen={isModalOpen}
+        {...props}>
+        {children}
+      </Modal>
+    )
   }
 
   return { ModalComponent, isModalOpen, setModalOpen, setModalClose }
