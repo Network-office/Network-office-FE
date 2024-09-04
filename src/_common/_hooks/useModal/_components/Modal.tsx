@@ -38,6 +38,7 @@ const Modal = ({
 
   return createPortal(
     <div
+      role="modal"
       onClick={close}
       className={cn(
         "fixed inset-0 z-20 bg-black/50 transition-opacity duration-500 ease-in-out",
