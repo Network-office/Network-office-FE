@@ -21,20 +21,25 @@ const generateMessage = (): Message => ({
 })
 
 let messages: Message[]
-let adminMessages: Message[]
-let userMessages: Message[]
-let myMessages: Message[]
+messages = Array.from({ length: 5 }, generateMessage)
 
 describe("MyMessages", () => {
+  let myMessages: Message[]
+
+  let adminMessages: Message[]
+  let userMessages: Message[]
+
   beforeEach(() => {
-    messages = Array.from({ length: 5 }, generateMessage)
-    adminMessages = messages.filter((message) => message.role === "admin")
-    userMessages = messages.filter((message) => message.role === "user")
     myMessages = messages.filter((message) => message.me)
+
+    adminMessages = myMessages.filter((message) => message.role === "admin")
+    userMessages = myMessages.filter((message) => message.role === "user")
   })
 
   afterEach(() => {
-    jest.clearAllMocks()
+    myMessages = []
+    adminMessages = []
+    userMessages = []
   })
 
   test("모든 메시지를 출력한다", () => {
@@ -121,12 +126,18 @@ describe("MyMessages", () => {
 describe("OtherMessages", () => {
   let otherMessages: Message[]
 
+  let adminMessages: Message[]
+  let userMessages: Message[]
   beforeEach(() => {
     otherMessages = messages.filter((message) => !message.me)
+    adminMessages = otherMessages.filter((message) => message.role === "admin")
+    userMessages = otherMessages.filter((message) => message.role === "user")
   })
 
   afterEach(() => {
-    jest.clearAllMocks()
+    otherMessages = []
+    adminMessages = []
+    userMessages = []
   })
 
   test("모든 메시지를 출력한다", () => {
