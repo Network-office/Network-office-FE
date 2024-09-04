@@ -16,7 +16,7 @@ const OtherMessages = ({ role, messages, timestamp }: OtherMessageProps) => {
           <Message
             align="left"
             text={message.text}
-            timestamp={messages.length === i ? timestamp : undefined}
+            timestamp={messages.length - 1 === i ? timestamp : undefined}
           />
         </div>
       ))}
