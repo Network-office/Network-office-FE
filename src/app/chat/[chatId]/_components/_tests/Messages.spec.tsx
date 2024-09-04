@@ -1,55 +1,54 @@
 import MyMessages from "@/app/chat/[chatId]/_components/MyMessages"
 import OtherMessages from "@/app/chat/[chatId]/_components/OtherMessages"
-import { Message } from "@/mock/types"
-import { faker } from "@faker-js/faker"
 import {
-  afterEach,
-  beforeEach,
-  describe,
-  expect,
-  jest,
-  test
-} from "@jest/globals"
-import { render, screen } from "@testing-library/react"
+  MyMessageProps,
+  OtherMessageProps
+} from "@/app/chat/[chatId]/_components/types"
+import { faker } from "@faker-js/faker"
+import { beforeEach, describe, expect, test } from "@jest/globals"
+import { render } from "@testing-library/react"
 
-const generateMessage = (): Message => ({
-  id: faker.string.uuid(),
-  text: faker.lorem.sentence(),
-  role: faker.helpers.arrayElement<"user" | "admin">(["user", "admin"]),
-  createdAt: faker.date.recent().toISOString(),
-  me: faker.datatype.boolean()
+// mock 데이터를 생성하는 함수들
+const generateMessage = () => ({
+  text: faker.lorem.sentence({
+    min: 1,
+    max: 10
+  }),
+  timestamp: new Date().getTime()
 })
 
-let messages: Message[]
-messages = Array.from({ length: 5 }, generateMessage)
+const generateUserInfo = () => ({
+  username: faker.internet.userName(),
+  avatarSrc: faker.image.avatar()
+})
+
+let myMessages: MyMessageProps
+let otherMessages: OtherMessageProps
+
+beforeEach(() => {
+  myMessages = {
+    role: faker.helpers.arrayElement<"user" | "admin">(["user", "admin"]),
+    userInfo: generateUserInfo(),
+    messages: Array.from({ length: 10 }, generateMessage)
+  }
+
+  otherMessages = {
+    role: faker.helpers.arrayElement<"user" | "admin">(["user", "admin"]),
+    userInfo: generateUserInfo(),
+    messages: Array.from({ length: 10 }, generateMessage)
+  }
+})
 
 describe("MyMessages", () => {
-  let myMessages: Message[]
-
-  let adminMessages: Message[]
-  let userMessages: Message[]
-
-  beforeEach(() => {
-    myMessages = messages.filter((message) => message.me)
-
-    adminMessages = myMessages.filter((message) => message.role === "admin")
-    userMessages = myMessages.filter((message) => message.role === "user")
-  })
-
-  afterEach(() => {
-    myMessages = []
-    adminMessages = []
-    userMessages = []
-  })
-
   test("모든 메시지를 출력한다", () => {
     render(
       <MyMessages
-        messages={myMessages}
-        role={myMessages[0].role}
+        messages={myMessages.messages}
+        userInfo={myMessages.userInfo}
+        role={myMessages.role}
       />
     )
-    myMessages.forEach((message) => {
+    myMessages.messages.forEach((message) => {
       expect(document.body).toHaveTextContent(message.text)
     })
   })
@@ -57,11 +56,15 @@ describe("MyMessages", () => {
   test("마지막 메시지에만 타임스탬프를 출력한다", () => {
     const timestamp = faker.date.recent().toISOString()
 
+    myMessages.messages.forEach((message) => {
+      message.timestamp = new Date(timestamp).getTime()
+    })
+
     const { getByText } = render(
       <MyMessages
-        messages={myMessages}
-        role={myMessages[0].role}
-        timestamp={new Date(timestamp).getTime()}
+        messages={myMessages.messages}
+        userInfo={myMessages.userInfo}
+        role={myMessages.role}
       />
     )
 
@@ -73,7 +76,7 @@ describe("MyMessages", () => {
     expect(renderedTimestamp).toBeInTheDocument()
 
     // 마지막에 타임스탬프가 출력되어야 한다
-    const lastMessage = myMessages[myMessages.length - 1]
+    const lastMessage = myMessages.messages[myMessages.messages.length - 1]
     const lastMessageComponent = getByText(lastMessage.text)
 
     expect(lastMessageComponent.nextSibling).toBe(renderedTimestamp)
@@ -82,15 +85,16 @@ describe("MyMessages", () => {
   test("삼각뿔이 오른쪽에 위치해야 한다", () => {
     const { getByText } = render(
       <MyMessages
-        messages={myMessages}
-        role={myMessages[0].role}
+        messages={myMessages.messages}
+        userInfo={myMessages.userInfo}
+        role={myMessages.role}
       />
     )
 
     const rightTriangle =
       "after:border-l-8 after:border-y-transparent after:border-y-8 after:border-r-0"
 
-    myMessages.forEach((message) => {
+    myMessages.messages.forEach((message) => {
       const messageComponent = getByText(message.text)
       expect(messageComponent).toHaveClass(rightTriangle)
     })
@@ -99,7 +103,8 @@ describe("MyMessages", () => {
   test("관리자라면 뱃지를 처음 한번 출력한다", () => {
     const { getByText } = render(
       <MyMessages
-        messages={adminMessages}
+        messages={myMessages.messages}
+        userInfo={myMessages.userInfo}
         role="admin"
       />
     )
@@ -112,7 +117,8 @@ describe("MyMessages", () => {
   test("관리자가 아니라면 뱃지를 출력하지 않는다", () => {
     const { queryByText } = render(
       <MyMessages
-        messages={userMessages}
+        messages={myMessages.messages}
+        userInfo={myMessages.userInfo}
         role="user"
       />
     )
@@ -124,30 +130,15 @@ describe("MyMessages", () => {
 })
 
 describe("OtherMessages", () => {
-  let otherMessages: Message[]
-
-  let adminMessages: Message[]
-  let userMessages: Message[]
-  beforeEach(() => {
-    otherMessages = messages.filter((message) => !message.me)
-    adminMessages = otherMessages.filter((message) => message.role === "admin")
-    userMessages = otherMessages.filter((message) => message.role === "user")
-  })
-
-  afterEach(() => {
-    otherMessages = []
-    adminMessages = []
-    userMessages = []
-  })
-
   test("모든 메시지를 출력한다", () => {
     render(
       <OtherMessages
-        messages={otherMessages}
-        role={otherMessages[0].role}
+        messages={otherMessages.messages}
+        role={otherMessages.role}
+        userInfo={otherMessages.userInfo}
       />
     )
-    otherMessages.forEach((message) => {
+    otherMessages.messages.forEach((message) => {
       expect(document.body).toHaveTextContent(message.text)
     })
   })
@@ -155,11 +146,15 @@ describe("OtherMessages", () => {
   test("마지막 메시지에만 타임스탬프를 출력한다", () => {
     const timestamp = faker.date.recent().toISOString()
 
+    otherMessages.messages.forEach((message) => {
+      message.timestamp = new Date(timestamp).getTime()
+    })
+
     const { getByText } = render(
       <OtherMessages
-        messages={otherMessages}
-        role={otherMessages[0].role}
-        timestamp={new Date(timestamp).getTime()}
+        messages={otherMessages.messages}
+        role={otherMessages.role}
+        userInfo={otherMessages.userInfo}
       />
     )
 
@@ -171,7 +166,8 @@ describe("OtherMessages", () => {
     expect(renderedTimestamp).toBeInTheDocument()
 
     // 마지막에 타임스탬프가 출력되어야 한다
-    const lastMessage = otherMessages[otherMessages.length - 1]
+    const lastMessage =
+      otherMessages.messages[otherMessages.messages.length - 1]
     const lastMessageComponent = getByText(lastMessage.text)
 
     expect(lastMessageComponent.nextSibling).toBe(renderedTimestamp)
@@ -180,15 +176,16 @@ describe("OtherMessages", () => {
   test("삼각뿔이 왼쪽에 위치해야 한다", () => {
     const { getByText } = render(
       <OtherMessages
-        messages={otherMessages}
-        role={otherMessages[0].role}
+        messages={otherMessages.messages}
+        role={otherMessages.role}
+        userInfo={otherMessages.userInfo}
       />
     )
 
     const leftTriangle =
       "after:border-r-8 after:border-y-transparent after:border-y-8 after:border-l-0"
 
-    otherMessages.forEach((message) => {
+    otherMessages.messages.forEach((message) => {
       const messageComponent = getByText(message.text)
       expect(messageComponent).toHaveClass(leftTriangle)
     })
@@ -197,8 +194,9 @@ describe("OtherMessages", () => {
   test("관리자라면 뱃지를 처음 한번 출력한다", () => {
     const { getByText } = render(
       <OtherMessages
-        messages={adminMessages}
+        messages={otherMessages.messages}
         role="admin"
+        userInfo={otherMessages.userInfo}
       />
     )
 
@@ -210,8 +208,9 @@ describe("OtherMessages", () => {
   test("관리자가 아니라면 뱃지를 출력하지 않는다", () => {
     const { queryByText } = render(
       <OtherMessages
-        messages={userMessages}
+        messages={otherMessages.messages}
         role="user"
+        userInfo={otherMessages.userInfo}
       />
     )
 
