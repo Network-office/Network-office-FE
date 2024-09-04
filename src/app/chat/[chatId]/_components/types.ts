@@ -1,5 +1,3 @@
-import { Message, UserInfo } from "@/mock/types"
-
 export interface MessageBubbleProps {
   align: "left" | "right"
   text: string
@@ -14,18 +12,27 @@ export interface MessageHeaderProps {
   avatarSrc: string
   username: string
   badgeText?: string
+  align?: "left" | "right"
+}
+
+export interface Message {
+  text: string
+  timestamp?: number
+}
+
+export interface UserInfo {
+  username: string
+  avatarSrc: string
 }
 
 export interface MyMessageProps {
   role: "user" | "admin"
   messages: Message[]
-  timestamp?: number
   userInfo: UserInfo
 }
 
 export interface OtherMessageProps {
   role: "user" | "admin"
   messages: Message[]
-  timestamp?: number
   userInfo: UserInfo
 }

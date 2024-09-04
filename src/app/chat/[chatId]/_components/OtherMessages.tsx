@@ -4,8 +4,7 @@ import { OtherMessageProps } from "@/app/chat/[chatId]/_components/types"
 const OtherMessages = ({
   role,
   userInfo: { username, avatarSrc },
-  messages,
-  timestamp
+  messages
 }: OtherMessageProps) => {
   return (
     <div className="flex flex-col gap-4 pb-4">
@@ -21,7 +20,9 @@ const OtherMessages = ({
           <Message
             align="left"
             text={message.text}
-            timestamp={messages.length - 1 === i ? timestamp : undefined}
+            timestamp={
+              messages.length - 1 === i ? messages[i].timestamp : undefined
+            }
           />
         </div>
       ))}
