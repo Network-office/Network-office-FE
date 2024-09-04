@@ -1,14 +1,10 @@
 "use client"
 import useModal from "@/_common/_hooks/useModal"
-import { useEffect } from "react"
 
 export default function Home() {
   const { isModalOpen, setModalOpen, setModalClose, ModalComponent } =
     useModal()
 
-  useEffect(() => {
-    console.log(isModalOpen)
-  }, [isModalOpen])
   return (
     <main className="mx-4">
       <ModalComponent
@@ -23,7 +19,6 @@ export default function Home() {
       <button
         onClick={() => {
           setModalOpen()
-          console.log("open")
         }}>
         버튼
       </button>

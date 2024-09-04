@@ -8,6 +8,7 @@ const Modal = ({
   children,
   width = 100,
   height = 100,
+  position = "none",
   modalType = "default",
   isOpen = false,
   className
@@ -19,6 +20,9 @@ const Modal = ({
         isOpen
           ? "opacity-100 pointer-events-auto"
           : "opacity-0 pointer-events-none",
+        position
+          ? "top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+          : "",
         className
       )}
       style={{
