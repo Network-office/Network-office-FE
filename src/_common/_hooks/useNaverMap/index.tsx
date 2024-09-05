@@ -11,15 +11,16 @@ const useNaverMap = (
   const mapRef = useRef<naver.maps.Map | null>(null)
 
   useEffect(() => {
+    if (typeof window === "undefined") {
+      return
+    }
     const checkNaverMapService = () => {
       if (window.naver && window.naver.maps && window.naver.maps.Service) {
         initializeMap()
-      } else {
-        setTimeout(checkNaverMapService, 100)
       }
     }
     checkNaverMapService()
-  }, [])
+  }, [window.naver])
 
   const initializeMap = () => {
     if (!mapElement.current || !naver) return
