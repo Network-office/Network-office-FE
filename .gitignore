@@ -40,3 +40,5 @@ next-env.d.ts
 
 # Test results
 test-results/junit
+
+test-results
