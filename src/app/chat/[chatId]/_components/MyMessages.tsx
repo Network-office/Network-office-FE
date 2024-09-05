@@ -12,7 +12,7 @@ const MyMessages = ({ messages, userInfo, role }: MyMessageProps) => {
       />
       {messages.map((message, i) => (
         <div
-          key={i}
+          key={message.id}
           className="flex gap-2 justify-end">
           <Message
             align="right"

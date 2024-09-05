@@ -10,6 +10,7 @@ import { render } from "@testing-library/react"
 
 // mock 데이터를 생성하는 함수들
 const generateMessage = () => ({
+  id: faker.string.uuid(),
   text: faker.lorem.sentence({
     min: 1,
     max: 10
