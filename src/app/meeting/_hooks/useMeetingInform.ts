@@ -1,5 +1,0 @@
-import 
-
-const useMeetingInform = () => {
-  return
-}
