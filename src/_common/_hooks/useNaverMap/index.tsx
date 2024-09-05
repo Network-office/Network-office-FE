@@ -1,6 +1,7 @@
 "use client"
 import { useRef, useEffect, useCallback } from "react"
 import { NaverMapComponentProps, MakersProps } from "./types"
+import { cn } from "@/lib/utils"
 
 const useNaverMap = (
   initial: { lat: number; lng: number },
