@@ -6,21 +6,13 @@ import SearchBar from "./_components/SearchBar"
 import FootBar from "./_components/FootBar"
 
 const mockData = [
-  {
-    lat: 37,
-    lng: 127,
-    title: "배드민턴 칠 사람 모집",
-    where: "오류고가 배드민턴장",
-    fare: "시간당 3000원",
-    startTime: "00:00",
-    endTime: "24:00"
-  },
+  { lat: 37, lng: 127 },
   { lat: 37.001, lng: 127.002 },
   { lat: 37.005, lng: 127.003 }
 ]
 
 const Meeting = () => {
-  const { NaverMapComponent, setMarkers } = useNaverMap(
+  const { NaverMapComponent, setMarkers, setMapPosition } = useNaverMap(
     { lat: 37, lng: 127 },
     mockData
   )
@@ -39,7 +31,9 @@ const Meeting = () => {
         <SearchBar />
       </div>
       <NaverMapComponent className="absolute top-0 z-0" />
-      <FootBar />
+      <FootBar
+        setMapPosition={(result) => setMapPosition(result.lat, result.lng)}
+      />
     </div>
   )
 }
