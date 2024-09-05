@@ -4,8 +4,8 @@ import { NaverMapComponentProps, MakersProps } from "./types"
 
 const useNaverMap = (
   initial: { lat: number; lng: number },
-  makers: Array<{ lat: number; lng: number }> = [],
-  makerOption: {
+  makers?: Array<{ lat: number; lng: number }>,
+  makerOption?: {
     markerClickHandler: (makerDetail: any) => void
   }
 ) => {
@@ -33,7 +33,9 @@ const useNaverMap = (
     }
 
     mapRef.current = new naver.maps.Map(mapElement.current, mapOptions)
-    setMarkers(makers)
+    if (makers) {
+      setMarkers(makers)
+    }
   }
 
   const setMapPosition = (newLat: number, newLng: number) => {
@@ -67,7 +69,7 @@ const useNaverMap = (
         map: mapRef.current!
       })
       maker.addListener("click", () => {
-        makerOption.markerClickHandler(newMaker)
+        makerOption?.markerClickHandler(newMaker)
       })
     })
   }
