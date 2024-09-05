@@ -7,6 +7,7 @@ import Topbar from "@/_common/_components/Topbar"
 import SearchBar from "./_components/SearchBar"
 import FootBar from "./_components/FootBar"
 import MeetingInformModal from "./_components/MeetingInformModal"
+import useGetMeetingList from "./_hooks/queries/useGetMeetingList"
 
 const mockData = [
   {
@@ -48,9 +49,10 @@ const mockData = [
 ]
 
 const Meeting = () => {
+  const { data: meetingList } = useGetMeetingList()
   const [selectedMeeting, setSelectedMeeting] = useState(null)
 
-  const { ModalComponent, setModalOpen, setModalClose } = useModal()
+  const { ModalComponent, setModalOpen } = useModal()
 
   const handleMarkerClick = (meeting: any) => {
     setSelectedMeeting(meeting)
@@ -59,7 +61,7 @@ const Meeting = () => {
 
   const { NaverMapComponent, setMapPosition } = useNaverMap(
     { lat: 37, lng: 127 },
-    mockData,
+    meetingList,
     { markerClickHandler: handleMarkerClick }
   )
 
