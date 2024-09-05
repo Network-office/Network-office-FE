@@ -1,11 +1,13 @@
 "use client"
 import { useRef, useEffect, useCallback } from "react"
 import { NaverMapComponentProps, MakersProps } from "./types"
-import { cn } from "@/lib/utils"
 
 const useNaverMap = (
   initial: { lat: number; lng: number },
-  makers: Array<{ lat: number; lng: number }> = []
+  makers: Array<{ lat: number; lng: number }> = [],
+  makerOption: {
+    markerClickHandler: (makerDetail: any) => void
+  }
 ) => {
   const mapElement = useRef(null)
   const mapRef = useRef<naver.maps.Map | null>(null)
@@ -65,7 +67,7 @@ const useNaverMap = (
         map: mapRef.current!
       })
       maker.addListener("click", () => {
-        console.log(newMaker)
+        makerOption.markerClickHandler(newMaker)
       })
     })
   }
