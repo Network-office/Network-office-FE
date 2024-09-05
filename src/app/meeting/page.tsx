@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import useModal from "@/_common/_hooks/useModal"
 import useNaverMap from "@/_common/_hooks/useNaverMap"
 import Topbar from "@/_common/_components/Topbar"
@@ -12,18 +12,23 @@ import useGetMeetingList from "./_hooks/queries/useGetMeetingList"
 const Meeting = () => {
   const { data: meetingList } = useGetMeetingList()
   const [selectedMeeting, setSelectedMeeting] = useState(null)
-
   const { ModalComponent, setModalOpen } = useModal()
 
   const handleMarkerClick = (meeting: any) => {
     setSelectedMeeting(meeting)
     setModalOpen()
   }
-  const { NaverMapComponent, setMapPosition } = useNaverMap(
+  const { NaverMapComponent, setMapPosition, setMarkers } = useNaverMap(
     { lat: 37, lng: 127 },
     meetingList,
     { markerClickHandler: handleMarkerClick }
   )
+
+  useEffect(() => {
+    if (meetingList) {
+      setMarkers(meetingList)
+    }
+  }, [setMarkers, meetingList])
 
   return (
     <div className="w-screen h-screen relative text-black">
