@@ -12,4 +12,28 @@ export interface MessageHeaderProps {
   avatarSrc: string
   username: string
   badgeText?: string
+  align?: "left" | "right"
+}
+
+export interface Message {
+  id: string
+  text: string
+  timestamp?: number
+}
+
+export interface UserInfo {
+  username: string
+  avatarSrc: string
+}
+
+export interface MyMessageProps {
+  role: "user" | "admin"
+  messages: Message[]
+  userInfo: UserInfo
+}
+
+export interface OtherMessageProps {
+  role: "user" | "admin"
+  messages: Message[]
+  userInfo: UserInfo
 }

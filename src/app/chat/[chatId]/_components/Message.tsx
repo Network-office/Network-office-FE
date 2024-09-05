@@ -56,10 +56,15 @@ export const Message = ({ text, align = "left", timestamp }: MessageProps) => {
 export const MessageHeader = ({
   username,
   avatarSrc,
-  badgeText
+  badgeText,
+  align = "left"
 }: MessageHeaderProps) => {
   return (
-    <div className="flex gap-2 items-center">
+    <div
+      className={cn("flex gap-2 items-center w-full px-2", {
+        "justify-start": align === "left",
+        "justify-end": align === "right"
+      })}>
       <Avatar
         src={avatarSrc}
         fallbackName={username[0]}
