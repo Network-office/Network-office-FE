@@ -1,6 +1,6 @@
 import returnFetch, { FetchArgs } from "return-fetch"
 
-const createApiFetch = () => {
+const createHTTP = () => {
   return async <T>(
     input: URL | RequestInfo,
     init?: RequestInit
@@ -37,17 +37,17 @@ const createApiFetch = () => {
 }
 
 // 클라이언트 사이드용 함수
-export const clientApiFetch = createApiFetch()
+export const clientHTTP = createHTTP()
 
 // 환경에 따라 적절한 함수를 선택하는 래퍼 함수
-export const apiFetch = <T>(
+export const http = <T>(
   input: URL | RequestInfo,
   init?: RequestInit
 ): Promise<{ data: T }> => {
   if (typeof window !== "undefined") {
-    return clientApiFetch<T>(input, init)
+    return clientHTTP<T>(input, init)
   }
 
   //Todo-서버 사이드 용 fetch함수
-  return clientApiFetch<T>(input, init)
+  return clientHTTP<T>(input, init)
 }
