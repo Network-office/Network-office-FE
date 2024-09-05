@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react"
 import useModal from "@/_common/_hooks/useModal"
+import { useState, useEffect } from "react"
+import useModal from "@/_common/_hooks/useModal"
 import useNaverMap from "@/_common/_hooks/useNaverMap"
 import Topbar from "@/_common/_components/Topbar"
 import SearchBar from "./_components/SearchBar"
