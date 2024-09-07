@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import getMeetingList from "../../api/getMeetingList"
+import getMeetingList from "../../_api/getMeetingList"
 
 const useGetMeetingList = () => {
   const { data, isLoading, isError } = useQuery({
