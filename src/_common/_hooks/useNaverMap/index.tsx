@@ -72,7 +72,6 @@ const useNaverMap = (
         clickable: true,
         map: mapRef.current!
       })
-      console.log(newMaker.lat, newMaker.lng)
       maker.addListener("click", () => {
         makerOption?.markerClickHandler(newMaker)
       })
