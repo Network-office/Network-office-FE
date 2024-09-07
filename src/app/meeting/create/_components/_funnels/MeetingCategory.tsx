@@ -12,7 +12,9 @@ const MeetingCategory = ({ onNextStep }: MeetingCategoriesProps) => {
       </h1>
       <div className="grid grid-cols-2 w-[300px] mx-auto mt-6">
         {category.map((item, index) => (
-          <button className="w-[140px] h-[140px] mb-2 rounded-md bg-blue-400">
+          <button
+            key="1"
+            className="w-[140px] h-[140px] mb-2 rounded-md bg-blue-400">
             {item}
           </button>
         ))}
