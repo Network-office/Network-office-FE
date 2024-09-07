@@ -2,9 +2,11 @@
 
 import { useFunnel } from "@/_common/_hooks/useFunnel"
 import MeetingTitleInput from "./_components/_funnels/MeetingTitleInput"
+import MeetingCategory from "./_components/_funnels/MeetingCategory"
+import CreateMeetingFunnelHeader from "./_components/CreateMeetingFunnelHeader"
 
 const CreateMeeting = () => {
-  const { Funnel, setStep } = useFunnel(
+  const { Funnel, setStep, popStep, step } = useFunnel(
     [
       "title",
       "category",
@@ -18,12 +20,16 @@ const CreateMeeting = () => {
   )
   return (
     <div>
+      <CreateMeetingFunnelHeader
+        popStepHandler={popStep}
+        nowStep={step}
+      />
       <Funnel>
         <Funnel.Step name="title">
           <MeetingTitleInput onNextStep={() => setStep("category")} />
         </Funnel.Step>
         <Funnel.Step name="category">
-          <p></p>
+          <MeetingCategory onNextStep={() => setStep("category")} />
         </Funnel.Step>
       </Funnel>
     </div>
