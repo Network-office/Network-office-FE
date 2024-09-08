@@ -3,6 +3,7 @@
 import useNaverMap from "@/_common/_hooks/useNaverMap"
 import Topbar from "@/_common/_components/Topbar"
 import SearchBar from "./_components/SearchBar"
+import { useSession } from "next-auth/react"
 import FootBar from "./_components/FootBar"
 
 const mockData = [
@@ -16,6 +17,8 @@ const Meeting = () => {
     { lat: 37, lng: 127 },
     mockData
   )
+  const session = useSession()
+  console.log(session.data?.user)
   return (
     <div className="w-screen h-screen relative text-black">
       <div className="absolute z-10">
