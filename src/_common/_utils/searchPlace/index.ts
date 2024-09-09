@@ -1,4 +1,6 @@
-const searchPlace = async (searchKeyword: string) => {
+import PlaceTypes from "./type"
+
+const searchPlace = async (searchKeyword: string): Promise<PlaceTypes[]> => {
   if (!naver.maps.Service.geocode) throw new Error("not install geoCode")
   return new Promise((resolve, reject) => {
     naver.maps.Service.geocode(
