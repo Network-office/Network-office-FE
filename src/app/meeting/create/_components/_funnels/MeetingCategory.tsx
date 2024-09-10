@@ -1,5 +1,4 @@
-import { UseFormRegister } from "react-hook-form"
-
+import { useFormContext } from "react-hook-form"
 interface MeetingCategoriesProps {
   onNextStep: () => void
 }
@@ -7,6 +6,7 @@ interface MeetingCategoriesProps {
 const category = ["스포츠", "술", "맛집", "봉사", "영화/연극", "기타"]
 
 const MeetingCategory = ({ onNextStep }: MeetingCategoriesProps) => {
+  const { setValue } = useFormContext()
   return (
     <div>
       <h1 className="mx-4 text-[24px] font-bold text-center mt-8">
@@ -15,7 +15,8 @@ const MeetingCategory = ({ onNextStep }: MeetingCategoriesProps) => {
       <div className="grid grid-cols-2 w-[300px] mx-auto mt-6">
         {category.map((item, index) => (
           <button
-            key="1"
+            onClick={() => setValue("category", item)}
+            key={index}
             className="w-[140px] h-[140px] mb-2 rounded-md bg-blue-400">
             {item}
           </button>

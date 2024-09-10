@@ -1,10 +1,12 @@
-import Input from "@/_common/_components/Input"
+import { useFormContext } from "react-hook-form"
 
 interface MeetingTimeInputProps {
   onNextStep: () => void
 }
 
 const MeetingTimeInput = ({ onNextStep }: MeetingTimeInputProps) => {
+  const { register } = useFormContext()
+
   return (
     <div>
       <h1 className="mx-4 text-[24px] font-bold text-center mt-20">
@@ -15,6 +17,7 @@ const MeetingTimeInput = ({ onNextStep }: MeetingTimeInputProps) => {
           <input
             type="time"
             className="w-[200px] text-center  text-xl h-[50px] border-[1px] mr-4"
+            {...register("startTime")}
           />
           <span className="text-xl font-semibold w-[50px] my-auto h-fit">
             부터~
@@ -24,6 +27,7 @@ const MeetingTimeInput = ({ onNextStep }: MeetingTimeInputProps) => {
           <input
             type="time"
             className="w-[200px] text-center text-xl h-[50px] border-[1px] mr-4"
+            {...register("endTime")}
           />
           <span className="text-xl font-semibold w-[50px] my-auto h-fit">
             까지

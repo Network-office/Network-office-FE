@@ -1,11 +1,12 @@
 import { useRef } from "react"
-
+import { useFormContext } from "react-hook-form"
 interface MeetingDetailInputProps {
   onNextStep: () => void
 }
 
 const MeetingDetailInput = ({ onNextStep }: MeetingDetailInputProps) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const { register } = useFormContext()
 
   const handleInput = () => {
     const textarea = textareaRef.current
@@ -19,6 +20,7 @@ const MeetingDetailInput = ({ onNextStep }: MeetingDetailInputProps) => {
   return (
     <div className="w-screen">
       <textarea
+        {...register("detail")}
         ref={textareaRef}
         className="w-[320px] min-h-[500px] max-h-[2000px] border-[1px] border-slate-200 flex justify-center mx-auto mt-8 px-2 py-2"
         onInput={handleInput}

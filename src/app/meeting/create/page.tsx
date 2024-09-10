@@ -12,8 +12,18 @@ import MeetingPeopleInput from "./_components/_funnels/MeetingPeopleInput"
 import MeetingDetailInput from "./_components/_funnels/MeetingDetailInput"
 import MeetingCreateSuccess from "./_components/_funnels/MeetingCreateSuccess"
 
+interface CreateMeetingFormTypes {
+  title: string
+  category: string
+  place: string
+  startTime: number
+  endTime: number
+  peopleNumber: number
+  detail: string
+}
+
 const CreateMeeting = () => {
-  const useFormMethod = useForm()
+  const useFormMethod = useForm<CreateMeetingFormTypes>()
   const { Funnel, setStep, popStep, step } = useFunnel(
     [
       "title",

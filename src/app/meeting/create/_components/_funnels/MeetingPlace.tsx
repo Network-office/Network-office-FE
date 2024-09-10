@@ -1,5 +1,6 @@
 "use client"
 
+import { useFormContext } from "react-hook-form"
 import { useState } from "react"
 import { Search } from "lucide-react"
 import searchPlace from "@/_common/_utils/searchPlace"
@@ -9,6 +10,7 @@ interface MeetingTitleInputProps {
 }
 
 const MeetingPlace = ({ onNextStep }: MeetingTitleInputProps) => {
+  const { setValue } = useFormContext()
   const [inputKeyword, setInputKeyWord] = useState("")
   const [searchResult, setSearchResult] = useState<PlaceTypes[]>()
 
@@ -18,7 +20,7 @@ const MeetingPlace = ({ onNextStep }: MeetingTitleInputProps) => {
   }
 
   const onClickPlaceButton = (selectedPlace: PlaceTypes) => {
-    console.log(selectedPlace)
+    setValue("place", selectedPlace)
     setInputKeyWord("")
     setSearchResult([])
     onNextStep()
