@@ -1,11 +1,14 @@
 "use client"
 import { useRef, useEffect, useCallback } from "react"
 import { NaverMapComponentProps, MakersProps } from "./types"
-import { cn } from "@/lib/utils"
+import { MeetingInformTypes } from "@/app/meeting/types"
 
 const useNaverMap = (
   initial: { lat: number; lng: number },
-  makers: Array<{ lat: number; lng: number }> = []
+  makers?: Array<MeetingInformTypes>,
+  makerOption?: {
+    markerClickHandler: (makerDetail: any) => void
+  }
 ) => {
   const mapElement = useRef(null)
   const mapRef = useRef<naver.maps.Map | null>(null)
@@ -27,11 +30,13 @@ const useNaverMap = (
     const mapOptions = {
       center: new naver.maps.LatLng(initial.lat, initial.lng),
       zoom: 15,
-      zoomControl: true
+      zoomControl: false
     }
 
     mapRef.current = new naver.maps.Map(mapElement.current, mapOptions)
-    setMarkers(makers)
+    if (makers) {
+      setMarkers(makers)
+    }
   }
 
   const setMapPosition = (newLat: number, newLng: number) => {
@@ -56,8 +61,11 @@ const useNaverMap = (
   }
 
   const setMarkers = (makers: MakersProps[]) => {
-    if (!mapRef.current) return
-
+    if (!mapRef.current) {
+      setTimeout(() => setMarkers(makers), 100)
+      return
+    }
+    
     makers?.forEach((newMaker) => {
       const maker = new naver.maps.Marker({
         position: new naver.maps.LatLng(newMaker.lat, newMaker.lng),
@@ -65,7 +73,7 @@ const useNaverMap = (
         map: mapRef.current!
       })
       maker.addListener("click", () => {
-        console.log(newMaker)
+        makerOption?.markerClickHandler(newMaker)
       })
     })
   }
