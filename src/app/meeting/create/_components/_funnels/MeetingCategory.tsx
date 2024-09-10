@@ -1,3 +1,5 @@
+import { UseFormRegister } from "react-hook-form"
+
 interface MeetingCategoriesProps {
   onNextStep: () => void
 }
