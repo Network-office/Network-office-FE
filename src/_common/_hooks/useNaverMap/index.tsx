@@ -45,27 +45,12 @@ const useNaverMap = (
     mapRef.current.setCenter(new naver.maps.LatLng(newLat, newLng))
   }
 
-  const searchMapInform = (searchKeyword: string) => {
-    if (!mapRef.current || !naver) return
-    return naver.maps.Service.geocode(
-      {
-        query: searchKeyword
-      },
-      function (status, response) {
-        if (status === naver.maps.Service.Status.ERROR) {
-          return alert("Something Wrong!")
-        }
-        return response.v2.addresses
-      }
-    )
-  }
-
   const setMarkers = (makers: MakersProps[]) => {
     if (!mapRef.current) {
       setTimeout(() => setMarkers(makers), 100)
       return
     }
-    
+
     makers?.forEach((newMaker) => {
       const maker = new naver.maps.Marker({
         position: new naver.maps.LatLng(newMaker.lat, newMaker.lng),
@@ -101,7 +86,6 @@ const useNaverMap = (
 
   return {
     NaverMapComponent,
-    searchMapInform,
     setMarkers,
     setMapPosition
   }
