@@ -4,6 +4,7 @@ import { useFunnel } from "@/_common/_hooks/useFunnel"
 import MeetingTitleInput from "./_components/_funnels/MeetingTitleInput"
 import MeetingCategory from "./_components/_funnels/MeetingCategory"
 import MeetingPlace from "./_components/_funnels/MeetingPlace"
+import MeetingTimeInput from "./_components/_funnels/MeetingTime"
 import CreateMeetingFunnelHeader from "./_components/CreateMeetingFunnelHeader"
 
 const CreateMeeting = () => {
@@ -33,7 +34,10 @@ const CreateMeeting = () => {
           <MeetingCategory onNextStep={() => setStep("place")} />
         </Funnel.Step>
         <Funnel.Step name="place">
-          <MeetingPlace onNextStep={() => setStep("category")} />
+          <MeetingPlace onNextStep={() => setStep("activityTime")} />
+        </Funnel.Step>
+        <Funnel.Step name="activityTime">
+          <MeetingTimeInput onNextStep={() => setStep("category")} />
         </Funnel.Step>
       </Funnel>
     </div>
