@@ -8,6 +8,7 @@ import MeetingTimeInput from "./_components/_funnels/MeetingTime"
 import CreateMeetingFunnelHeader from "./_components/CreateMeetingFunnelHeader"
 import MeetingPeopleInput from "./_components/_funnels/MeetingPeopleInput"
 import MeetingDetailInput from "./_components/_funnels/MeetingDetailInput"
+import MeetingCreateSuccess from "./_components/_funnels/MeetingCreateSuccess"
 
 const CreateMeeting = () => {
   const { Funnel, setStep, popStep, step } = useFunnel(
@@ -45,7 +46,10 @@ const CreateMeeting = () => {
           <MeetingPeopleInput onNextStep={() => setStep("detail")} />
         </Funnel.Step>
         <Funnel.Step name="detail">
-          <MeetingDetailInput onNextStep={() => setStep("personnel")} />
+          <MeetingDetailInput onNextStep={() => setStep("finish")} />
+        </Funnel.Step>
+        <Funnel.Step name="finish">
+          <MeetingCreateSuccess />
         </Funnel.Step>
       </Funnel>
     </div>

@@ -1,4 +1,5 @@
 import { ChevronLeft } from "lucide-react"
+import { finished } from "stream"
 
 interface CreateMeetingFunnelHeaderProps {
   popStepHandler: () => void
@@ -13,12 +14,14 @@ const HEADER_TEXT = {
   personnel: "모임 인원수 정하기",
   detail: "모임 상세내용 작성하기",
   finish: "모임 생성 완료!"
-}
+} as const
 
 const CreateMeetingFunnelHeader = ({
   popStepHandler,
   nowStep
 }: CreateMeetingFunnelHeaderProps) => {
+  if (nowStep === "finish") return <></>
+
   return (
     <div className="flex h-[30px] my-auto gap-6 mt-2 ml-2">
       <button
