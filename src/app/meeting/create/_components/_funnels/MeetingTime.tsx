@@ -10,7 +10,7 @@ const MeetingTimeInput = ({ onNextStep }: MeetingTimeInputProps) => {
   return (
     <div>
       <h1 className="mx-4 text-[24px] font-bold text-center mt-20">
-        모임 예상 활동시간을 작성해주세요.
+        모임은 언제 진행하실건가요?
       </h1>
       <div className="mt-[80px]">
         <div className="flex w-fit h-[50px] mx-auto">

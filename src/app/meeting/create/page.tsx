@@ -11,11 +11,13 @@ import CreateMeetingFunnelHeader from "./_components/CreateMeetingFunnelHeader"
 import MeetingPeopleInput from "./_components/_funnels/MeetingPeopleInput"
 import MeetingDetailInput from "./_components/_funnels/MeetingDetailInput"
 import MeetingCreateSuccess from "./_components/_funnels/MeetingCreateSuccess"
+import MeetingDateInput from "./_components/_funnels/MeetingDate"
 
 interface CreateMeetingFormTypes {
   title: string
   category: string
   place: string
+  date: string
   startTime: number
   endTime: number
   peopleNumber: number
@@ -29,6 +31,7 @@ const CreateMeeting = () => {
       "title",
       "category",
       "place",
+      "date",
       "activityTime",
       "personnel",
       "detail",
@@ -43,6 +46,7 @@ const CreateMeeting = () => {
         popStepHandler={popStep}
         nowStep={step}
       />
+
       <Funnel>
         <Funnel.Step name="title">
           <MeetingTitleInput onNextStep={() => setStep("category")} />
@@ -51,7 +55,10 @@ const CreateMeeting = () => {
           <MeetingCategory onNextStep={() => setStep("place")} />
         </Funnel.Step>
         <Funnel.Step name="place">
-          <MeetingPlace onNextStep={() => setStep("activityTime")} />
+          <MeetingPlace onNextStep={() => setStep("date")} />
+        </Funnel.Step>
+        <Funnel.Step name="date">
+          <MeetingDateInput onNextStep={() => setStep("activityTime")} />
         </Funnel.Step>
         <Funnel.Step name="activityTime">
           <MeetingTimeInput onNextStep={() => setStep("personnel")} />
