@@ -23,7 +23,7 @@ interface CreateMeetingFormTypes {
 }
 
 const CreateMeeting = () => {
-  const useFormMethod = useForm<CreateMeetingFormTypes>()
+  const useFormMethod = useForm<CreateMeetingFormTypes>({ mode: "all" })
   const { Funnel, setStep, popStep, step } = useFunnel(
     [
       "title",
@@ -39,35 +39,33 @@ const CreateMeeting = () => {
 
   return (
     <FormProvider {...useFormMethod}>
-      <form>
-        <CreateMeetingFunnelHeader
-          popStepHandler={popStep}
-          nowStep={step}
-        />
-        <Funnel>
-          <Funnel.Step name="title">
-            <MeetingTitleInput onNextStep={() => setStep("category")} />
-          </Funnel.Step>
-          <Funnel.Step name="category">
-            <MeetingCategory onNextStep={() => setStep("place")} />
-          </Funnel.Step>
-          <Funnel.Step name="place">
-            <MeetingPlace onNextStep={() => setStep("activityTime")} />
-          </Funnel.Step>
-          <Funnel.Step name="activityTime">
-            <MeetingTimeInput onNextStep={() => setStep("personnel")} />
-          </Funnel.Step>
-          <Funnel.Step name="personnel">
-            <MeetingPeopleInput onNextStep={() => setStep("detail")} />
-          </Funnel.Step>
-          <Funnel.Step name="detail">
-            <MeetingDetailInput onNextStep={() => setStep("finish")} />
-          </Funnel.Step>
-          <Funnel.Step name="finish">
-            <MeetingCreateSuccess />
-          </Funnel.Step>
-        </Funnel>
-      </form>
+      <CreateMeetingFunnelHeader
+        popStepHandler={popStep}
+        nowStep={step}
+      />
+      <Funnel>
+        <Funnel.Step name="title">
+          <MeetingTitleInput onNextStep={() => setStep("category")} />
+        </Funnel.Step>
+        <Funnel.Step name="category">
+          <MeetingCategory onNextStep={() => setStep("place")} />
+        </Funnel.Step>
+        <Funnel.Step name="place">
+          <MeetingPlace onNextStep={() => setStep("activityTime")} />
+        </Funnel.Step>
+        <Funnel.Step name="activityTime">
+          <MeetingTimeInput onNextStep={() => setStep("personnel")} />
+        </Funnel.Step>
+        <Funnel.Step name="personnel">
+          <MeetingPeopleInput onNextStep={() => setStep("detail")} />
+        </Funnel.Step>
+        <Funnel.Step name="detail">
+          <MeetingDetailInput onNextStep={() => setStep("finish")} />
+        </Funnel.Step>
+        <Funnel.Step name="finish">
+          <MeetingCreateSuccess />
+        </Funnel.Step>
+      </Funnel>
     </FormProvider>
   )
 }
