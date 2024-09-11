@@ -1,4 +1,5 @@
 import { useFormContext } from "react-hook-form"
+import { cn } from "@/lib/utils"
 interface MeetingCategoriesProps {
   onNextStep: () => void
 }
@@ -6,7 +7,9 @@ interface MeetingCategoriesProps {
 const category = ["스포츠", "술", "맛집", "봉사", "영화/연극", "기타"]
 
 const MeetingCategory = ({ onNextStep }: MeetingCategoriesProps) => {
-  const { setValue } = useFormContext()
+  const { setValue, watch } = useFormContext()
+  const selectedCategory = watch("category")
+
   return (
     <div>
       <h1 className="mx-4 text-[24px] font-bold text-center mt-8">
@@ -17,7 +20,10 @@ const MeetingCategory = ({ onNextStep }: MeetingCategoriesProps) => {
           <button
             onClick={() => setValue("category", item)}
             key={index}
-            className="w-[140px] h-[140px] mb-2 rounded-md bg-blue-400">
+            className={cn(
+              "w-[140px] h-[140px] mb-2 rounded-md",
+              selectedCategory === item ? "bg-blue-400" : "bg-slate-300"
+            )}>
             {item}
           </button>
         ))}
