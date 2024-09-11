@@ -15,8 +15,10 @@ const MeetingPlace = ({ onNextStep }: MeetingTitleInputProps) => {
   const [searchResult, setSearchResult] = useState<PlaceTypes[]>()
 
   const searchBarhandle = async () => {
-    const result = await searchPlace(inputKeyword)
-    setSearchResult(result)
+    if (inputKeyword.length > 1) {
+      const result = await searchPlace(inputKeyword)
+      setSearchResult(result)
+    }
   }
 
   const onClickPlaceButton = (selectedPlace: PlaceTypes) => {
