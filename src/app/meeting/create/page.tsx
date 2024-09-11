@@ -25,7 +25,7 @@ interface CreateMeetingFormTypes {
 }
 
 const CreateMeeting = () => {
-  const useFormMethod = useForm<CreateMeetingFormTypes>({ mode: "all" })
+  const useFormMethod = useForm<CreateMeetingFormTypes>({ mode: "onBlur" })
   const { Funnel, setStep, popStep, step } = useFunnel(
     [
       "title",
