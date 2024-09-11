@@ -5,7 +5,10 @@ interface MeetingTimeInputProps {
 }
 
 const MeetingTimeInput = ({ onNextStep }: MeetingTimeInputProps) => {
-  const { register } = useFormContext()
+  const { register, watch } = useFormContext()
+
+  const startTime = watch("startTime")
+  const endTime = watch("endTime")
 
   return (
     <div>
@@ -34,11 +37,14 @@ const MeetingTimeInput = ({ onNextStep }: MeetingTimeInputProps) => {
           </span>
         </div>
       </div>
-      <button
-        className="w-[70%] h-[40px] mt-[60px] mx-auto bg-blue-300 rounded-md flex justify-center text-center py-auto"
-        onClick={onNextStep}>
-        <span className="my-auto text-white font-semibold">다음으로</span>
-      </button>
+      {startTime && endTime && (
+        <button
+          className="w-[70%] h-[40px] mt-[60px] mx-auto bg-blue-300 rounded-md flex justify-center text-center py-auto"
+          onClick={onNextStep}
+          disabled={!startTime || !endTime}>
+          <span className="my-auto text-white font-semibold">다음으로</span>
+        </button>
+      )}
     </div>
   )
 }
