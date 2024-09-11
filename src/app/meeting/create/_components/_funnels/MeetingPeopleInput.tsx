@@ -7,8 +7,11 @@ interface MeetingPeopleInputProps {
 const MeetingPeopleInput = ({ onNextStep }: MeetingPeopleInputProps) => {
   const {
     register,
-    formState: { errors }
+    formState: { errors },
+    watch
   } = useFormContext()
+
+  const peopleNumber = watch("peopleNumber")
 
   return (
     <div>
@@ -20,7 +23,7 @@ const MeetingPeopleInput = ({ onNextStep }: MeetingPeopleInputProps) => {
       </h3>
       <div className="flex mt-20 w-[100px] mx-auto border-b-[2px] pb-2 justify-center">
         <input
-          className={`focus:outline-none w-[60px] px-4 text-2xl ${errors.peopleNumber ? "border-red-500" : ""}`}
+          className={`focus:outline-none w-[60px] px-4 text-2xl`}
           type="number"
           {...register("peopleNumber", {
             min: {
@@ -30,18 +33,20 @@ const MeetingPeopleInput = ({ onNextStep }: MeetingPeopleInputProps) => {
             max: {
               value: 20,
               message: "최대 20명 이하로 입력해주세요."
-            },
-            valueAsNumber: true
+            }
           })}
         />
         <p className="text-2xl font-semibold">명</p>
       </div>
-      {errors.peopleNumber && <p className="text-red-500 text-center mt-2"></p>}
-      <button
-        className="w-[60%] h-[40px] mt-[30px] mx-auto bg-blue-300 rounded-md flex justify-center text-center py-auto"
-        onClick={onNextStep}>
-        <span className="my-auto text-white font-semibold">다음으로</span>
-      </button>
+
+      {peopleNumber > 1 && peopleNumber < 20 && (
+        <button
+          disabled={!peopleNumber}
+          className="w-[60%] h-[40px] mt-[30px] mx-auto bg-blue-300 rounded-md flex justify-center text-center py-auto"
+          onClick={onNextStep}>
+          <span className="my-auto text-white font-semibold">다음으로</span>
+        </button>
+      )}
     </div>
   )
 }
