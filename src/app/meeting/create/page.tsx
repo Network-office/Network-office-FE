@@ -12,17 +12,8 @@ import MeetingPeopleInput from "./_components/_funnels/MeetingPeopleInput"
 import MeetingDetailInput from "./_components/_funnels/MeetingDetailInput"
 import MeetingCreateSuccess from "./_components/_funnels/MeetingCreateSuccess"
 import MeetingDateInput from "./_components/_funnels/MeetingDate"
+import { CreateMeetingFormTypes } from "./types"
 
-interface CreateMeetingFormTypes {
-  title: string
-  category: string
-  place: string
-  date: string
-  startTime: number
-  endTime: number
-  peopleNumber: number
-  detail: string
-}
 
 const CreateMeeting = () => {
   const useFormMethod = useForm<CreateMeetingFormTypes>({ mode: "onBlur" })
