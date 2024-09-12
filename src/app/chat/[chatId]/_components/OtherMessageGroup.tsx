@@ -1,5 +1,5 @@
-import { MessageHeader } from "./Message/MessageHeader"
-import { MessageContent } from "./Message/MessageContent"
+import { MessageHeader } from "./MessageHeader"
+import { MessageContent } from "./MessageContent"
 import { Message, UserInfo } from "./types"
 
 export interface OtherMessageGroupProps {
