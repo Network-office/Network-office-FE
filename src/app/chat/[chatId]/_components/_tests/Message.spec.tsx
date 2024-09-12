@@ -1,7 +1,7 @@
 import { describe, expect, test } from "@jest/globals"
 import { render } from "@testing-library/react"
-import { MessageContent } from "../Message/MessageContent"
-import { MessageHeader } from "../Message/MessageHeader"
+import { MessageContent } from "../MessageContent"
+import { MessageHeader } from "../MessageHeader"
 
 describe("Message", () => {
   test("올바른 메세지를 렌더링합니다", () => {
