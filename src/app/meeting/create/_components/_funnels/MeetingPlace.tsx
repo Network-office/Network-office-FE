@@ -22,7 +22,10 @@ const MeetingPlace = ({ onNextStep }: MeetingTitleInputProps) => {
   }
 
   const onClickPlaceButton = (selectedPlace: PlaceTypes) => {
-    setValue("place", selectedPlace)
+    setValue("place", selectedPlace.jibunAddress)
+    setValue("x", selectedPlace.x)
+    setValue("y", selectedPlace.y)
+    setValue("detailPlace", "")
     setInputKeyWord("")
     setSearchResult([])
     onNextStep()
