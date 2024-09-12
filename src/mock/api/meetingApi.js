@@ -24,10 +24,38 @@ const handlers = [
   }),
   http.post(`http://localhost:8080/api/meeting/create`, async ({ request }) => {
     const data = await request.json()
-    meetingData.push(data)
-    return new HttpResponse(JSON.stringify({ success: true }), {
-      status: 200
-    })
+    const meetingDataFields = [
+      "title",
+      "category",
+      "place",
+      "detailPlace",
+      "x",
+      "y",
+      "startTime",
+      "endTime",
+      "date",
+      "peopleNumber",
+      "detail"
+    ]
+    try {
+      meetingDataFields.forEach((item) => {
+        if (
+          data[item] === undefined ||
+          data[item] === null ||
+          data[item] === ""
+        ) {
+          throw new Error(`필드가 유효하지 않음`)
+        }
+      })
+
+      return new HttpResponse(JSON.stringify({ success: true }), {
+        status: 200
+      })
+    } catch (error) {
+      return new HttpResponse(JSON.stringify({ error: error.message }), {
+        status: 400
+      })
+    }
   })
 ]
 

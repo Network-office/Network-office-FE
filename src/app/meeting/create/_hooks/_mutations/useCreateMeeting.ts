@@ -2,11 +2,11 @@ import { useMutation } from "@tanstack/react-query"
 import createMeeting from "../../_api/createMeeting"
 
 const useCreateMeeting = () => {
-  const { mutate, isError } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: createMeeting
   })
 
-  return { mutate, isError }
+  return { mutate }
 }
 
 export default useCreateMeeting
