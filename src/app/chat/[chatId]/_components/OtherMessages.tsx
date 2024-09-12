@@ -1,5 +1,6 @@
-import { Message, MessageHeader } from "@/app/chat/[chatId]/_components/Message"
 import { OtherMessageProps } from "@/app/chat/[chatId]/_components/types"
+import { MessageHeader } from "./Message/MessageHeader"
+import { MessageContent } from "./Message/MessageContent"
 
 const OtherMessages = ({
   role,
@@ -17,7 +18,7 @@ const OtherMessages = ({
         <div
           key={message.id}
           className="flex gap-2 items-end">
-          <Message
+          <MessageContent
             align="left"
             text={message.text}
             timestamp={

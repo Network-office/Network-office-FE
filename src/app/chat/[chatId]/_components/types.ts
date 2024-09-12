@@ -3,7 +3,7 @@ export interface MessageBubbleProps {
   text: string
 }
 
-export interface MessageProps extends Omit<MessageBubbleProps, "align"> {
+export interface MessageContentProps extends Omit<MessageBubbleProps, "align"> {
   timestamp?: number
   align?: "left" | "right"
 }
