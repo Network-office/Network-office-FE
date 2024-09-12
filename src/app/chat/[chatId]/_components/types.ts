@@ -1,20 +1,3 @@
-export interface MessageBubbleProps {
-  align: "left" | "right"
-  text: string
-}
-
-export interface MessageContentProps extends Omit<MessageBubbleProps, "align"> {
-  timestamp?: number
-  align?: "left" | "right"
-}
-
-export interface MessageHeaderProps {
-  avatarSrc: string
-  username: string
-  badgeText?: string
-  align?: "left" | "right"
-}
-
 export interface Message {
   id: string
   text: string
@@ -24,16 +7,4 @@ export interface Message {
 export interface UserInfo {
   username: string
   avatarSrc: string
-}
-
-export interface MyMessageProps {
-  role: "user" | "admin"
-  messages: Message[]
-  userInfo: UserInfo
-}
-
-export interface OtherMessageProps {
-  role: "user" | "admin"
-  messages: Message[]
-  userInfo: UserInfo
 }

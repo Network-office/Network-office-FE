@@ -1,12 +1,18 @@
-import { OtherMessageProps } from "@/app/chat/[chatId]/_components/types"
-import { MessageHeader } from "./Message/MessageHeader"
-import { MessageContent } from "./Message/MessageContent"
+import { MessageHeader } from "./MessageHeader"
+import { MessageContent } from "./MessageContent"
+import { Message, UserInfo } from "./types"
 
-const OtherMessages = ({
+export interface OtherMessageGroupProps {
+  role: "user" | "admin"
+  messages: Message[]
+  userInfo: UserInfo
+}
+
+const OtherMessageGroup = ({
   role,
   userInfo: { username, avatarSrc },
   messages
-}: OtherMessageProps) => {
+}: OtherMessageGroupProps) => {
   return (
     <div className="flex flex-col gap-4 pb-4">
       <MessageHeader
@@ -31,4 +37,4 @@ const OtherMessages = ({
   )
 }
 
-export default OtherMessages
+export default OtherMessageGroup

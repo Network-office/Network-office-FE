@@ -1,6 +1,8 @@
 import { cn } from "@/lib/utils"
-import { MessageBubbleProps } from "../types"
-
+export interface MessageBubbleProps {
+  align: "left" | "right"
+  text: string
+}
 export const MessageBubble = ({ align, text }: MessageBubbleProps) => {
   const baseClasses = " relative bg-slate-300 w-fit p-2 rounded-xl text-xs"
   const triangleClasses = {

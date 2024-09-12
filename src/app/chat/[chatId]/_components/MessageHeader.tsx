@@ -1,7 +1,13 @@
 import { cn } from "@/lib/utils"
-import { MessageHeaderProps } from "../types"
 import { Badge } from "lucide-react"
 import Avatar from "@/_common/_components/Avatar"
+
+interface MessageHeaderProps {
+  avatarSrc: string
+  username: string
+  badgeText?: string
+  align?: "left" | "right"
+}
 
 export const MessageHeader = ({
   username,

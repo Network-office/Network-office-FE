@@ -1,6 +1,10 @@
 import { cn } from "@/lib/utils"
-import { MessageContentProps } from "../types"
-import { MessageBubble } from "./MessageBubble"
+import { MessageBubble, MessageBubbleProps } from "./MessageBubble"
+
+export interface MessageContentProps extends Omit<MessageBubbleProps, "align"> {
+  timestamp?: number
+  align?: "left" | "right"
+}
 
 export const MessageContent = ({
   text,
