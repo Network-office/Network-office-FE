@@ -1,16 +1,14 @@
 import { MeetingListResponse } from "../types"
+import { http } from "@/lib/http"
 
-const getMeetingList = async (): Promise<MeetingListResponse> => {
+const getMeetingList = async () => {
   try {
-    const request = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/meeting`,
-      { cache: "no-store" }
-    )
-    if (!request.ok) {
-      throw new Error("error")
-    }
-    const result = await request.json()
-    return result
+    const response = await http<MeetingListResponse>("/api/meeting", {
+      cache: "no-store",
+      method: "GET"
+    })
+
+    return response
   } catch (error) {
     console.log(error)
     throw new Error("error")
