@@ -1,6 +1,7 @@
 import { LocateFixed, Plus } from "lucide-react"
 import getUserGeolocation from "@/_common/_utils/getUserGeolocation"
 import { getUserGeolocationResponseType } from "@/_common/_utils/getUserGeolocation/types"
+import Link from "next/link"
 
 interface FootBarProps {
   setMapPosition: (result: { lat: number; lng: number }) => void
@@ -34,12 +35,12 @@ const FootBar = ({ setMapPosition }: FootBarProps) => {
           size={44}
         />
       </button>
-      <button>
+      <Link href="meeting/create">
         <Plus
           className="bg-white rounded-full px-1"
           size={44}
         />
-      </button>
+      </Link>
     </div>
   )
 }

@@ -1,6 +1,8 @@
 import createMeeting from "./_api/createMeeting"
 import { expect, describe, it } from "@jest/globals"
 
+// 수정중.
+
 describe("Create Meeting API", () => {
   it("성공적으로 모임을 생성하고 성공 응답을 반환해야 한다", async () => {
     const mockMeetingData = {
