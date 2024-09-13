@@ -9,7 +9,7 @@ const MeetingContentSection = ({
 }: MeetingContentSectionProps) => {
   return (
     <div>
-      <table className="w-[350px] mx-auto px-2 mt-2">
+      <table className="w-[350px] mx-auto px-2 mt-2 text-[14px]">
         <tbody>
           <tr>
             <td className="text-[#A1824A] p-2">소장</td>

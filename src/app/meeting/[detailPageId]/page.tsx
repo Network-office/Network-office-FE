@@ -1,4 +1,5 @@
 "use client"
+import { usePathname } from "next/navigation"
 
 import { HeartOff } from "lucide-react"
 import MeetingDetailHeader from "./_components/MeetingDetailHeader"
@@ -7,7 +8,9 @@ import MeetingMapSection from "./_components/MeetingMapSection"
 import useGetMeetingDetail from "./_hooks/_quries/useGetMeetingDetail"
 
 const MeetingDetailPage = () => {
-  const { data: meetingDetail } = useGetMeetingDetail(1)
+  const path = usePathname()
+  const nowPageId = parseInt(path.slice(9))
+  const { data: meetingDetail } = useGetMeetingDetail(nowPageId)
 
   if (!meetingDetail) return <div></div>
 
@@ -17,8 +20,8 @@ const MeetingDetailPage = () => {
       <MeetingContentSection meetingDetail={meetingDetail} />
       <hr />
       <MeetingMapSection
-        lat={meetingDetail.x}
-        lng={meetingDetail.y}
+        lat={meetingDetail.lat}
+        lng={meetingDetail.lng}
         meetingId={meetingDetail.id}
         place={meetingDetail.place}
       />

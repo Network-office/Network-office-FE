@@ -11,6 +11,6 @@ export interface MeetingDetailTypes {
   nowPeople: number
   fee: number
   detail: string
-  x: number
-  y: number
+  lng: number
+  lat: number
 }
