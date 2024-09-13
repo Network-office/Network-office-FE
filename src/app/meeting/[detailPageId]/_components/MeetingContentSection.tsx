@@ -1,3 +1,5 @@
+import { MeetingDetailTypes } from "../types"
+
 interface MeetingContentSectionProps {
   meetingDetail: MeetingDetailTypes
 }

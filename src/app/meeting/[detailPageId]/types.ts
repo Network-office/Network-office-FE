@@ -1,4 +1,4 @@
-interface MeetingDetailTypes {
+export interface MeetingDetailTypes {
   id: number
   author: string
   title: string

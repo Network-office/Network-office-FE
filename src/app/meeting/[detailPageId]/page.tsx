@@ -4,6 +4,7 @@ import { HeartOff } from "lucide-react"
 import MeetingDetailHeader from "./_components/MeetingDetailHeader"
 import MeetingContentSection from "./_components/MeetingContentSection"
 import MeetingMapSection from "./_components/MeetingMapSection"
+import { MeetingDetailTypes } from "./types"
 
 const meetingDetail: MeetingDetailTypes = {
   id: 1,
