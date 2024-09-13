@@ -1,3 +1,7 @@
+"use client"
+
+import Link from "next/link"
+
 interface MeetingInformModalProps {
   meetingData: {
     id: number
@@ -41,9 +45,11 @@ const MeetingInformModal = ({ meetingData }: MeetingInformModalProps) => {
         </p>
       </div>
       <div className="flex justify-center mt-4">
-        <button className="w-[311px] h-[40px] bg-[#D58787] text-white text-center rounded-sm">
+        <Link
+          href={`/meeting/${meetingData.id}`}
+          className="w-[311px] h-[40px] bg-[#D58787] text-white text-center rounded-sm">
           모임 상세보기
-        </button>
+        </Link>
       </div>
     </div>
   )
