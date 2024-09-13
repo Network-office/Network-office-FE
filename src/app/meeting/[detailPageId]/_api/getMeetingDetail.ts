@@ -1,8 +1,9 @@
 import { http } from "@/lib/http"
+import { MeetingDetailTypes } from "../types"
 
-const getMeetingDetail = async (meetingId: string) => {
+const getMeetingDetail = async (meetingId: number) => {
   try {
-    const response = await http(
+    const response = await http<MeetingDetailTypes>(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/meeting/${meetingId}`,
       {
         cache: "no-store",

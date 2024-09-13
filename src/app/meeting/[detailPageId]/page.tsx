@@ -4,26 +4,13 @@ import { HeartOff } from "lucide-react"
 import MeetingDetailHeader from "./_components/MeetingDetailHeader"
 import MeetingContentSection from "./_components/MeetingContentSection"
 import MeetingMapSection from "./_components/MeetingMapSection"
-import { MeetingDetailTypes } from "./types"
-
-const meetingDetail: MeetingDetailTypes = {
-  id: 1,
-  author: "John Doe",
-  title: "테스트 모임",
-  place: "서울 강남구 주노동 준오아파트 103동 ",
-  date: "2024-09-20",
-  startTime: 10,
-  endTime: 12,
-  category: "스포츠",
-  totalPeople: 10,
-  nowPeople: 5,
-  fee: 5000,
-  detail: "이 모임은 함께 운동을 즐기기 위한 모임입니다.",
-  y: 127.027619,
-  x: 37.497942
-}
+import useGetMeetingDetail from "./_hooks/_quries/useGetMeetingDetail"
 
 const MeetingDetailPage = () => {
+  const { data: meetingDetail } = useGetMeetingDetail(1)
+
+  if (!meetingDetail) return <div></div>
+
   return (
     <div className="w-screen h-screen">
       <MeetingDetailHeader title={meetingDetail.title} />

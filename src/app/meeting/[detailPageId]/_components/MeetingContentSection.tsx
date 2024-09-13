@@ -19,22 +19,21 @@ const MeetingContentSection = ({
           </tr>
           <tr>
             <td className="text-[#A1824A] p-2">날짜</td>
-            <td>{meetingDetail.date.toString()}</td>
+            <td>{meetingDetail.date}</td>
             <td className="text-[#A1824A] p-2">활동 시간</td>
             <td>
-              {meetingDetail.startTime.toString()} ~{" "}
-              {meetingDetail.endTime.toString()}
+              {meetingDetail.startTime} ~ {meetingDetail.endTime}
             </td>
           </tr>
           <tr>
             <td className="text-[#A1824A] p-2">모집 인원</td>
-            <td>{meetingDetail.totalPeople.toString()}</td>
+            <td>{meetingDetail.totalPeople}</td>
             <td className="text-[#A1824A] p-2">현재 인원</td>
-            <td>{meetingDetail.nowPeople.toString()}</td>
+            <td>{meetingDetail.nowPeople}</td>
           </tr>
           <tr>
             <td className="text-[#A1824A] p-2">참가비</td>
-            <td>{meetingDetail.fee.toString()}원</td>
+            <td>{meetingDetail.fee}원</td>
           </tr>
         </tbody>
       </table>
