@@ -14,6 +14,7 @@ export const Client = jest.fn().mockImplementation(() => {
         mockActivate()
       }
     }),
+    // 직접 subscribe 메서드의 콜백을 호출할 수 있도록 subscribeCallback 변수에 할당
     subscribe: jest.fn((destination, callback: Function) => {
       subscribeCallback = callback
     }),
