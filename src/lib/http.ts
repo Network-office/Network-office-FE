@@ -23,6 +23,9 @@ const createHTTP = () => {
         },
 
         response: async (response: Response) => {
+          if (response.status >= 400) {
+            throw new Error(await response.text())
+          }
           const responseBody = await response.json()
 
           return new Response(JSON.stringify(responseBody))
