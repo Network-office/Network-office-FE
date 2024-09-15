@@ -1,3 +1,4 @@
+import { GetChatHistoryResponse } from "@/app/chat/[chatId]/_apis/getChatHistory"
 import { chatHistoryDataMap } from "@/mock/mockData/chatHistoryData"
 import { http, HttpResponse } from "msw"
 
@@ -7,7 +8,7 @@ const handlers = [
 
     const chatHistoryData = chatHistoryDataMap[chatRoomId]
 
-    if (chatHistoryData) {
+    if (!chatHistoryData) {
       return new HttpResponse(
         JSON.stringify({ message: `Chat room "${chatRoomId}" not found` }),
         {
@@ -16,9 +17,9 @@ const handlers = [
       )
     }
 
-    const responseData = {
+    const responseData: GetChatHistoryResponse = {
       title: `Chat Room ${chatRoomId}`,
-      data: chatHistoryData
+      messageGroupList: chatHistoryData
     }
 
     return new HttpResponse(JSON.stringify(responseData), {

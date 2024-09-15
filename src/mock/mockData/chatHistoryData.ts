@@ -1,18 +1,5 @@
+import { MessageGroup } from "@/app/chat/[chatId]/_apis/getChatHistory"
 import { faker } from "@faker-js/faker"
-
-export interface MessageGroup {
-  me: boolean
-  role: "user" | "admin"
-  messages: {
-    id: string
-    text: string
-    timestamp: number
-  }[]
-  userInfo: {
-    username: string
-    avatarSrc: string
-  }
-}
 
 const generateMessageGroup = (
   me: boolean,
@@ -23,6 +10,7 @@ const generateMessageGroup = (
   }
 ): MessageGroup => {
   return {
+    id: faker.string.uuid(),
     me,
     role,
     messages: new Array(3).fill(null).map((_, i) => ({
@@ -35,17 +23,17 @@ const generateMessageGroup = (
 }
 
 const MyInfo = {
-  username: "Alice",
+  username: faker.internet.userName(),
   avatarSrc: faker.image.avatar()
 }
 
 const UserInfo1 = {
-  username: "Clerk",
+  username: faker.internet.userName(),
   avatarSrc: faker.image.avatar()
 }
 
 const UserInfo2 = {
-  username: "Bob",
+  username: faker.internet.userName(),
   avatarSrc: faker.image.avatar()
 }
 
