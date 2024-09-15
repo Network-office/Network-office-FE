@@ -1,9 +1,9 @@
-import { useQuery } from "@tanstack/react-query"
+import { useSuspenseQuery } from "@tanstack/react-query"
 import getMeetingDetail from "../../_api/getMeetingDetail"
 import { MeetingDetailTypes } from "../../types"
 
 const useGetMeetingDetail = (id: number) => {
-  const { data } = useQuery<MeetingDetailTypes>({
+  const { data } = useSuspenseQuery<MeetingDetailTypes>({
     queryKey: ["meetingDetail", id],
     queryFn: () => getMeetingDetail(id)
   })
