@@ -1,4 +1,4 @@
-class CustomError extends Error {
+export default class CustomError extends Error {
   response?: {
     data: any
     status: number

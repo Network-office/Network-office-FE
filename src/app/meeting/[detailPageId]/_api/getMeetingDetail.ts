@@ -1,8 +1,10 @@
 import { http } from "@/lib/http"
 import { MeetingDetailTypes } from "../types"
-import Error from "next/error"
+import CustomError from "@/lib/CustomError"
 
-const getMeetingDetail = async (meetingId: number) => {
+const getMeetingDetail = async (
+  meetingId: number
+): Promise<MeetingDetailTypes> => {
   try {
     const response = await http<MeetingDetailTypes>(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/meeting/${meetingId}`,
@@ -11,13 +13,19 @@ const getMeetingDetail = async (meetingId: number) => {
         method: "GET"
       }
     )
-    return response.data
-  } catch (error: Error) {
-    if (error.status === 400) {
+    if (!response.data) {
       throw new Error("NoData")
-    } else {
-      throw new Error("Network Error")
     }
+    return response.data
+  } catch (error: unknown) {
+    if (error instanceof CustomError) {
+      if (error.response?.status === 400) {
+        throw new Error("NoData")
+      } else {
+        throw new Error("Network Error")
+      }
+    }
+    throw new Error("Unexpected Error")
   }
 }
 
