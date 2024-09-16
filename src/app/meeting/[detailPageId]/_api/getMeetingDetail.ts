@@ -1,5 +1,6 @@
 import { http } from "@/lib/http"
 import { MeetingDetailTypes } from "../types"
+import Error from "next/error"
 
 const getMeetingDetail = async (meetingId: number) => {
   try {
@@ -11,9 +12,12 @@ const getMeetingDetail = async (meetingId: number) => {
       }
     )
     return response.data
-  } catch (error) {
-    console.log(error)
-    throw new Error("error")
+  } catch (error: Error) {
+    if (error.status === 400) {
+      throw new Error("NoData")
+    } else {
+      throw new Error("Network Error")
+    }
   }
 }
 
