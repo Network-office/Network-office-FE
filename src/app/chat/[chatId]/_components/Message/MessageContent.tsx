@@ -13,6 +13,7 @@ export const MessageContent = ({
 }: MessageContentProps) => {
   return (
     <div
+      aria-label="메세지 내용"
       className={cn(
         "flex flex-col gap-1",
         align === "right" ? "items-end" : "items-start"
