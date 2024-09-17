@@ -9,7 +9,6 @@ import {
 } from "../../../../../__mocks__/@stomp/stompjs"
 import { SocketMessageResponse } from "@/app/chat/[chatId]/_components/types"
 import { act } from "react-dom/test-utils"
-import { faker } from "@faker-js/faker"
 import { generateMyMessage } from "@/mock/mockData/chatMessageData"
 
 const queryClient = new QueryClient({
