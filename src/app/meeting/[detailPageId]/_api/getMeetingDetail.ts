@@ -19,7 +19,7 @@ const getMeetingDetail = async (
     return response.data
   } catch (error: unknown) {
     if (error instanceof CustomError) {
-      if (error.response?.status === 400) {
+      if (error.message === "400") {
         throw new Error("NoData")
       } else {
         throw new Error("Network Error")
