@@ -5,6 +5,7 @@ const generateMessageGroup = (
   me: boolean,
   role: "user" | "admin",
   userInfo: {
+    id: string
     username: string
     avatarSrc: string
   }
@@ -23,16 +24,19 @@ const generateMessageGroup = (
 }
 
 const MyInfo = {
+  id: faker.string.uuid(),
   username: faker.internet.userName(),
   avatarSrc: faker.image.avatar()
 }
 
 const UserInfo1 = {
+  id: faker.string.uuid(),
   username: faker.internet.userName(),
   avatarSrc: faker.image.avatar()
 }
 
 const UserInfo2 = {
+  id: faker.string.uuid(),
   username: faker.internet.userName(),
   avatarSrc: faker.image.avatar()
 }
@@ -48,5 +52,6 @@ export const chatHistoryDataMap = {
     generateMessageGroup(true, "user", MyInfo),
     generateMessageGroup(false, "admin", UserInfo2),
     generateMessageGroup(false, "user", UserInfo1)
-  ]
+  ],
+  empty: []
 }
