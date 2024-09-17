@@ -24,9 +24,11 @@ const ChatPage = ({ params }: ChatPageProps) => {
   return (
     <div>
       <h1>{data.data.title}</h1>
-      <ul>
+      <ul aria-label="메세지 리스트">
         {data.data.messageGroupList.map((messageGroup) => (
-          <li key={messageGroup.id}>
+          <li
+            aria-label="메세지 그룹"
+            key={messageGroup.id}>
             {messageGroup.me ? (
               <MyMessageGroup
                 role={messageGroup.role}
