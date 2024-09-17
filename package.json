@@ -31,7 +31,8 @@
     "return-fetch": "^0.4.6",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
-    "undici": "^6.19.8"
+    "undici": "^6.19.8",
+    "ws": "^8.18.0"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "1.7.0",

@@ -1,11 +1,18 @@
-import { Message, MessageHeader } from "@/app/chat/[chatId]/_components/Message"
-import { OtherMessageProps } from "@/app/chat/[chatId]/_components/types"
+import { MessageHeader } from "./Message/MessageHeader"
+import { MessageContent } from "./Message/MessageContent"
+import { Message, UserInfo } from "./types"
 
-const OtherMessages = ({
+export interface OtherMessageGroupProps {
+  role: "user" | "admin"
+  messages: Message[]
+  userInfo: UserInfo
+}
+
+const OtherMessageGroup = ({
   role,
   userInfo: { username, avatarSrc },
   messages
-}: OtherMessageProps) => {
+}: OtherMessageGroupProps) => {
   return (
     <div className="flex flex-col gap-4 pb-4">
       <MessageHeader
@@ -17,7 +24,7 @@ const OtherMessages = ({
         <div
           key={message.id}
           className="flex gap-2 items-end">
-          <Message
+          <MessageContent
             align="left"
             text={message.text}
             timestamp={
@@ -30,4 +37,4 @@ const OtherMessages = ({
   )
 }
 
-export default OtherMessages
+export default OtherMessageGroup
