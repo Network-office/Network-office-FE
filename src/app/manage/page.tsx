@@ -27,9 +27,13 @@ const Manage = () => {
   return (
     <div className="w-screen h-screen">
       <h1 className="text-xl px-2 py-1">관리중인 모임</h1>
-      {mockData.map((meetingItem) => (
-        <MyManagingMeetingItem {...meetingItem} />
-      ))}
+      <ul>
+        {mockData.map((meetingItem) => (
+          <li key={meetingItem.meetingId}>
+            <MyManagingMeetingItem {...meetingItem} />
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }

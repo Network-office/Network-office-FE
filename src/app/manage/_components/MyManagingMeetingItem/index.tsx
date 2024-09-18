@@ -4,6 +4,9 @@ import Link from "next/link"
 
 import { Users, Clock, Settings } from "lucide-react"
 import useModal from "@/_common/_hooks/useModal"
+import MeetingOptionModal from "./MeetingOptionModal"
+import NewParticipateModal from "./NewParticipateModal"
+import { useState } from "react"
 
 interface MyManagingMeetingItemProps {
   title: string
@@ -24,7 +27,8 @@ const MyManagingMeetingItem = ({
   totalPeople,
   meetingId
 }: MyManagingMeetingItemProps) => {
-  const { ModalComponent, setModalOpen } = useModal()
+  const { ModalComponent, setModalOpen, setModalClose } = useModal()
+  const [selectedModal, setSelectedModal] = useState("")
 
   return (
     <div className="w-full border-b-[1px] border-t-[1px] h-[160px] mb-1 shadow-lg px-4 py-2">
@@ -39,11 +43,7 @@ const MyManagingMeetingItem = ({
       <div className="flex justify-between mr-8 my-4">
         <div className="flex gap-2">
           <Clock />
-          <p>{date}</p>
-          <p>/</p>
-          <p>
-            {startTime}~{endTime}
-          </p>
+          <p>{`${date} / ${startTime}~${endTime}`}</p>
         </div>
         <div className="flex gap-2">
           <Users />
@@ -62,26 +62,19 @@ const MyManagingMeetingItem = ({
           모임톡 가기
         </button>
         <button
-          onClick={() => setModalOpen}
+          onClick={() => {
+            setModalOpen()
+            setSelectedModal("newParticipate")
+          }}
           className="mt-2 bg-blue-300 w-[32%] h-[40px] rounded-sm shadow-lg text-white">
           참가자 관리
         </button>
       </div>
       <ModalComponent className="w-full h-full">
-        <div className="w-[90%] h-[280px] z-50 bg-white left-1/2 top-[30%] -translate-x-1/2 -translate-y-[30%] absolute rounded-sm  shadow-xl">
-          <h1 className="text-xl px-4 py-4 font-medium ">모임 관리</h1>
-          <div className="flex flex-col gap-4">
-            <button className="w-[80%] h-[52px] bg-blue-200 rounded-md shadow-xl mx-auto font-semibold text-xl text-white">
-              게시글 수정하기
-            </button>
-            <button className="w-[80%] h-[52px] bg-blue-200 rounded-md shadow-xl mx-auto font-semibold text-xl text-white">
-              모집 마감하기
-            </button>
-            <button className="w-[80%] h-[52px] bg-blue-200 rounded-md shadow-xl mx-auto font-semibold text-xl text-white">
-              모임 파토하기
-            </button>
-          </div>
-        </div>
+        {selectedModal === "meetingOption" && <MeetingOptionModal />}
+        {selectedModal === "newParticipate" && (
+          <NewParticipateModal onClickModalCloseHandle={setModalClose} />
+        )}
       </ModalComponent>
     </div>
   )
