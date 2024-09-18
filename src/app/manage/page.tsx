@@ -1,3 +1,5 @@
+"use client"
+
 import MyManagingMeetingItem from "./_components/MyManagingMeetingItem"
 
 const mockData = [
@@ -25,8 +27,8 @@ const Manage = () => {
   return (
     <div className="w-screen h-screen">
       <h1 className="text-xl px-2 py-1">관리중인 모임</h1>
-      {mockData.map((item) => (
-        <MyManagingMeetingItem {...item} />
+      {mockData.map((meetingItem) => (
+        <MyManagingMeetingItem {...meetingItem} />
       ))}
     </div>
   )
