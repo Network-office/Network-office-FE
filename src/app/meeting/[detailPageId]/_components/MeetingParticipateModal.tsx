@@ -1,18 +1,33 @@
+"use client"
 import { useState } from "react"
+import useParticipateMeeting from "../_hooks/_mutations/useParticipateMeeting"
 
 interface MeetingParticipateModalProps {
   onMeetingModalClose: () => void
+  meetingId: number
 }
 
 const MeetingParticipateModal = ({
-  onMeetingModalClose
+  onMeetingModalClose,
+  meetingId
 }: MeetingParticipateModalProps) => {
+  const { mutate } = useParticipateMeeting()
   const [message, setMessage] = useState("")
 
   const onClickSubmitButton = () => {
     if (message.length >= 10) {
-      alert("메시지는 10글자 이상 작성해야 합니다.")
-      onMeetingModalClose()
+      mutate(
+        { meetingId, message, userId: 1 },
+        {
+          onSuccess: () => {
+            onMeetingModalClose()
+            console.log("*1")
+          },
+          onError: () => {
+            console.log("*2")
+          }
+        }
+      )
     } else {
       alert("메시지는 10글자 이상 작성해야 합니다.")
     }
