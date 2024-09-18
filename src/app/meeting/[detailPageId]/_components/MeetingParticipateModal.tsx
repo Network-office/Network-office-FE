@@ -1,22 +1,45 @@
+import { useState } from "react"
+
 interface MeetingParticipateModalProps {
-  onMeetingModalHandle: () => void
+  onMeetingModalClose: () => void
 }
 
 const MeetingParticipateModal = ({
-  onMeetingModalHandle
+  onMeetingModalClose
 }: MeetingParticipateModalProps) => {
+  const [message, setMessage] = useState("")
+
+  const onClickSubmitButton = () => {
+    if (message.length >= 10) {
+      alert("메시지는 10글자 이상 작성해야 합니다.")
+      onMeetingModalClose()
+    } else {
+      alert("메시지는 10글자 이상 작성해야 합니다.")
+    }
+  }
+
+  const handleChangeMessage = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setMessage(e.target.value)
+  }
+
   return (
     <>
-      <h1 className="text-xl font-semibold px-1 ">모임 참가 신청</h1>
+      <h1 className="text-xl font-semibold px-1">모임 참가 신청</h1>
       <textarea
-        placeholder="모임 소장님에게 보낼 참가신청 메세지를 작성해주세요. ex) 자기소개"
-        className="w-[350px] h-[180px] mt-2 border-[1px] rounded-sm px-2 py-2 focus:outline-none"
+        placeholder="모임 주최자에게 보낼 간략한 자기소개를 최소 10글자 이상 작성해주세요."
+        className="placeholder:text-sm w-[350px] h-[180px] mt-2 border-[1px] rounded-sm px-2 py-2 focus:outline-none whitespace-pre-wrap"
+        value={message}
+        onChange={handleChangeMessage}
       />
       <div className="flex justify-between px-2 mt-2">
-        <button className="w-[48%] h-[35px] rounded-sm shadow-lg bg-blue-200 text-white font-semibold">
+        <button
+          onClick={onClickSubmitButton}
+          className="w-[48%] h-[35px] rounded-sm shadow-lg bg-blue-200 text-white font-semibold">
           신청
         </button>
-        <button className="w-[48%] h-[35px] rounded-sm shadow-lg bg-blue-200 text-white font-semibold">
+        <button
+          onClick={onMeetingModalClose}
+          className="w-[48%] h-[35px] rounded-sm shadow-lg bg-blue-200 text-white font-semibold">
           취소
         </button>
       </div>
