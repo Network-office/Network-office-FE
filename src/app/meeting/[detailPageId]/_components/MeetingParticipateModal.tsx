@@ -21,11 +21,9 @@ const MeetingParticipateModal = ({
         {
           onSuccess: () => {
             onMeetingModalClose()
-            console.log("*1")
+            alert("모임 참가 신청이 완료됐습니다!")
           },
-          onError: () => {
-            console.log("*2")
-          }
+          onError: () => {}
         }
       )
     } else {
