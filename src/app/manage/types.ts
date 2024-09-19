@@ -9,3 +9,7 @@ export interface NewParticipator {
 export interface GetNewParticipatorResponse {
   contents: NewParticipator[]
 }
+
+export interface AcceptNewParticipatorResponse {
+  success: boolean
+}

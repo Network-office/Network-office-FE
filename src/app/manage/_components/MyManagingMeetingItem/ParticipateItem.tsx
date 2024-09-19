@@ -1,9 +1,20 @@
+import useAcceptNewParticipator from "../../_hooks/_mutations/useAcceptNewParticipator"
+
 interface ParticipateItemProps {
   nickName: string
   message: string
+  meetingId: number
+  userId: number
 }
 
-const ParticipateItem = ({ nickName, message }: ParticipateItemProps) => {
+const ParticipateItem = ({
+  nickName,
+  message,
+  meetingId,
+  userId
+}: ParticipateItemProps) => {
+  const { mutate } = useAcceptNewParticipator(meetingId, userId)
+
   return (
     <div className="border-b-[1px] border-t-[1px] h-[180px] shadow-md mb-1 rounded-sm">
       <div className="flex justify-between pt-3">
@@ -15,7 +26,9 @@ const ParticipateItem = ({ nickName, message }: ParticipateItemProps) => {
         </div>
 
         <div className="flex justify-center gap-2 mr-5">
-          <button className="w-[60px] h-[32px] text-white bg-green-300 shadow-lg rounded-md">
+          <button
+            onClick={() => mutate()}
+            className="w-[60px] h-[32px] text-white bg-green-300 shadow-lg rounded-md">
             수락
           </button>
           <button className="w-[60px] h-[32px] text-white bg-red-300 shadow-lg rounded-md">

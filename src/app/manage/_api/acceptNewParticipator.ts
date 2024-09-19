@@ -1,10 +1,10 @@
 import { http } from "@/lib/http"
 import CustomError from "@/lib/CustomError"
-import { GetNewParticipatorResponse } from "../types"
+import { AcceptNewParticipatorResponse } from "../types"
 
 const acceptNewParticipator = async (meetingId: number, userId: number) => {
   try {
-    const result = await http<GetNewParticipatorResponse>(
+    const result = await http<AcceptNewParticipatorResponse>(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/meeting/newparticipator/accept`,
       {
         method: "post",

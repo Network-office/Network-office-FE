@@ -27,11 +27,13 @@ const NewParticipateModal = ({
       </div>
       <ul>
         {newParticipators && newParticipators.length ? (
-          newParticipators.map((newParticipator) => (
-            <li key={newParticipator.meetingId}>
+          newParticipators.map(({ nickName, message, meetingId, userId }) => (
+            <li key={meetingId}>
               <ParticipateItem
-                nickName={newParticipator.nickName}
-                message={newParticipator.message}
+                userId={userId}
+                meetingId={meetingId}
+                nickName={nickName}
+                message={message}
               />
             </li>
           ))
