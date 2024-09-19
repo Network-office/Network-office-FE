@@ -37,7 +37,11 @@ const MyManagingMeetingItem = ({
           <span className="font-medium text-xl mt-1 text-ellipsis w-[88%] overflow-hidden whitespace-nowrap">
             {title}
           </span>
-          <button onClick={() => setModalOpen()}>
+          <button
+            onClick={() => {
+              setSelectedModal("meetingOption")
+              setModalOpen()
+            }}>
             <Settings />
           </button>
         </div>
