@@ -9,7 +9,7 @@ const Manage = () => {
   if (!mockData) return <></>
   return (
     <div className="w-screen h-screen">
-      <h1 className="text-xl px-2 py-1">관리중인 모임</h1>
+      <h1 className="text-xl px-2 py-1">내가 개설한 모임</h1>
       <ul>
         {mockData.map((meetingItem) => (
           <li key={meetingItem.meetingId}>
