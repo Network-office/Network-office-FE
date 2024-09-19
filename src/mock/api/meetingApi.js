@@ -103,6 +103,32 @@ const handlers = [
         )
       }
     }
+  ),
+  http.post(
+    `http://localhost:8080/api/meeting/newparticipator/refuse`,
+    async ({ request }) => {
+      const req = await request.json()
+      const acceptedMeeting = participateData.find((item) => {
+        return item.meetingId === req.meetingId && item.userId === req.userId
+      })
+
+      if (acceptedMeeting) {
+        acceptedMeeting.isNew = false
+        return new HttpResponse(JSON.stringify({ success: true }), {
+          status: 200
+        })
+      } else {
+        return new HttpResponse(
+          JSON.stringify({
+            success: false,
+            error: "해당 참가자가 존재하지 않습니다."
+          }),
+          {
+            status: 400
+          }
+        )
+      }
+    }
   )
 ]
 
