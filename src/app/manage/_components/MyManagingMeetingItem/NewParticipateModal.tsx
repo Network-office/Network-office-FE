@@ -5,9 +5,11 @@ import { ArrowLeft } from "lucide-react"
 import ParticipateItem from "./ParticipateItem"
 import useGetNewParticipator from "../../_hooks/_quries/useGetNewParticipator"
 import useAcceptNewParticipator from "../../_hooks/_mutations/useAcceptNewParticipator"
+import useRefuseNewParticipator from "../../_hooks/_mutations/useRefuseNewParticipator"
 import { useQueryClient } from "@tanstack/react-query"
 import { NewParticipatorTypes } from "../../types"
 import ParticipateRefuseModal from "./ParticipatorRefuseModal"
+import { useState } from "react"
 
 const getNewParticipatorsQueryKey = (meetingId: number) => [
   "newParticipator",
@@ -26,7 +28,11 @@ const NewParticipateModal = ({
   const queryClient = useQueryClient()
   const { ModalComponent, setModalOpen, setModalClose } = useModal()
   const { data: newParticipators } = useGetNewParticipator(meetingId)
-  const { mutate } = useAcceptNewParticipator()
+
+  const { mutate: acceptMutate } = useAcceptNewParticipator()
+  const { mutate: refuseMutate } = useRefuseNewParticipator()
+
+  const [selectedUserId, setSelectedUserId] = useState<number | null>(null)
 
   const handleOptimisticUpdate = (userId: number) => {
     queryClient.setQueryData(
@@ -36,6 +42,11 @@ const NewParticipateModal = ({
           (participator: NewParticipatorTypes) => participator.userId !== userId
         )
     )
+  }
+
+  const handleOpenRefuseModal = (userId: number) => {
+    setSelectedUserId(userId)
+    setModalOpen()
   }
 
   return (
@@ -55,9 +66,9 @@ const NewParticipateModal = ({
               <ParticipateItem
                 nickName={nickName}
                 message={message}
-                onRefuseHandle={setModalOpen}
+                onRefuseHandle={() => handleOpenRefuseModal(userId)}
                 onAcceptHandle={() =>
-                  mutate(
+                  acceptMutate(
                     { meetingId, userId },
                     {
                       onSuccess: () => handleOptimisticUpdate(userId),
@@ -75,7 +86,18 @@ const NewParticipateModal = ({
       <ModalComponent className="w-screen h-screen">
         <ParticipateRefuseModal
           onSubmitModalHandle={(refuseText: string) => {
-            setModalClose()
+            if (selectedUserId !== null) {
+              refuseMutate(
+                { meetingId, userId: selectedUserId, refuseText },
+                {
+                  onSuccess: () => {
+                    handleOptimisticUpdate(selectedUserId)
+                    setSelectedUserId(null)
+                  }
+                }
+              )
+              setModalClose()
+            }
           }}
           onExitModalHandle={setModalClose}
         />
