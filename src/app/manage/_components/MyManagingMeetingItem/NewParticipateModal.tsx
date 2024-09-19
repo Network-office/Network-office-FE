@@ -28,9 +28,7 @@ const NewParticipateModal = ({
       <ul>
         {newParticipators && newParticipators.length ? (
           newParticipators.map((newParticipator) => (
-            <li
-              key={newParticipator.meetingId}
-              className="border-b-[1px] border-t-[1px] h-[200px] pt-4 mb-1">
+            <li key={newParticipator.meetingId}>
               <ParticipateItem
                 nickName={newParticipator.nickName}
                 message={newParticipator.message}
