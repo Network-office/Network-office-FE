@@ -5,6 +5,7 @@ import ParticipateItem from "./ParticipateItem"
 import useGetNewParticipator from "../../_hooks/_quries/useGetNewParticipator"
 import useAcceptNewParticipator from "../../_hooks/_mutations/useAcceptNewParticipator"
 import { useQueryClient } from "@tanstack/react-query"
+import { NewParticipatorTypes } from "../../types"
 
 const getNewParticipatorsQueryKey = (meetingId: number) => [
   "newParticipator",
@@ -27,8 +28,10 @@ const NewParticipateModal = ({
   const handleOptimisticUpdate = (userId: number) => {
     queryClient.setQueryData(
       getNewParticipatorsQueryKey(meetingId),
-      (oldData: any) =>
-        oldData?.filter((participator: any) => participator.userId !== userId)
+      (oldData: NewParticipatorTypes[]) =>
+        oldData?.filter(
+          (participator: NewParticipatorTypes) => participator.userId !== userId
+        )
     )
   }
 

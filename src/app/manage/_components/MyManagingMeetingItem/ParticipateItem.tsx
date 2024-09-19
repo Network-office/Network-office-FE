@@ -16,7 +16,7 @@ const ParticipateItem = ({
       <div className="flex justify-between pt-3">
         <div className="flex mx-5  mb-2">
           <div className="rounded-full w-[32px] h-[32px] bg-slate-300" />
-          <p className="flex items-center ml-3 mb-1font-semibold text-xl">
+          <p className="flex items-center ml-3 mb-1font-semibold text-xl w-[200px]">
             {nickName}
           </p>
         </div>

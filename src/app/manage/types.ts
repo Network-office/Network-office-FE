@@ -1,4 +1,4 @@
-export interface NewParticipator {
+export interface NewParticipatorTypes {
   isNew: boolean
   meetingId: number
   userId: number
@@ -7,7 +7,7 @@ export interface NewParticipator {
 }
 
 export interface GetNewParticipatorResponse {
-  contents: NewParticipator[]
+  contents: NewParticipatorTypes[]
 }
 
 export interface AcceptNewParticipatorResponse {
