@@ -18,6 +18,7 @@ const handlers = [
     }
 
     const responseData: GetChatHistoryResponse = {
+      headCount: 3,
       title: `Chat Room ${chatRoomId}`,
       messageGroupList: chatHistoryData
     }

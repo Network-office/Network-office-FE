@@ -16,6 +16,7 @@ export interface MessageGroup {
 }
 
 export interface GetChatHistoryResponse {
+  headCount: number
   title: string
   messageGroupList: MessageGroup[]
 }
