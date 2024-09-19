@@ -9,7 +9,7 @@ export interface MeetingInform extends MeetingPositionTypes {
   place: string
   fare: string
   totalPeople: number
-  vacancy: number
+  nowPeople: number
   startTime: string
   endTime: string
 }
