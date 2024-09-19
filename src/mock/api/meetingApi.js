@@ -43,6 +43,26 @@ const handlers = [
         status: 200
       })
     }
+  ),
+  http.post(
+    `http://localhost:8080/api/meeting/newparticipator`,
+    async ({ request }) => {
+      const req = await request.json()
+      if (!meetingData.find((item) => item.id === req.meetingId)) {
+        return new HttpResponse(
+          JSON.stringify({ error: "해당 모임 정보가 존재하지 않습니다." }),
+          {
+            status: 400
+          }
+        )
+      }
+      const result = participateData.filter((item) => {
+        return item.meetingId === req.meetingId && item.isNew === true
+      })
+      return new HttpResponse(JSON.stringify({ contents: result }), {
+        status: 200
+      })
+    }
   )
 ]
 

@@ -73,7 +73,10 @@ const MyManagingMeetingItem = ({
       <ModalComponent className="w-full h-full">
         {selectedModal === "meetingOption" && <MeetingOptionModal />}
         {selectedModal === "newParticipate" && (
-          <NewParticipateModal onClickModalCloseHandle={setModalClose} />
+          <NewParticipateModal
+            meetingId={meetingId}
+            onClickModalCloseHandle={setModalClose}
+          />
         )}
       </ModalComponent>
     </div>
