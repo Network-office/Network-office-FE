@@ -74,7 +74,7 @@ const NewParticipateModal = ({
       </ul>
       <ModalComponent className="w-screen h-screen">
         <ParticipateRefuseModal
-          onSubmitModalHandle={() => {
+          onSubmitModalHandle={(refuseText: string) => {
             setModalClose()
           }}
           onExitModalHandle={setModalClose}
