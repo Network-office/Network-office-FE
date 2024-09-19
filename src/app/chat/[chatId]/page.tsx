@@ -1,5 +1,6 @@
 "use client"
 
+import ChatPageTopbar from "@/app/chat/[chatId]/_components/ChatPageTopbar"
 import MyMessageGroup from "@/app/chat/[chatId]/_components/MyMessageGroup"
 import OtherMessageGroup from "@/app/chat/[chatId]/_components/OtherMessageGroup"
 import { useFetchChatHistory } from "@/app/chat/[chatId]/_hooks/useFetchChatHistory"
