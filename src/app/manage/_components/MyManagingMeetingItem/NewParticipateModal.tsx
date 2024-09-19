@@ -1,11 +1,13 @@
 "use client"
 
+import useModal from "@/_common/_hooks/useModal"
 import { ArrowLeft } from "lucide-react"
 import ParticipateItem from "./ParticipateItem"
 import useGetNewParticipator from "../../_hooks/_quries/useGetNewParticipator"
 import useAcceptNewParticipator from "../../_hooks/_mutations/useAcceptNewParticipator"
 import { useQueryClient } from "@tanstack/react-query"
 import { NewParticipatorTypes } from "../../types"
+import ParticipateRefuseModal from "./ParticipatorRefuseModal"
 
 const getNewParticipatorsQueryKey = (meetingId: number) => [
   "newParticipator",
@@ -22,6 +24,7 @@ const NewParticipateModal = ({
   onClickModalCloseHandle
 }: NewParticipateModalProps) => {
   const queryClient = useQueryClient()
+  const { ModalComponent, setModalOpen, setModalClose } = useModal()
   const { data: newParticipators } = useGetNewParticipator(meetingId)
   const { mutate } = useAcceptNewParticipator()
 
@@ -52,6 +55,7 @@ const NewParticipateModal = ({
               <ParticipateItem
                 nickName={nickName}
                 message={message}
+                onRefuseHandle={setModalOpen}
                 onAcceptHandle={() =>
                   mutate(
                     { meetingId, userId },
@@ -68,6 +72,14 @@ const NewParticipateModal = ({
           <p>신청자가 없습니다</p>
         )}
       </ul>
+      <ModalComponent className="w-screen h-screen">
+        <ParticipateRefuseModal
+          onSubmitModalHandle={() => {
+            setModalClose()
+          }}
+          onExitModalHandle={setModalClose}
+        />
+      </ModalComponent>
     </div>
   )
 }

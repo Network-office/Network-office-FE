@@ -2,12 +2,14 @@ interface ParticipateItemProps {
   nickName: string
   message: string
   onAcceptHandle: () => void
+  onRefuseHandle: () => void
 }
 
 const ParticipateItem = ({
   nickName,
   message,
-  onAcceptHandle
+  onAcceptHandle,
+  onRefuseHandle
 }: ParticipateItemProps) => {
   return (
     <div className="border-b-[1px] border-t-[1px] h-[180px] shadow-md mb-1 rounded-sm">
@@ -25,7 +27,9 @@ const ParticipateItem = ({
             className="w-[60px] h-[32px] text-white bg-green-300 shadow-lg rounded-md">
             수락
           </button>
-          <button className="w-[60px] h-[32px] text-white bg-red-300 shadow-lg rounded-md">
+          <button
+            onClick={onRefuseHandle}
+            className="w-[60px] h-[32px] text-white bg-red-300 shadow-lg rounded-md">
             거절
           </button>
         </div>
