@@ -1,10 +1,3 @@
-import { http, HttpResponse } from "msw"
+import meetingApi from "./api/meetingApi"
 
-export const handlers = [
-  http.get("http://localhost:8080/test", () => {
-    return HttpResponse.json(
-      JSON.stringify({ testOk: true, ab: true, asdf: true }),
-      { status: 200 }
-    )
-  })
-]
+export const handlers = [...meetingApi]

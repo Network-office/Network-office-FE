@@ -1,11 +1,14 @@
 "use client"
 import { useRef, useEffect, useCallback } from "react"
 import { NaverMapComponentProps, MakersProps } from "./types"
-import { cn } from "@/lib/utils"
+import { MeetingInformTypes } from "@/app/meeting/types"
 
 const useNaverMap = (
   initial: { lat: number; lng: number },
-  makers: Array<{ lat: number; lng: number }> = []
+  makers?: Array<MeetingInformTypes>,
+  makerOption?: {
+    markerClickHandler: (makerDetail: any) => void
+  }
 ) => {
   const mapElement = useRef(null)
   const mapRef = useRef<naver.maps.Map | null>(null)
@@ -27,11 +30,13 @@ const useNaverMap = (
     const mapOptions = {
       center: new naver.maps.LatLng(initial.lat, initial.lng),
       zoom: 15,
-      zoomControl: true
+      zoomControl: false
     }
 
     mapRef.current = new naver.maps.Map(mapElement.current, mapOptions)
-    setMarkers(makers)
+    if (makers) {
+      setMarkers(makers)
+    }
   }
 
   const setMapPosition = (newLat: number, newLng: number) => {
@@ -40,23 +45,11 @@ const useNaverMap = (
     mapRef.current.setCenter(new naver.maps.LatLng(newLat, newLng))
   }
 
-  const searchMapInform = (searchKeyword: string) => {
-    if (!mapRef.current || !naver) return
-    return naver.maps.Service.geocode(
-      {
-        query: searchKeyword
-      },
-      function (status, response) {
-        if (status === naver.maps.Service.Status.ERROR) {
-          return alert("Something Wrong!")
-        }
-        return response.v2.addresses
-      }
-    )
-  }
-
   const setMarkers = (makers: MakersProps[]) => {
-    if (!mapRef.current) return
+    if (!mapRef.current) {
+      setTimeout(() => setMarkers(makers), 100)
+      return
+    }
 
     makers?.forEach((newMaker) => {
       const maker = new naver.maps.Marker({
@@ -65,7 +58,7 @@ const useNaverMap = (
         map: mapRef.current!
       })
       maker.addListener("click", () => {
-        console.log(newMaker)
+        makerOption?.markerClickHandler(newMaker)
       })
     })
   }
@@ -93,7 +86,6 @@ const useNaverMap = (
 
   return {
     NaverMapComponent,
-    searchMapInform,
     setMarkers,
     setMapPosition
   }

@@ -1,5 +1,4 @@
 import type { Metadata } from "next"
-import Script from "next/script"
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -12,11 +11,4 @@ export default function MeetingLayout({
   children: React.ReactNode
 }>) {
   return <>{children}</>
-}
-{
-  /* <Script
-id="naver"
-type="text/javascript"
-src={`https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_NAVERMAP_API_CLIENT_ID}&submodules=geocoder`}
-/> */
 }

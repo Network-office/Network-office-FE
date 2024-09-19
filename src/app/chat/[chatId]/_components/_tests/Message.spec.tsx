@@ -1,10 +1,11 @@
-import { Message, MessageHeader } from "@/app/chat/[chatId]/_components/Message"
 import { describe, expect, test } from "@jest/globals"
 import { render } from "@testing-library/react"
+import { MessageContent } from "../Message/MessageContent"
+import { MessageHeader } from "../Message/MessageHeader"
 
 describe("Message", () => {
   test("올바른 메세지를 렌더링합니다", () => {
-    const { getByText } = render(<Message text="Hello, World!" />)
+    const { getByText } = render(<MessageContent text="Hello, World!" />)
 
     expect(getByText("Hello, World!")).toBeInTheDocument()
   })
@@ -13,7 +14,7 @@ describe("Message", () => {
     const timestamp = Date.now()
 
     const { getByText } = render(
-      <Message
+      <MessageContent
         text="Hello, World!"
         timestamp={timestamp}
       />
@@ -26,7 +27,7 @@ describe("Message", () => {
 
   test("컴포넌트가 정렬됩니다.", () => {
     const { container } = render(
-      <Message
+      <MessageContent
         text="Hello, World!"
         align="right"
       />
@@ -37,7 +38,7 @@ describe("Message", () => {
 
   test("MessageBubble 과 타임스탬프 사이가 정렬됩니다.", () => {
     const { container } = render(
-      <Message
+      <MessageContent
         text="Hello, World!"
         align="right"
         timestamp={Date.now()}

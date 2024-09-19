@@ -13,9 +13,6 @@ const overlayColorList = {
 
 const Modal = ({
   children,
-  width = 100,
-  height = 100,
-  modalType = "default",
   isOpen = false,
   overlayColor = "gray",
   close,
@@ -53,11 +50,7 @@ const Modal = ({
           "absolute transition-transform duration-500 ease-in-out",
           isAnimating && isOpen ? "scale-100" : "scale-95",
           className
-        )}
-        style={{
-          width: `${modalType === "fullScreen" ? "100%" : `${width}px`}`,
-          height: `${modalType === "fullScreen" ? "100%" : `${height}px`}`
-        }}>
+        )}>
         {children}
       </div>
     </div>,
