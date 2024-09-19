@@ -39,7 +39,7 @@ export const meetingData = [
     id: 3,
     author: faker.person.fullName(),
     authorId: 3,
-    title: `${faker.person.firstName}과 함께하는 ${faker.vehicle.vehicle}타기`,
+    title: `${faker.person.firstName()}과 함께하는 ${faker.vehicle.vehicle()}타기`,
     place: "서울 강남구 주노동 준오아파트 103동 ",
     date: faker.date.future(),
     startTime: "14:00",

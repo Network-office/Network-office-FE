@@ -1,9 +1,15 @@
 import { useMutation } from "@tanstack/react-query"
 import acceptNewParticipator from "../../_api/acceptNewParticipator"
 
-const useAcceptNewParticipator = (meetingId: number, userId: number) => {
+const useAcceptNewParticipator = () => {
   const { mutate } = useMutation({
-    mutationFn: () => acceptNewParticipator(meetingId, userId)
+    mutationFn: ({
+      meetingId,
+      userId
+    }: {
+      meetingId: number
+      userId: number
+    }) => acceptNewParticipator(meetingId, userId)
   })
   return { mutate }
 }
