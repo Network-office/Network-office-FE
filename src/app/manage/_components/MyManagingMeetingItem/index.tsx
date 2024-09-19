@@ -69,7 +69,7 @@ const MyManagingMeetingItem = ({
             setSelectedModal("newParticipate")
           }}
           className="mt-2 bg-blue-300 w-[32%] h-[40px] rounded-sm shadow-lg text-white">
-          참가자 관리
+          신규 참가 관리
         </button>
       </div>
       <ModalComponent className="w-full h-full">
