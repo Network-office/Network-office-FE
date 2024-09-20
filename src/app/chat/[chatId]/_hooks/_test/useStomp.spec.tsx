@@ -12,6 +12,7 @@ import {
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactNode } from "react"
 import { SocketMessageResponse } from "@/app/chat/[chatId]/_components/types"
+import { generateMyMessage } from "@/mock/mockData/chatMessageData"
 
 jest.mock("@stomp/stompjs")
 
@@ -57,20 +58,7 @@ describe("useStomp", () => {
 
     // subscribeCallback 함수를 호출하여 메시지를 전달
 
-    const recivedMessage: SocketMessageResponse = {
-      id: "1",
-      me: true,
-      role: "admin",
-      message: {
-        text: "test",
-        timestamp: new Date().getTime()
-      },
-      userInfo: {
-        id: "1",
-        username: "test",
-        avatarSrc: "test"
-      }
-    }
+    const recivedMessage: SocketMessageResponse = generateMyMessage("test")
 
     act(() => {
       subscribeCallback({ body: JSON.stringify(recivedMessage) })
