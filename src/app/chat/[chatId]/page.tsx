@@ -8,7 +8,7 @@ import MyMessageGroup from "@/app/chat/[chatId]/_components/MyMessageGroup"
 import OtherMessageGroup from "@/app/chat/[chatId]/_components/OtherMessageGroup"
 import { useFetchChatHistory } from "@/app/chat/[chatId]/_hooks/useFetchChatHistory"
 import useStomp from "@/app/chat/[chatId]/_hooks/useStomp"
-import { addMessageToGroup } from "@/app/chat/[chatId]/_utils/addMessageToGroup"
+import { addMessageToChatHistory } from "@/app/chat/[chatId]/_utils/addMessageToChatHistory"
 import { useEffect, useState } from "react"
 
 interface ChatPageProps {
@@ -18,20 +18,20 @@ interface ChatPageProps {
 }
 
 const ChatPage = ({ params }: ChatPageProps) => {
-  const [messageGroupList, setMessageGroupList] = useState<MessageGroup[]>([])
+  const [chatHistory, setChatHistory] = useState<MessageGroup[]>([])
   const { messages, sendMessage } = useStomp(params.chatId)
   const { data, error } = useFetchChatHistory(params.chatId)
 
   useEffect(() => {
     if (data) {
-      setMessageGroupList(data.data.messageGroupList)
+      setChatHistory(data.data.messageGroupList)
     }
   }, [data])
 
   useEffect(() => {
     if (messages.length > 0) {
-      setMessageGroupList((prev) =>
-        addMessageToGroup(messages[messages.length - 1], prev)
+      setChatHistory((prevChatHistory) =>
+        addMessageToChatHistory(messages[messages.length - 1], prevChatHistory)
       )
     }
   }, [messages])
@@ -49,7 +49,7 @@ const ChatPage = ({ params }: ChatPageProps) => {
       <ChatPageTopbar title={data.data.title} />
       <div>
         <ul aria-label="메세지 리스트">
-          {messageGroupList.map((messageGroup) => (
+          {chatHistory.map((messageGroup) => (
             <li
               aria-label="메세지 그룹"
               key={messageGroup.id}>
