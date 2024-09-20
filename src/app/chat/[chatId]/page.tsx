@@ -47,42 +47,46 @@ const ChatPage = ({ params }: ChatPageProps) => {
   return (
     <div>
       <ChatPageTopbar title={data.data.title} />
-      <ul aria-label="메세지 리스트">
-        {messageGroupList.map((messageGroup) => (
-          <li
-            aria-label="메세지 그룹"
-            key={messageGroup.id}>
-            {messageGroup.me ? (
-              <MyMessageGroup
-                role={messageGroup.role}
-                messages={messageGroup.messages}
-                userInfo={messageGroup.userInfo}
-              />
-            ) : (
-              <OtherMessageGroup
-                role={messageGroup.role}
-                messages={messageGroup.messages}
-                userInfo={messageGroup.userInfo}
-              />
-            )}
-          </li>
-        ))}
-      </ul>
-      <Input
-        aria-label="메세지 입력"
-        placeholder="메세지를 입력하세요"
-      />
-      <Button
-        aria-label="메세지 전송 버튼"
-        onClick={() => {
-          const input = document.querySelector("input")
-          if (input) {
-            sendMessage({ text: input.value })
-            input.value = ""
-          }
-        }}>
-        전송
-      </Button>
+      <div>
+        <ul aria-label="메세지 리스트">
+          {messageGroupList.map((messageGroup) => (
+            <li
+              aria-label="메세지 그룹"
+              key={messageGroup.id}>
+              {messageGroup.me ? (
+                <MyMessageGroup
+                  role={messageGroup.role}
+                  messages={messageGroup.messages}
+                  userInfo={messageGroup.userInfo}
+                />
+              ) : (
+                <OtherMessageGroup
+                  role={messageGroup.role}
+                  messages={messageGroup.messages}
+                  userInfo={messageGroup.userInfo}
+                />
+              )}
+            </li>
+          ))}
+        </ul>
+        <div className="flex sticky bottom-0 bg-white p-2 gap-2">
+          <Input
+            aria-label="메세지 입력"
+            placeholder="메세지를 입력하세요"
+          />
+          <Button
+            aria-label="메세지 전송 버튼"
+            onClick={() => {
+              const input = document.querySelector("input")
+              if (input) {
+                sendMessage({ text: input.value })
+                input.value = ""
+              }
+            }}>
+            전송
+          </Button>
+        </div>
+      </div>
     </div>
   )
 }
