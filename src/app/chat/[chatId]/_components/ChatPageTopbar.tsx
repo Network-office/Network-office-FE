@@ -4,6 +4,7 @@ import Link from "next/link"
 
 const ChatPageTopbar = ({ title }: { title: string }) => (
   <Topbar
+    className="sticky top-0 bg-white z-10"
     title={title}
     leftContent={
       <Link href="/chat">
