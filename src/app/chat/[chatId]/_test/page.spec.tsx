@@ -10,6 +10,7 @@ import {
 import { SocketMessageResponse } from "@/app/chat/[chatId]/_components/types"
 import { act } from "react-dom/test-utils"
 import { faker } from "@faker-js/faker"
+import { generateMyMessage } from "@/mock/mockData/chatMessageData"
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -95,20 +96,8 @@ describe("ChatPage", () => {
 
     // 메세지 수신
     const recivedText = "안녕하세요"
-    const socketMessageResponse: SocketMessageResponse = {
-      id: faker.string.uuid(),
-      me: true,
-      role: "admin",
-      message: {
-        text: recivedText,
-        timestamp: Date.now()
-      },
-      userInfo: {
-        id: faker.string.uuid(),
-        username: "테스트",
-        avatarSrc: "https://example.com"
-      }
-    }
+    const socketMessageResponse: SocketMessageResponse =
+      generateMyMessage(recivedText)
 
     act(() =>
       subscribeCallback({ body: JSON.stringify(socketMessageResponse) })
