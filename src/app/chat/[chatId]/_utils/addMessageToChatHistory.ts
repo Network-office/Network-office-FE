@@ -32,10 +32,10 @@ const generateMessageGroup = (message: SocketMessageResponse): MessageGroup => {
   }
 }
 
-export const addMessageToGroup = (
+export const addMessageToChatHistory = (
   message: SocketMessageResponse,
   messageGroupList: MessageGroup[]
-) => {
+): MessageGroup[] => {
   if (messageGroupList.length === 0) {
     return [generateMessageGroup(message)]
   }
