@@ -36,9 +36,13 @@ export const addMessageToGroup = (
   message: SocketMessageResponse,
   messageGroupList: MessageGroup[]
 ) => {
+  if (messageGroupList.length === 0) {
+    return [generateMessageGroup(message)]
+  }
+
   const latestMessageGroup = messageGroupList[messageGroupList.length - 1]
 
-  if (latestMessageGroup.me === message.userInfo.me) {
+  if (latestMessageGroup.userInfo.id === message.userInfo.id) {
     const modifiedMessageGroup = addSocketMessageToMessageGroup(
       message,
       latestMessageGroup
