@@ -97,6 +97,8 @@ describe("ChatPage", () => {
     const recivedText = "안녕하세요"
     const socketMessageResponse: SocketMessageResponse = {
       id: faker.string.uuid(),
+      me: true,
+      role: "admin",
       message: {
         text: recivedText,
         timestamp: Date.now()
@@ -104,9 +106,7 @@ describe("ChatPage", () => {
       userInfo: {
         id: faker.string.uuid(),
         username: "테스트",
-        avatarSrc: "https://example.com",
-        me: true,
-        role: "admin"
+        avatarSrc: "https://example.com"
       }
     }
 
