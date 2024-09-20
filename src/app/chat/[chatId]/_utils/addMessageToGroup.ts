@@ -25,8 +25,8 @@ const addSocketMessageToMessageGroup = (
 const generateMessageGroup = (message: SocketMessageResponse): MessageGroup => {
   return {
     id: message.id,
-    me: message.userInfo.me,
-    role: message.userInfo.role,
+    me: message.me,
+    role: message.role,
     messages: [socketMessageToMessage(message)],
     userInfo: message.userInfo
   }

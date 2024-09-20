@@ -59,6 +59,8 @@ describe("useStomp", () => {
 
     const recivedMessage: SocketMessageResponse = {
       id: "1",
+      me: true,
+      role: "admin",
       message: {
         text: "test",
         timestamp: new Date().getTime()
@@ -66,9 +68,7 @@ describe("useStomp", () => {
       userInfo: {
         id: "1",
         username: "test",
-        avatarSrc: "test",
-        me: true,
-        role: "admin"
+        avatarSrc: "test"
       }
     }
 

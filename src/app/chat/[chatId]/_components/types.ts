@@ -16,11 +16,11 @@ export interface SocketMessageRequest {
 export interface SocketMessageResponse {
   id: string
   message: Omit<Message, "id">
+  me: boolean
+  role: "user" | "admin"
   userInfo: {
     id: string
     username: string
     avatarSrc: string
-    me: boolean
-    role: "user" | "admin"
   }
 }
