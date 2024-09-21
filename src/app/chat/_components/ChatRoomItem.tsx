@@ -44,7 +44,11 @@ const ChatRoomItem = ({ room }: ChatRoomItemProps) => {
           size="lg"
         />
         {myRole === "admin" && (
-          <Crown className="absolute top-0 right-2 w-4 h-4 text-yellow-500" />
+          <Crown
+            className="absolute top-0 right-2 text-yellow-500"
+            strokeWidth={3}
+            size={16}
+          />
         )}
       </div>
 
