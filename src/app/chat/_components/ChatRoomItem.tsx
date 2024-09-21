@@ -2,6 +2,7 @@ import Avatar from "@/_common/_components/Avatar"
 import { generateElipsisedString } from "@/_common/_utils/generateElipsisedString"
 import { generateFallbackName } from "@/_common/_utils/generateFallbackName"
 import { timestampToString } from "@/_common/_utils/timestampToString"
+import { Badge } from "@/components/ui/badge"
 import { Crown } from "lucide-react"
 
 interface ChatRoomItemProps {
@@ -15,16 +16,18 @@ interface ChatRoomItemProps {
       content: string
       timestamp: string
     }
-    badge: "admin" | "user"
+    myRole: "admin" | "user"
+    unreadCount?: number
   }
 }
 
 const ChatRoomItem = ({ room }: ChatRoomItemProps) => {
   const {
-    badge,
+    myRole,
     authorInfo: { name, avatarSrc },
     title,
-    currentMessage: { content, timestamp }
+    currentMessage: { content, timestamp },
+    unreadCount
   } = room
 
   const fallbackName = generateFallbackName(name)
@@ -38,9 +41,9 @@ const ChatRoomItem = ({ room }: ChatRoomItemProps) => {
           src={avatarSrc}
           alt={name}
           fallbackName={fallbackName}
-          size="sm"
+          size="lg"
         />
-        {badge === "admin" && (
+        {myRole === "admin" && (
           <Crown className="absolute top-0 right-2 w-4 h-4 text-yellow-500" />
         )}
       </div>
@@ -53,9 +56,21 @@ const ChatRoomItem = ({ room }: ChatRoomItemProps) => {
           <p className="text-sm text-gray-500">{elipsisedContent}</p>
         </div>
       </div>
-      <span className="text-xs text-gray-500 h-full align-top py-2 text-nowrap">
-        {dateString}
-      </span>
+
+      <div className="flex flex-col justify-between h-full">
+        <div className="text-xs text-gray-500 align-top py-2 text-nowrap">
+          {dateString}
+        </div>
+        <div className="w-full flex justify-end">
+          {unreadCount && unreadCount > 0 && (
+            <Badge
+              className="w-fit"
+              variant="destructive">
+              {unreadCount}
+            </Badge>
+          )}
+        </div>
+      </div>
     </div>
   )
 }

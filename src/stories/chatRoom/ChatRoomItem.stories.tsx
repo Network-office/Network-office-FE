@@ -27,7 +27,8 @@ export const Primary: Story = {
         content: faker.lorem.sentence(),
         timestamp: new Date().toISOString()
       },
-      badge: "admin"
+      myRole: "admin",
+      unreadCount: 3
     }
   }
 }
