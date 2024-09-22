@@ -1,3 +1,4 @@
+import { NextAuthContext } from "@/app/provider"
 import type { Metadata } from "next"
 import Script from "next/script"
 import "./globals.css"
@@ -16,7 +17,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          <NextAuthContext>{children}</NextAuthContext>
+        </QueryProvider>
       </body>
       <Script
         id="naver"
