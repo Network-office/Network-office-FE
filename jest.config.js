@@ -5,8 +5,13 @@ const createJestConfig = nextJest({
 })
 
 const config = {
+  testEnvironmentOptions: { customExportConditions: [""] },
   coverageProvider: "v8",
   testEnvironment: "jest-environment-jsdom",
+  setupFiles: ["./jest.polyfills.js"],
+  moduleNameMapper: {
+    "^@/(.*)$": "<rootDir>/src/$1"
+  },
   transform: {
     "^.+\\.(js|jsx|ts|tsx)$": "@swc/jest"
   },
