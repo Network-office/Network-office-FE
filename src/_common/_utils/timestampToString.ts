@@ -1,14 +1,15 @@
+const dayCompare = (date1: Date, date2: Date) =>
+  date1.toDateString() === date2.toDateString()
+
 export const timestampToString = (timestamp: number | string) => {
   const date = new Date(timestamp)
   const now = new Date()
 
-  // 오늘과 비교
-  const isToday = now.toDateString() === date.toDateString()
+  const isToday = dayCompare(date, now)
 
-  // 어제와 비교
   const yesterday = new Date()
   yesterday.setDate(now.getDate() - 1)
-  const isYesterday = yesterday.toDateString() === date.toDateString()
+  const isYesterday = dayCompare(date, yesterday)
 
   if (isToday) {
     return date.toLocaleTimeString("ko", {
