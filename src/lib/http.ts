@@ -7,7 +7,7 @@ const createHTTP = () => {
   ): Promise<{ data: T }> => {
     return returnFetch({
       //로컬 or 서버 환경 구분하는 유틸 필요
-      baseUrl: "",
+
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
