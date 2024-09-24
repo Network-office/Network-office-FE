@@ -15,10 +15,28 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {
+export const Primary: Story = {
   args: {
     content: "Tooltip content",
     children: "Hover me",
     side: "top"
+  }
+}
+
+export const WithArrow: Story = {
+  args: {
+    content: "Tooltip content",
+    children: "Hover me",
+    side: "top",
+    arrow: true
+  }
+}
+
+export const AutoOpen: Story = {
+  args: {
+    content: "Tooltip content",
+    children: "Hover me",
+    side: "top",
+    autoOpen: true
   }
 }
