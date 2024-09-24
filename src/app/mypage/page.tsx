@@ -5,13 +5,14 @@ import MeetingSummarySection from "./_componets/MeetingSummarySection"
 const mockData = {
   profileImgSrc: faker.image.avatar(),
   nickName: "김김김",
-  profileIntroduce: "두줄소개 두줄 소개 두줄소개 ㅁㄴㅇㄹㅁㄴㅇㄹ"
+  profileIntroduce: "두줄소개 두줄 소개 두줄소개 ㅁㄴㅇㄹㅁㄴㅇㄹ",
+  meetingList: ["sport", "beer", "sport", "movie", "food"]
 }
 const MyPage = () => {
   return (
     <div>
       <ProfileSection {...mockData} />
-      <MeetingSummarySection />
+      <MeetingSummarySection meetingList={mockData.meetingList} />
     </div>
   )
 }
