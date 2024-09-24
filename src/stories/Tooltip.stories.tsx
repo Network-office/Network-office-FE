@@ -37,9 +37,10 @@ export const WithArrow: Story = {
 export const AutoOpen: Story = {
   args: {
     content: "Tooltip content",
-    children: <Button>Trigger</Button>,
+    children: "Auto open",
     side: "top",
-    defaultOpen: true
+    defaultOpen: true,
+    openDuration: 1000
   }
 }
 

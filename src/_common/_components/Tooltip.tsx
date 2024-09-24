@@ -7,6 +7,27 @@ import {
 } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils"
 import { TooltipArrow } from "@radix-ui/react-tooltip"
+import { useEffect, useState } from "react"
+
+const useDurationOpenState = (
+  defaultOpen: boolean,
+  open: boolean | undefined,
+  openDuration: number
+) => {
+  const [openState, setOpenState] = useState(open)
+
+  useEffect(() => {
+    if (!defaultOpen) return
+
+    const timer = setTimeout(() => {
+      setOpenState(false)
+    }, openDuration)
+
+    return () => clearTimeout(timer)
+  }, [defaultOpen, openDuration])
+
+  return openState
+}
 
 const Tooltip = ({
   children,
@@ -15,16 +36,19 @@ const Tooltip = ({
   sideOffset,
   arrow = false,
   defaultOpen = false,
+  openDuration = 3000,
   open,
   className,
   arrowClassName,
   onOpenChange
 }: TooltipProps) => {
+  const openState = useDurationOpenState(defaultOpen, open, openDuration)
+
   return (
     <TooltipProvider>
       <ShadcnTooltip
         defaultOpen={defaultOpen}
-        open={open}
+        open={open || openState}
         onOpenChange={onOpenChange}>
         <TooltipTrigger>{children}</TooltipTrigger>
         <TooltipContent

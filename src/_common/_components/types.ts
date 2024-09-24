@@ -44,6 +44,7 @@ export interface TooltipProps extends PropsWithChildren<{}> {
   sideOffset?: number
   arrow?: boolean
   defaultOpen?: boolean
+  openDuration?: number
   open?: boolean
   onOpenChange?: (open: boolean) => void
   className?: string
