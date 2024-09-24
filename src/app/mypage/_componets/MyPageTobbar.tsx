@@ -1,15 +1,14 @@
 import Topbar from "@/_common/_components/Topbar"
-import { Settings } from "lucide-react"
 
 const MyPageTopBar = () => {
   return (
     <Topbar
-      className="bg-blue-400 border-none"
-      leftContent={<Topbar.BackLink />}
-      rightContent={
-        <button>
-          <Settings />
-        </button>
+      className="bg-green-300 border-none"
+      leftContent={
+        <div className="flex gap-4">
+          <Topbar.BackLink />
+          <p className="font-semibold text-xl text-white">마이페이지</p>
+        </div>
       }
     />
   )
