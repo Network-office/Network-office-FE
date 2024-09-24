@@ -1,6 +1,7 @@
 import ProfileSection from "./_componets/ProfileSection"
 import { faker } from "@faker-js/faker"
 import MeetingSummarySection from "./_componets/MeetingSummarySection"
+import MyPageTopBar from "./_componets/MyPageTobbar"
 
 const mockData = {
   profileImgSrc: faker.image.avatar(),
@@ -11,6 +12,7 @@ const mockData = {
 const MyPage = () => {
   return (
     <div>
+      <MyPageTopBar />
       <ProfileSection {...mockData} />
       <MeetingSummarySection meetingList={mockData.meetingList} />
     </div>

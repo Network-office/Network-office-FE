@@ -14,7 +14,7 @@ const ProfileSection = ({
   return (
     <div>
       <div className="w-screen h-[180px]">
-        <div className="relative bg-blue-200 w-full h-[100px]">
+        <div className="relative bg-blue-400 w-full h-[100px]">
           <Avatar
             src={profileImgSrc}
             className="w-[140px] h-[140px] absolute top-[30px] left-1/2 -translate-x-1/2"
