@@ -1,3 +1,4 @@
+import Button from "@/_common/_components/Button"
 import Tooltip from "@/_common/_components/Tooltip"
 import { Meta, StoryObj } from "@storybook/react"
 import { fn } from "@storybook/test"
@@ -18,7 +19,7 @@ type Story = StoryObj<typeof meta>
 export const Primary: Story = {
   args: {
     content: "Tooltip content",
-    children: "Hover me",
+    children: <Button>Trigger</Button>,
     side: "top"
   }
 }
@@ -26,7 +27,7 @@ export const Primary: Story = {
 export const WithArrow: Story = {
   args: {
     content: "Tooltip content",
-    children: "Hover me",
+    children: <Button>Trigger</Button>,
     side: "top",
     arrow: true
   }
@@ -35,7 +36,8 @@ export const WithArrow: Story = {
 export const AutoOpen: Story = {
   args: {
     content: "Tooltip content",
-    children: "Hover me",
+    children: <Button>Trigger</Button>,
+
     side: "top",
     autoOpen: true
   }
