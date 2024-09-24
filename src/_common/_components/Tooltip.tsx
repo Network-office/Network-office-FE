@@ -1,3 +1,4 @@
+import { TooltipProps } from "@/_common/_components/types"
 import {
   TooltipContent,
   TooltipProvider,
@@ -6,19 +7,6 @@ import {
 } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils"
 import { TooltipArrow } from "@radix-ui/react-tooltip"
-import { PropsWithChildren, ReactNode, useEffect, useState } from "react"
-
-interface TooltipProps extends PropsWithChildren<{}> {
-  content: ReactNode
-  side: "top" | "right" | "bottom" | "left" | undefined
-  sideOffset?: number
-  arrow?: boolean
-  autoOpen?: boolean
-  openDuration?: number
-  onOpenChange?: (open: boolean) => void
-  className?: string
-  arrowClassName?: string
-}
 
 const Tooltip = ({
   children,
@@ -26,33 +14,19 @@ const Tooltip = ({
   side,
   sideOffset,
   arrow = false,
-  autoOpen = false,
-  openDuration = 1000,
+  defaultOpen = false,
+  open,
   className,
   arrowClassName,
   onOpenChange
 }: TooltipProps) => {
-  const [show, setShow] = useState<boolean | undefined>(undefined)
-
-  useEffect(() => {
-    if (autoOpen) {
-      setShow(true)
-      setTimeout(() => {
-        setShow(undefined)
-      }, openDuration)
-    }
-  }, [autoOpen, openDuration])
-
-  const handleTriggerClick = () => {
-    setShow((prev) => (prev ? undefined : true))
-  }
-
   return (
     <TooltipProvider>
       <ShadcnTooltip
-        open={show}
+        defaultOpen={defaultOpen}
+        open={open}
         onOpenChange={onOpenChange}>
-        <TooltipTrigger onClick={handleTriggerClick}>{children}</TooltipTrigger>
+        <TooltipTrigger>{children}</TooltipTrigger>
         <TooltipContent
           className={cn("bg-white", className)}
           side={side}
