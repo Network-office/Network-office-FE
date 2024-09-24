@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils"
 import { TooltipArrow } from "@radix-ui/react-tooltip"
 import { useEffect, useState } from "react"
 
-const useDurationOpenState = (
+const useDurationOpen = (
   defaultOpen: boolean,
   open: boolean | undefined,
   openDuration: number
@@ -42,13 +42,13 @@ const Tooltip = ({
   arrowClassName,
   onOpenChange
 }: TooltipProps) => {
-  const openState = useDurationOpenState(defaultOpen, open, openDuration)
+  const durationOpen = useDurationOpen(defaultOpen, open, openDuration)
 
   return (
     <TooltipProvider>
       <ShadcnTooltip
         defaultOpen={defaultOpen}
-        open={open || openState}
+        open={open || durationOpen}
         onOpenChange={onOpenChange}>
         <TooltipTrigger>{children}</TooltipTrigger>
         <TooltipContent
