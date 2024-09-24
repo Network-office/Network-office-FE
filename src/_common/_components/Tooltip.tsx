@@ -43,12 +43,16 @@ const Tooltip = ({
     }
   }, [autoOpen, openDuration])
 
+  const handleTriggerClick = () => {
+    setShow((prev) => (prev ? undefined : true))
+  }
+
   return (
     <TooltipProvider>
       <ShadcnTooltip
         open={show}
         onOpenChange={onOpenChange}>
-        <TooltipTrigger>{children}</TooltipTrigger>
+        <TooltipTrigger onClick={handleTriggerClick}>{children}</TooltipTrigger>
         <TooltipContent
           className={cn("bg-white", className)}
           side={side}
