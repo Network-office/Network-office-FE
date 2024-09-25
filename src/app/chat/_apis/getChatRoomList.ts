@@ -18,8 +18,8 @@ export interface ChatRoomListResponse {
   rooms: ChatRoom[]
 }
 
-const getChatRoomList = async () => {
-  const response = await http<ChatRoomListResponse>("/api/chat-room", {
+const getChatRoomList = async (role: "admin" | "user") => {
+  const response = await http<ChatRoomListResponse>(`/api/chat-room/${role}`, {
     cache: "no-store",
     method: "GET"
   })
