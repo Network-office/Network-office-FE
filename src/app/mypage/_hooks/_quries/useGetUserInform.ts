@@ -4,7 +4,7 @@ import getUserInform from "../../_api/getUserInform"
 const useGetUserInform = (userId: string) => {
   const { data } = useQuery({
     queryKey: ["userInform", userId],
-    queryFn: () => getUserInform
+    queryFn: () => getUserInform(userId)
   })
   return { data }
 }
