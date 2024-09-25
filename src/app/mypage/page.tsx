@@ -1,21 +1,23 @@
+"use client"
+
 import ProfileSection from "./_componets/ProfileSection"
-import { faker } from "@faker-js/faker"
 import MeetingSummarySection from "./_componets/MeetingSummarySection"
 import MyPageTopBar from "./_componets/MyPageTobbar"
 import MyPageMenuSection from "./_componets/MyPageMenuSection"
+import useGetUserInform from "./_hooks/_quries/useGetUserInform"
 
-const mockData = {
-  profileImgSrc: faker.image.avatar(),
-  nickName: "김김김",
-  profileIntroduce: "두줄소개 두줄 소개 두줄소개 ㅁㄴㅇㄹㅁㄴㅇㄹ",
-  meetingList: ["sport", "beer", "sport", "movie", "food"]
-}
 const MyPage = () => {
+  const { data: userInform } = useGetUserInform("1")
+
+  if (!userInform) return null
+
   return (
     <div>
       <MyPageTopBar />
-      <ProfileSection {...mockData} />
-      <MeetingSummarySection meetingList={mockData.meetingList} />
+      <ProfileSection {...userInform} />
+      <MeetingSummarySection
+        participatedMeetingList={userInform.participatedMeetingList}
+      />
       <MyPageMenuSection />
     </div>
   )

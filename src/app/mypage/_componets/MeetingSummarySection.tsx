@@ -5,7 +5,7 @@ import { Clapperboard } from "lucide-react"
 import { Coffee } from "lucide-react"
 
 interface MeetingSummarySectionProps {
-  meetingList: string[]
+  participatedMeetingList: string[]
 }
 
 const getMeetingIconComponent = (icon: string) => {
@@ -34,14 +34,16 @@ const getMeetingIconComponent = (icon: string) => {
   return ""
 }
 
-const MeetingSummarySection = ({ meetingList }: MeetingSummarySectionProps) => {
+const MeetingSummarySection = ({
+  participatedMeetingList
+}: MeetingSummarySectionProps) => {
   return (
     <div className="border-[1px] w-[90%] h-[140px] mt-[10px] rounded-3xl mx-auto shadow-1xl">
       <h1 className="w-[90%] mx-auto mt-[10px] font-semibold">
         최근 모임 참여 이력
       </h1>
       <div className="mt-[10px] w-[85%] mx-auto flex gap-1">
-        {meetingList.slice(0, 5).map((item) => {
+        {participatedMeetingList.slice(0, 5).map((item) => {
           return getMeetingIconComponent(item)
         })}
       </div>

@@ -2,7 +2,7 @@ import { faker } from "@faker-js/faker"
 
 const userMockData = [
   {
-    userId: 1,
+    userId: "1",
     nickName: faker.internet.userName(),
     profileImg: faker.image.avatar(),
     profileIntroduce: "안녕하세요 하하하 잘부탁드려요",

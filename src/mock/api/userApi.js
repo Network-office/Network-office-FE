@@ -5,7 +5,10 @@ const handlers = [
   http.get(`http://localhost:8080/api/user`, ({ request }) => {
     const { searchParams } = new URL(request.url)
     const userId = searchParams.get("userId") || 0
-    const findUser = userMockData.find((item) => item.userId === userId)
+    const findUser = userMockData.find((item) => {
+      return item.userId === userId
+    })
+
     if (!userId || !findUser) {
       return new HttpResponse(JSON.stringify({ messgae: "No UserId" }), {
         status: 400

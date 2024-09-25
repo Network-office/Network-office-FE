@@ -2,13 +2,13 @@ import Avatar from "@/_common/_components/Avatar"
 import { Pencil } from "lucide-react"
 
 interface ProfileSectionProps {
-  profileImgSrc: string
+  profileImg: string
   nickName: string
   profileIntroduce: string
 }
 
 const ProfileSection = ({
-  profileImgSrc,
+  profileImg,
   nickName,
   profileIntroduce
 }: ProfileSectionProps) => {
@@ -16,7 +16,7 @@ const ProfileSection = ({
     <div className=" border-[1px] mt-[10px] w-[320px] py-[10px] mx-auto rounded-2xl shadow-lg">
       <div className="h-[120px] flex justify-between mr-[20px] mt-[10px]">
         <Avatar
-          src={profileImgSrc}
+          src={profileImg}
           className="w-[120px] h-[120px] ml-[15px]"
           fallbackName={nickName}
         />
