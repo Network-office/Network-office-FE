@@ -5,9 +5,7 @@ import type { Meta, StoryObj } from "@storybook/react"
 const meta = {
   title: "Chat/ChatRoomItem",
   component: ChatRoomItem,
-  parameters: {
-    layout: "centered"
-  },
+  parameters: {},
   tags: ["autodocs"]
 } satisfies Meta<typeof ChatRoomItem>
 
