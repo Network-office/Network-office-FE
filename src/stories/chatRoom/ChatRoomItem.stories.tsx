@@ -18,7 +18,7 @@ type Story = StoryObj<typeof meta>
 export const Primary: Story = {
   args: {
     room: {
-      title: "Room 1",
+      title: faker.lorem.sentence(),
       authorInfo: {
         name: faker.internet.userName(),
         avatarSrc: faker.image.avatar()
