@@ -20,10 +20,10 @@ const generateChatRoomData = (): ChatRoom => {
   }
 }
 
-export const generateChatRoomListData = (
-  length: number
-): ChatRoomListResponse => {
+const generateChatRoomListData = (length: number): ChatRoomListResponse => {
   return {
     rooms: Array.from({ length }, generateChatRoomData)
   }
 }
+
+export const chatRoomListData = generateChatRoomListData(10)
