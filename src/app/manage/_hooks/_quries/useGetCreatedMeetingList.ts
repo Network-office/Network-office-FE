@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import getMeetingList from "@/app/meeting/_api/getMeetingList"
 
-const getCreatedMeetingList = (authorId: number) => {
+const useGetCreatedMeetingList = (authorId: number) => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["meetingList"],
     queryFn: async () => {
@@ -17,4 +17,4 @@ const getCreatedMeetingList = (authorId: number) => {
   return { data, isLoading, isError }
 }
 
-export default getCreatedMeetingList
+export default useGetCreatedMeetingList

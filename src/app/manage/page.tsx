@@ -1,10 +1,10 @@
 "use client"
 
 import MyManagingMeetingItem from "./_components/MyManagingMeetingItem"
-import getCreatedMeetingList from "./_hooks/_quries/getCreatedMeetingList"
+import useGetCreatedMeetingList from "./_hooks/_quries/useGetCreatedMeetingList"
 
 const Manage = () => {
-  const { data: mockData } = getCreatedMeetingList(1)
+  const { data: mockData } = useGetCreatedMeetingList(1)
 
   if (!mockData) return <></>
   return (
