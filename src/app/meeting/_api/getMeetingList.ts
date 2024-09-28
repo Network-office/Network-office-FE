@@ -14,6 +14,7 @@ const getMeetingList = async (authorId?: number) => {
   } catch (error) {
     console.log(error)
     throw new Error("error")
+    
   }
 }
 
