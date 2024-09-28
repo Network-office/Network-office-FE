@@ -1,5 +1,4 @@
 import { ChevronLeft } from "lucide-react"
-import { finished } from "stream"
 
 interface CreateMeetingFunnelHeaderProps {
   popStepHandler: () => void
