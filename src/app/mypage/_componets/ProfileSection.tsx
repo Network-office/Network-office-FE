@@ -13,7 +13,7 @@ const ProfileSection = ({
   profileIntroduce
 }: ProfileSectionProps) => {
   return (
-    <div className=" border-[1px] mt-[10px] w-[320px] py-[10px] mx-auto rounded-2xl shadow-lg">
+    <div className=" border-[1px] mt-[10px] w-[90%] py-[10px] mx-auto rounded-2xl shadow-lg">
       <div className="h-[120px] flex justify-between mr-[20px] mt-[10px]">
         <Avatar
           src={profileImg}
