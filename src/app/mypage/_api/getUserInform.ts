@@ -17,7 +17,13 @@ const getUserInform = async (userId: string) => {
     return request.data
   } catch (error: unknown) {
     if (error instanceof CustomError) {
+      if (error.response?.status === 400) {
+        throw new Error("No Data")
+      } else if (error.response?.status === 500) {
+        throw new Error("Server Error")
+      }
     }
+    throw new Error("unKnow Error")
   }
 }
 
