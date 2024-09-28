@@ -15,6 +15,7 @@ const generateMessage = () => ({
 })
 
 const generateUserInfo = () => ({
+  id: faker.string.uuid(),
   username: faker.internet.userName(),
   avatarSrc: faker.image.avatar()
 })

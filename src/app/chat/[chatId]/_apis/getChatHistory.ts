@@ -10,6 +10,7 @@ export interface MessageGroup {
     timestamp: number
   }[]
   userInfo: {
+    id: string
     username: string
     avatarSrc: string
   }
