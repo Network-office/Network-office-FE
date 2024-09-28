@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useMemo } from "react"
+import { createContext, ReactNode, useContext, useMemo, useState } from "react"
 
 interface UserSignInContextProps {
   nickname: string
@@ -8,7 +8,12 @@ interface UserSignInContextProps {
   phone_number: `010-${string}-${string}`
 }
 
-const UserSignInContext = createContext<UserSignInContextProps | null>(null)
+interface UserSignInContextValue extends UserSignInContextProps {
+  setUser: (user: UserSignInContextProps) => void
+}
+
+const UserSignInContext = createContext<UserSignInContextValue | null>(null)
+
 export const useUserSignInContext = () => {
   const context = useContext(UserSignInContext)
   if (!context) {
@@ -18,26 +23,23 @@ export const useUserSignInContext = () => {
 }
 
 export const UserSignInProvider = ({ children }: { children: ReactNode }) => {
-  const context = useUserSignInContext()
+  const [user, setUser] = useState<UserSignInContextProps>({
+    nickname: "",
+    social_id: "",
+    social_type: "kakao",
+    profile_image_url: "",
+    phone_number: "010-0000-0000"
+  })
 
   const contextValue = useMemo(() => {
     return {
-      context
+      ...user,
+      setUser
     }
-  }, [context])
-
-  const { nickname, phone_number, social_id, social_type, profile_image_url } =
-    contextValue.context
+  }, [user])
 
   return (
-    <UserSignInContext.Provider
-      value={{
-        nickname,
-        phone_number,
-        profile_image_url,
-        social_id,
-        social_type
-      }}>
+    <UserSignInContext.Provider value={contextValue}>
       {children}
     </UserSignInContext.Provider>
   )
