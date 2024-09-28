@@ -1,4 +1,5 @@
 import returnFetch, { FetchArgs } from "return-fetch"
+import CustomError from "@/lib/CustomError"
 
 const createHTTP = () => {
   return async <T>(
@@ -6,7 +7,6 @@ const createHTTP = () => {
     init?: RequestInit
   ): Promise<{ data: T }> => {
     return returnFetch({
-      //로컬 or 서버 환경 구분하는 유틸 필요
       baseUrl: "",
       headers: {
         Accept: "application/json",
@@ -14,17 +14,18 @@ const createHTTP = () => {
       },
       interceptors: {
         request: async (config: FetchArgs) => {
-          //요청에 헤더 있을 시 병합
           config[1] = {
             ...config[1],
             ...init
           }
           return config
         },
-
         response: async (response: Response) => {
+          if (response.status >= 400) {
+            const errorData = await response.json()
+            throw new CustomError(response.status.toString(), errorData)
+          }
           const responseBody = await response.json()
-
           return new Response(JSON.stringify(responseBody))
         }
       }
@@ -48,6 +49,6 @@ export const http = <T>(
     return clientHTTP<T>(input, init)
   }
 
-  //Todo-서버 사이드 용 fetch함수
+  // 서버 사이드용 fetch 함수
   return clientHTTP<T>(input, init)
 }

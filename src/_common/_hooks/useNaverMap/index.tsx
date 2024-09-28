@@ -1,11 +1,11 @@
 "use client"
 import { useRef, useEffect, useCallback } from "react"
 import { NaverMapComponentProps, MakersProps } from "./types"
-import { MeetingInformTypes } from "@/app/meeting/types"
+import { MeetingPositionTypes } from "@/app/meeting/types"
 
 const useNaverMap = (
   initial: { lat: number; lng: number },
-  makers?: Array<MeetingInformTypes>,
+  makers?: Array<MeetingPositionTypes>,
   makerOption?: {
     markerClickHandler: (makerDetail: any) => void
   }

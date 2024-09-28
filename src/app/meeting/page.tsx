@@ -19,7 +19,7 @@ const Meeting = () => {
     setModalOpen()
   }
   const { NaverMapComponent, setMapPosition, setMarkers } = useNaverMap(
-    { lat: 37, lng: 127 },
+    { lat: 37.497942, lng: 127.027619 },
     meetingList,
     { markerClickHandler: handleMarkerClick }
   )
