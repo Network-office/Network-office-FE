@@ -2,7 +2,6 @@
 
 import { useToast } from "@/_common/_hooks/useToast"
 import { Button } from "@/components/ui/button"
-import { ToastAction } from "@/components/ui/toast"
 
 export default function ToastDemo() {
   const { toast } = useToast()
@@ -12,8 +11,7 @@ export default function ToastDemo() {
       variant="outline"
       onClick={() => {
         toast({
-          title: "Scheduled: Catch up ",
-          description: "Friday, February 10, 2023 at 5:57 PM"
+          content: <p className="mx-auto">ㅅㅂ</p>
         })
       }}>
       Add to calendar
