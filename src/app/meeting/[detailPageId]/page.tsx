@@ -20,17 +20,15 @@ const MeetingDetailPage = () => {
 
   return (
     <div className="w-screen h-screen">
-      <ErrorBoundary>
-        <MeetingDetailHeader title={meetingDetail.title} />
-        <MeetingContentSection meetingDetail={meetingDetail} />
-        <hr />
-        <MeetingMapSection
-          lat={meetingDetail.lat}
-          lng={meetingDetail.lng}
-          meetingId={meetingDetail.id}
-          place={meetingDetail.place}
-        />
-      </ErrorBoundary>
+      <MeetingDetailHeader title={meetingDetail.title} />
+      <MeetingContentSection meetingDetail={meetingDetail} />
+      <hr />
+      <MeetingMapSection
+        lat={meetingDetail.lat}
+        lng={meetingDetail.lng}
+        meetingId={meetingDetail.id}
+        place={meetingDetail.place}
+      />
       <div className="flex justify-between mx-6 mt-[20px]">
         <button>
           <HeartOff />
