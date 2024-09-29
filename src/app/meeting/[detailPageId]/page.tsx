@@ -8,6 +8,7 @@ import MeetingMapSection from "./_components/MeetingMapSection"
 import useGetMeetingDetail from "./_hooks/_quries/useGetMeetingDetail"
 import MeetingParticipateModal from "./_components/MeetingParticipateModal"
 import useModal from "@/_common/_hooks/useModal"
+import ErrorBoundary from "@/_common/_components/ErrorBoundary"
 
 const MeetingDetailPage = () => {
   const path = usePathname()
@@ -19,15 +20,17 @@ const MeetingDetailPage = () => {
 
   return (
     <div className="w-screen h-screen">
-      <MeetingDetailHeader title={meetingDetail.title} />
-      <MeetingContentSection meetingDetail={meetingDetail} />
-      <hr />
-      <MeetingMapSection
-        lat={meetingDetail.lat}
-        lng={meetingDetail.lng}
-        meetingId={meetingDetail.id}
-        place={meetingDetail.place}
-      />
+      <ErrorBoundary>
+        <MeetingDetailHeader title={meetingDetail.title} />
+        <MeetingContentSection meetingDetail={meetingDetail} />
+        <hr />
+        <MeetingMapSection
+          lat={meetingDetail.lat}
+          lng={meetingDetail.lng}
+          meetingId={meetingDetail.id}
+          place={meetingDetail.place}
+        />
+      </ErrorBoundary>
       <div className="flex justify-between mx-6 mt-[20px]">
         <button>
           <HeartOff />
