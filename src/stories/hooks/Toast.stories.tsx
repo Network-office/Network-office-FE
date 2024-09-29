@@ -1,6 +1,5 @@
 import React from "react"
 import { Meta, StoryFn } from "@storybook/react"
-import { fn } from "@storybook/test"
 
 import { Toaster } from "@/components/ui/toaster"
 import { useToast } from "@/_common/_hooks/useToast"
@@ -9,10 +8,6 @@ import Button from "@/_common/_components/Button"
 export default {
   title: "Hooks/useToast",
   component: Toaster,
-  tags: ["autodocs"],
-  parameters: {
-    // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
-  },
   argTypes: {
     title: { control: "text", description: "The title of the toast" },
     description: {
@@ -49,5 +44,5 @@ Default.args = {
   title: "Toast Title",
   description: "This is a toast message",
   width: "300",
-  height: "100"
+  height: "80"
 }
