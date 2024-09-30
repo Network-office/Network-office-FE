@@ -43,16 +43,16 @@ const BaseErrorContent = ({ status }: BaseErrorContentProps) => {
   }
 
   return (
-    <div className="w-full h-full">
-      <CircleX className="text-red-500 w-[15%] h-[15%] mx-auto" />
-      <h1 className="mt-[20px] font-semibold text-xl text-center">
+    <div className="flex flex-col justify-center items-center w-full min-h-screen">
+      <CircleX className="text-red-500 w-[25%] h-[25%] mx-auto" />
+      <h1 className="mt-[20px] font-semibold text-2xl text-center">
         {errorTitle}
       </h1>
-      <p className="text-center text-sm">{errorMessage}</p>
+      <p className="text-center text-[10px] mt-[3px]">{errorMessage}</p>
       <div className="flex justify-center mt-2">
         <button
           onClick={onClickBackButton}
-          className="w-[200px] h-[50px] mt-[20px] mx-auto text-xl bg-blue-300 text-white rounded-sm shadow-lg ">
+          className="w-[220px] h-[50px] mt-[20px] mx-auto text-xl font-medium bg-blue-300 text-white rounded-sm shadow-lg ">
           돌아가기
         </button>
       </div>
