@@ -1,3 +1,4 @@
+
 import { Eye, ThumbsUp } from "lucide-react"
 
 interface FeedItemProps {
@@ -17,6 +18,7 @@ const FeedItem = ({
   date,
   views
 }: FeedItemProps) => {
+
   return (
     <div className="mx-4 py-1 pl-3 pr-1 border-b-[1px] border-t-[1px] border-gray-400">
       <div className="flex">
