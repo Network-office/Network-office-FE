@@ -2,7 +2,6 @@
 
 import { CircleX } from "lucide-react"
 import { useRouter } from "next/navigation"
-import { useEffect } from "react"
 
 const ERROR_TEXT: Record<number, { title: string; message: string }> = {
   400: {
@@ -28,9 +27,10 @@ const ERROR_TEXT: Record<number, { title: string; message: string }> = {
 }
 interface BaseErrorContentProps {
   status: number
+  onReset?: () => void
 }
 
-const BaseErrorContent = ({ status }: BaseErrorContentProps) => {
+const BaseErrorContent = ({ status, onReset }: BaseErrorContentProps) => {
   const router = useRouter()
 
   const errorTitle = ERROR_TEXT[status].title
@@ -53,12 +53,21 @@ const BaseErrorContent = ({ status }: BaseErrorContentProps) => {
         {errorTitle}
       </h1>
       <p className="text-center text-[10px] mt-[3px]">{errorMessage}</p>
+
       <div className="flex justify-center mt-2">
-        <button
-          onClick={onClickBackButton}
-          className="w-[220px] h-[50px] mt-[20px] mx-auto text-xl font-medium bg-blue-300 text-white rounded-sm shadow-lg ">
-          돌아가기
-        </button>
+        {onReset ? (
+          <button
+            onClick={onClickBackButton}
+            className="w-[220px] h-[50px] mt-[20px] mx-auto text-xl font-medium bg-blue-300 text-white rounded-sm shadow-lg ">
+            돌아가기
+          </button>
+        ) : (
+          <button
+            onClick={onReset}
+            className="w-[220px] h-[50px] mt-[20px] mx-auto text-xl font-medium bg-blue-300 text-white rounded-sm shadow-lg ">
+            재시도
+          </button>
+        )}
       </div>
     </div>
   )
