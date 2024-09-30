@@ -1,3 +1,4 @@
+"use client"
 import BaseErrorContent from "@/_common/_components/ErrorBoundary/BaseErrorContent"
 
 const GlobalErrorPage = () => {
