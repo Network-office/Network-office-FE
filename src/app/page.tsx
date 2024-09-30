@@ -7,6 +7,7 @@ export default function Home() {
     <div>
       <ErrorBoundary>
         <Temp />
+        <p>안녕</p>
       </ErrorBoundary>
     </div>
   )
