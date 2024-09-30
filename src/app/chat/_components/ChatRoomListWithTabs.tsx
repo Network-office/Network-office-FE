@@ -22,29 +22,31 @@ const ChatRoomListWithTabs = ({
 }: ChatRoomListWithTabsProps) => {
   const router = useRouter()
   const pathName = usePathname()
-  const [role, setRole] = useState<"admin" | "user" | undefined>(defaultRole)
+  const [role, setRole] = useState<"admin" | "user" | "all">(
+    defaultRole ?? "all"
+  )
   const { data: rooms } = useGetChatRoomList(role)
 
-  const handleTabClick = (role: "admin" | "user" | undefined) => {
-    router.push(pathName + `?role=${role}`)
+  const handleTabClick = (role: "admin" | "user" | "all") => {
+    role === "all"
+      ? router.push(pathName)
+      : router.push(pathName + `?role=${role}`)
     setRole(role)
   }
 
   return (
-    <Tabs defaultValue={role ?? "all"}>
+    <Tabs defaultValue={role}>
       <TabsList>
         {Object.entries(roleToKorean).map(([roleEn, roleKo]) => (
           <TabsTrigger
             key={roleEn}
             value={roleEn}
-            onClick={() =>
-              handleTabClick(roleEn as "admin" | "user" | undefined)
-            }>
+            onClick={() => handleTabClick(roleEn as "admin" | "user" | "all")}>
             {roleKo}
           </TabsTrigger>
         ))}
       </TabsList>
-      <TabsContent value={role ?? "all"}>
+      <TabsContent value={role}>
         <div className="flex flex-col">
           {rooms?.map((room) => (
             <Link
