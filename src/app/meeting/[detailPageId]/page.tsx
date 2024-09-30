@@ -8,7 +8,6 @@ import MeetingMapSection from "./_components/MeetingMapSection"
 import useGetMeetingDetail from "./_hooks/_quries/useGetMeetingDetail"
 import MeetingParticipateModal from "./_components/MeetingParticipateModal"
 import useModal from "@/_common/_hooks/useModal"
-import ErrorBoundary from "@/_common/_components/ErrorBoundary"
 
 const MeetingDetailPage = () => {
   const path = usePathname()
