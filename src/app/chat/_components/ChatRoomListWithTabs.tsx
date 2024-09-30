@@ -14,12 +14,10 @@ const roleToKorean = {
 } as const
 
 interface ChatRoomListWithTabsProps {
-  role: "admin" | "user" | undefined
+  defaultRole: "admin" | "user" | undefined
 }
 
-const ChatRoomListWithTabs = ({
-  role: defaultRole
-}: ChatRoomListWithTabsProps) => {
+const ChatRoomListWithTabs = ({ defaultRole }: ChatRoomListWithTabsProps) => {
   const router = useRouter()
   const pathName = usePathname()
   const [role, setRole] = useState<"admin" | "user" | "all">(
