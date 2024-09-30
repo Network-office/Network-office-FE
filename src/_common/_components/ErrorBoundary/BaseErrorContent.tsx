@@ -20,6 +20,10 @@ const ERROR_TEXT: Record<number, { title: string; message: string }> = {
   404: {
     title: "페이지를 찾을 수 없습니다.",
     message: "요청하신 페이지가 존재하지 않습니다. URL을 확인해주세요."
+  },
+  500: {
+    title: "알 수 없는 에러가 발생했습니다.",
+    message: "잠시 후 다시 이용해주세요."
   }
 }
 interface BaseErrorContentProps {
