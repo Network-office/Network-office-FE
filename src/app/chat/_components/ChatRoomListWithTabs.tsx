@@ -8,9 +8,9 @@ import { useRouter, usePathname } from "next/navigation"
 import { useState } from "react"
 
 const roleToKorean = {
+  all: "전체",
   admin: "소장",
-  user: "참여",
-  all: "전체"
+  user: "참여"
 } as const
 
 interface ChatRoomListWithTabsProps {
@@ -31,7 +31,7 @@ const ChatRoomListWithTabs = ({
   }
 
   return (
-    <Tabs>
+    <Tabs defaultValue={role ?? "all"}>
       <TabsList>
         {Object.entries(roleToKorean).map(([roleEn, roleKo]) => (
           <TabsTrigger
