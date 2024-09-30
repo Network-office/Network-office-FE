@@ -1,4 +1,5 @@
 import FeedItem from "./FeedItem"
+import { Star } from "lucide-react"
 
 const MockData = [
   {
@@ -24,9 +25,12 @@ const MockData = [
 const FeedBoard = () => {
   return (
     <div>
-      <h1 className="w-[90%] mx-auto mt-3  mb-5 h-[40px] px-4 flex items-center rounded-lg bg-slate-100 font-medium ">
-        전국의 인기글을 모두 모았어요!
-      </h1>
+      <div className="flex w-[90%] mt-3 mb-5 h-[40px] px-4 mx-auto  rounded-lg bg-slate-100 gap-2">
+        <Star className="my-auto w-4 h-4 text-yellow-400" />
+        <p className="  flex items-center font-medium ">
+          전국의 인기글을 모두 모았어요!
+        </p>
+      </div>
       {MockData.map((item) => {
         return <FeedItem {...item} />
       })}
