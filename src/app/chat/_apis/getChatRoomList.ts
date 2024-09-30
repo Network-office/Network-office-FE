@@ -19,9 +19,9 @@ export interface ChatRoomListResponse {
   rooms: ChatRoom[]
 }
 
-const getChatRoomList = async (role: "admin" | "user" | undefined) => {
+const getChatRoomList = async (role: "admin" | "user" | "all") => {
   const response = await http<ChatRoomListResponse>(
-    `http://localhost:8080/api/chat-room/${role ?? ""}`,
+    `http://localhost:8080/api/chat-room/${role}`,
     {
       cache: "no-store",
       method: "GET"
