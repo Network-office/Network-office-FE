@@ -1,6 +1,7 @@
 import { http } from "@/lib/http"
 
 export interface ChatRoom {
+  id: string
   title: string
   authorInfo: {
     name: string

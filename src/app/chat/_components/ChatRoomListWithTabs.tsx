@@ -3,6 +3,7 @@
 import ChatRoomItem from "@/app/chat/_components/ChatRoomItem"
 import useGetChatRoomList from "@/app/chat/_hooks/queries/useGetChatRoomList"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import Link from "next/link"
 import { useRouter, usePathname } from "next/navigation"
 import { useState } from "react"
 
@@ -46,10 +47,14 @@ const ChatRoomListWithTabs = ({
       <TabsContent value={role ?? "all"}>
         <div className="flex flex-col">
           {rooms?.map((room) => (
-            <ChatRoomItem
+            <Link
               key={room.title}
-              room={room}
-            />
+              href={`/chat/${room.id}`}>
+              <ChatRoomItem
+                key={room.title}
+                room={room}
+              />
+            </Link>
           ))}
         </div>
       </TabsContent>
