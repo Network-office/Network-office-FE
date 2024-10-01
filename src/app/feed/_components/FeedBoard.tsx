@@ -3,6 +3,9 @@ import { Star } from "lucide-react"
 
 const MockData = [
   {
+    feedId: 1,
+    authorId: 1,
+    authorName: "김댕댕",
     category: "스포츠",
     title: "여기는 그냥 게시판 느낌? 다른 동네도 구경하고 이슈도 확인",
     description:
@@ -12,6 +15,9 @@ const MockData = [
     views: 124
   },
   {
+    id: 2,
+    authorName: "김댕댕",
+    authorId: 1,
     category: "술",
     title: "으라차차차",
     description:
@@ -36,7 +42,12 @@ const FeedBoard = ({ region }: FeedBoardProps) => {
         </p>
       </div>
       {MockData.map((item) => {
-        return <FeedItem {...item} />
+        return (
+          <FeedItem
+            key={item.feedId}
+            {...item}
+          />
+        )
       })}
     </div>
   )

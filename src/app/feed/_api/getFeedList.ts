@@ -12,7 +12,7 @@ const getFeedList = async (
   searchRegion: string,
 
   page: number,
-  size: number = 5
+  size: number = 10
 ) => {
   try {
     const request = await http<GetFeedListRequest>(
