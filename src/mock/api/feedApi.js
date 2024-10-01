@@ -7,37 +7,26 @@ const handler = [
     const size = Number(searchParams.get("size") || 5)
     const page = Number(searchParams.get("page") || 0)
 
-    const region = await request.json()
+    const { searchRegion } = await request.json()
 
-    const result = feedMockData.localeCompare((item) => {
-      if (item.region.filter((itemRegion) => itemRegion === region) > 0) {
-        return item
-      }
+    const result = feedMockData.filter((item) => {
+      return item.region.some((itemRegion) => itemRegion === searchRegion)
     })
 
     const totalCount = result.length
     const totalPages = Math.ceil(totalCount / size)
 
-    const hasNext = page < totalPages - 1 ? true : false
+    const hasNext = page < totalPages - 1
 
-    if (!result.length) {
-      return new HttpResponse(
-        JSON.stringify({
-          feedList: null,
-          pageSize: size,
-          hasNext: false
-        }),
-        { status: 200 }
-      )
-    }
     return new HttpResponse(
       JSON.stringify({
-        feedList: result.slice(page * 5, page * 5 + size),
+        feedList: result.slice(page * size, page * size + size),
         pageSize: size,
         hasNext
       }),
-      { status: 200 }
+      { status: 200, headers: { "Content-Type": "application/json" } }
     )
   })
 ]
+
 export default handler

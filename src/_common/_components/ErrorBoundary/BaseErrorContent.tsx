@@ -55,11 +55,11 @@ const BaseErrorContent = ({ status, onReset }: BaseErrorContentProps) => {
       <p className="text-center text-[10px] mt-[3px]">{errorMessage}</p>
 
       <div className="flex justify-center mt-2">
-        {onReset ? (
+        {!onReset ? (
           <button
             onClick={onClickBackButton}
             className="w-[220px] h-[50px] mt-[20px] mx-auto text-xl font-medium bg-blue-300 text-white rounded-sm shadow-lg ">
-            돌아가기
+            재시도
           </button>
         ) : (
           <button

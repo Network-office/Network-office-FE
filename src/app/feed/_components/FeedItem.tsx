@@ -4,7 +4,7 @@ interface FeedItemProps {
   category: string
   title: string
   description: string
-  region: string
+  region: string[]
   date: string
   views: number
 }
@@ -22,7 +22,7 @@ const FeedItem = ({
       <div className="flex">
         <p className="text-[#668AFF]">{category}</p>
         <p className="mx-2"> -</p>
-        <p className="text-gray-500 text-sm flex items-center">{region}</p>
+        <p className="text-gray-500 text-sm flex items-center">{region[2]}</p>
       </div>
       <p className="text-ellipsis overflow-hidden whitespace-nowrap font-semibold text-[16px]">
         {title}

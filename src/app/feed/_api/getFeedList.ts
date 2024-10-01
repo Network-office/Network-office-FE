@@ -10,7 +10,6 @@ interface GetFeedListRequest {
 
 const getFeedList = async (
   searchRegion: string,
-
   page: number,
   size: number = 10
 ) => {
