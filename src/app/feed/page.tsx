@@ -13,7 +13,7 @@ const FeedPage = () => {
         nowPosition={nowRegion}
         setNowRegion={(selectedRegion: string) => setNowRegion(selectedRegion)}
       />
-      <FeedBoard />
+      <FeedBoard region={nowRegion} />
     </div>
   )
 }

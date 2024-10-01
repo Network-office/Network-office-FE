@@ -1,11 +1,10 @@
-
 import { Eye, ThumbsUp } from "lucide-react"
 
 interface FeedItemProps {
   category: string
   title: string
   description: string
-  position: string
+  region: string
   date: string
   views: number
 }
@@ -14,17 +13,16 @@ const FeedItem = ({
   category,
   title,
   description,
-  position,
+  region,
   date,
   views
 }: FeedItemProps) => {
-
   return (
     <div className="mx-4 py-1 pl-3 pr-1 border-b-[1px] border-t-[1px] border-gray-400">
       <div className="flex">
         <p className="text-[#668AFF]">{category}</p>
         <p className="mx-2"> -</p>
-        <p className="text-gray-500 text-sm flex items-center">{position}</p>
+        <p className="text-gray-500 text-sm flex items-center">{region}</p>
       </div>
       <p className="text-ellipsis overflow-hidden whitespace-nowrap font-semibold text-[16px]">
         {title}
