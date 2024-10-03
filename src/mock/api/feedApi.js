@@ -24,7 +24,7 @@ const handler = [
         pageSize: size,
         hasNext
       }),
-      { status: 400, headers: { "Content-Type": "application/json" } }
+      { status: 200, headers: { "Content-Type": "application/json" } }
     )
   })
 ]
