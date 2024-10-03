@@ -1,3 +1,5 @@
+"use client"
+
 import { Eye, ThumbsUp } from "lucide-react"
 
 interface FeedItemProps {

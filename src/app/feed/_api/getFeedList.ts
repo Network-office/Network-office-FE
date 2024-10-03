@@ -25,10 +25,10 @@ const getFeedList = async (
     return request.data
   } catch (error: unknown) {
     if (error instanceof CustomError && error.response) {
-      throw new CustomError(error.message, error.response?.status)
+      throw new CustomError(error.message, error.response.status)
     }
+    throw new CustomError("Unknown Error", 500)
   }
-  throw new CustomError("unKnown Error", 500)
 }
 
 export default getFeedList
