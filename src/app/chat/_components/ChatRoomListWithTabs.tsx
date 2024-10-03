@@ -34,16 +34,20 @@ const ChatRoomListWithTabs = ({ defaultRole }: ChatRoomListWithTabsProps) => {
 
   return (
     <Tabs defaultValue={role}>
-      <TabsList>
-        {Object.entries(roleToKorean).map(([roleEn, roleKo]) => (
-          <TabsTrigger
-            key={roleEn}
-            value={roleEn}
-            onClick={() => handleTabClick(roleEn as "admin" | "user" | "all")}>
-            {roleKo}
-          </TabsTrigger>
-        ))}
-      </TabsList>
+      <div className="p-2">
+        <TabsList>
+          {Object.entries(roleToKorean).map(([roleEn, roleKo]) => (
+            <TabsTrigger
+              key={roleEn}
+              value={roleEn}
+              onClick={() =>
+                handleTabClick(roleEn as "admin" | "user" | "all")
+              }>
+              {roleKo}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+      </div>
       <TabsContent value={role}>
         <div className="flex flex-col">
           {rooms?.map((room) => (
