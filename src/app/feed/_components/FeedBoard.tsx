@@ -44,7 +44,9 @@ const FeedBoard = ({ region }: FeedBoardProps) => {
         {isFetch &&
           feedList.length > 0 &&
           feedList.map((item) => (
-            <li key={item.feedId}>
+            <li
+              className="w-full"
+              key={item.feedId}>
               <FeedItem {...item} />
             </li>
           ))}
