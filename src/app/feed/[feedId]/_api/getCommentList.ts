@@ -1,6 +1,6 @@
 import { http } from "@/lib/http"
 import CustomError from "@/lib/CustomError"
-import { FeedCommentType } from "../types"
+import { FeedCommentType } from "../../types"
 
 const getFeedComments = async (feedId: string) => {
   try {
