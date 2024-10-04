@@ -5,14 +5,10 @@ const FeedDetailLoading = () => {
     <div className="w-screen h-[600px]">
       <Topbar
         className="bg-green-300 border-none"
-        leftContent={
-          <div className="flex gap-4">
-            <Topbar.BackLink />
-            <span />
-          </div>
-        }
+        leftContent={<Topbar.BackLink />}
       />
-      <span className="w-[90%] h-[400px] mx-auto rounded-lg mt-4 bg-slate-200 animate-pulse" />
+      <div className="w-[90%] h-[60px] mx-auto rounded-lg mt-4 bg-slate-200 animate-pulse" />
+      <div className="w-[90%] h-[400px] mx-auto rounded-lg mt-6 bg-slate-200 animate-pulse" />
     </div>
   )
 }

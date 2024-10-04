@@ -6,6 +6,7 @@ import FeedCommentSection from "./_components/FeedCommentSection"
 import FeedDetailContent from "./_components/FeedDetailContent"
 import FeedCommentInputBar from "./_components/FeedCommentInputBar"
 import FeedDetailLoading from "./_components/loading/FeedDetailLoading"
+import FeedCommentsLoading from "./_components/loading/FeedCommentsLoading"
 
 const FeedDetailPage = () => {
   const pathName = usePathname()
@@ -16,7 +17,9 @@ const FeedDetailPage = () => {
       <Suspense fallback={<FeedDetailLoading />}>
         <FeedDetailContent feedId={feedId} />
       </Suspense>
-      <FeedCommentSection feedId={feedId} />
+      <Suspense fallback={<FeedCommentsLoading />}>
+        <FeedCommentSection feedId={feedId} />
+      </Suspense>
       <FeedCommentInputBar />
     </div>
   )

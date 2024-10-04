@@ -31,7 +31,7 @@ const handler = [
   http.get(`http://localhost:8080/api/feed/:feedId`, async ({ params }) => {
     const { feedId } = params
     const result = feedMockData.filter((item) => {
-      return (item.feedId = feedId)
+      return item.feedId === feedId  // 여기를 수정했습니다. '=' 대신 '==='를 사용
     })
 
     if (!result.length) {
@@ -56,6 +56,7 @@ const handler = [
     async ({ params }) => {
       const { feedId } = params
       const comments = commentMockData[feedId] || []
+      console.log(feedId, comments)
 
       return new HttpResponse(JSON.stringify(comments), {
         status: 200,

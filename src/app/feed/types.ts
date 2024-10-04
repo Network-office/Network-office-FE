@@ -12,8 +12,10 @@ export interface FeedItemTypes {
 }
 
 export interface FeedCommentType {
+  commentId: string
   author: string
   authorProfileImage: string | null
   detail: string
   createdAt: string
+  authorId: string
 }
