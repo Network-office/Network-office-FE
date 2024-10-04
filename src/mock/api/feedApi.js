@@ -30,11 +30,9 @@ const handler = [
   }),
   http.get(`http://localhost:8080/api/feed/:feedId`, async ({ params }) => {
     const { feedId } = params
-    const result = feedMockData.filter((item) => {
-      return item.feedId === feedId  // 여기를 수정했습니다. '=' 대신 '==='를 사용
-    })
+    const result = feedMockData.find((item) => item.feedId === feedId)
 
-    if (!result.length) {
+    if (!result) {
       return new HttpResponse(
         JSON.stringify({ message: "해당 게시글이 존재하지 않습니다" }),
         {
@@ -44,19 +42,16 @@ const handler = [
       )
     }
 
-    return new HttpResponse(
-      JSON.stringify({
-        ...result[0]
-      }),
-      { status: 200, headers: { "Content-Type": "application/json" } }
-    )
+    return new HttpResponse(JSON.stringify(result), {
+      status: 200,
+      headers: { "Content-Type": "application/json" }
+    })
   }),
   http.get(
     `http://localhost:8080/api/feed/:feedId/comments`,
     async ({ params }) => {
       const { feedId } = params
       const comments = commentMockData[feedId] || []
-      console.log(feedId, comments)
 
       return new HttpResponse(JSON.stringify(comments), {
         status: 200,

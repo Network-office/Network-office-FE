@@ -7,7 +7,6 @@ interface FeedCommentSectionProps {
 
 const FeedCommentSection = ({ feedId }: FeedCommentSectionProps) => {
   const { data: feeComments } = useGetFeedComments(feedId)
-  console.log(feeComments)
   return (
     <div className="border-t-2 mx-auto w-[90%]">
       <div className="flex gap-1">
