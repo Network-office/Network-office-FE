@@ -1,8 +1,12 @@
+"use client"
+
 import Topbar from "@/_common/_components/Topbar"
 import FeedDetailContentSection from "./_components/FeedDetailContentSection"
 import FeedCommentSection from "./_components/FeedCommentSection"
 import FeedCommentInputBar from "./_components/FeedCommentInputBar"
+import useGetFeedDetail from "./_hooks/useGetFeedDetail"
 import { faker } from "@faker-js/faker"
+import { usePathname } from "next/navigation"
 
 const generateMockFeedData = (count: number, region: string[]) => {
   return {
@@ -28,6 +32,9 @@ const generateMockFeedData = (count: number, region: string[]) => {
 const feedDetail = generateMockFeedData(1, ["서울시", "구로구", "항동"])
 
 const FeedDetailPage = () => {
+  const pathName = usePathname().slice(6)
+  const { data } = useGetFeedDetail(pathName)
+
   return (
     <div className="relative w-screen h-screen">
       <Topbar
