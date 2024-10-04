@@ -2,7 +2,7 @@ import Topbar from "@/_common/_components/Topbar"
 
 const FeedDetailLoading = () => {
   return (
-    <div>
+    <div className="w-screen h-[600px]">
       <Topbar
         className="bg-green-300 border-none"
         leftContent={
@@ -12,7 +12,7 @@ const FeedDetailLoading = () => {
           </div>
         }
       />
-      <span className="w-[90%] h-[500px] bg-slate-200 animate-pulse" />
+      <span className="w-[90%] h-[400px] mx-auto rounded-lg mt-4 bg-slate-200 animate-pulse" />
     </div>
   )
 }

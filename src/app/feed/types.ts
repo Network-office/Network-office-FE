@@ -10,3 +10,10 @@ export interface FeedItemTypes {
   views: number
   like: number
 }
+
+export interface FeedCommentType {
+  author: string
+  authorProfileImage: string | null
+  detail: string
+  createdAt: string
+}
