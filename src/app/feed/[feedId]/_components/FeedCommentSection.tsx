@@ -16,7 +16,12 @@ const feedComment = generateMockFeed채CommentData(5)
 const FeedCommentSection = () => {
   return (
     <div className="border-t-2 mx-auto w-[90%]">
-      <h1 className="text-lg font-semibold mt-2">댓글</h1>
+      <div className="flex gap-1">
+        <p className="text-lg font-semibold mt-2">댓글</p>
+        <p className="text-lg my-auto mt-2">
+          {feedComment.length ? `(${feedComment.length})` : null}
+        </p>
+      </div>
       <ul>
         {feedComment.map((item) => (
           <li key={item.commendId}>
