@@ -1,5 +1,6 @@
 import Topbar from "@/_common/_components/Topbar"
 import FeedDetailContentSection from "./_components/FeedDetailContentSection"
+import FeedCommentSection from "./_components/FeedCommentSection"
 import { faker } from "@faker-js/faker"
 
 const generateMockFeedData = (count: number, region: string[]) => {
@@ -40,9 +41,7 @@ const FeedDetailPage = () => {
         }
       />
       <FeedDetailContentSection {...feedDetail} />
-      <div>
-        <h1>{feedDetail.title}</h1>
-      </div>
+      <FeedCommentSection />
     </div>
   )
 }

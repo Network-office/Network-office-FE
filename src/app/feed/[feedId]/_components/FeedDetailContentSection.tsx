@@ -38,7 +38,7 @@ const FeedDetailContentSection = ({
         </tbody>
       </table>
       <hr className="w-[90%] mx-auto mt-3" />
-      <div className="mt-[30px] w-[350px] mx-auto min-h-[500px]">
+      <div className="mt-[30px] w-[350px] mx-auto min-h-[400px]">
         <span>{description}</span>
       </div>
     </div>
