@@ -14,7 +14,11 @@ const generateMockFeed채CommentData = (count: number) => {
 }
 const feedComment = generateMockFeed채CommentData(5)
 
-const FeedCommentSection = () => {
+interface FeedCommentSectionProps {
+  feedId: string
+}
+
+const FeedCommentSection = ({ feedId }: FeedCommentSectionProps) => {
   return (
     <div className="border-t-2 mx-auto w-[90%]">
       <div className="flex gap-1">

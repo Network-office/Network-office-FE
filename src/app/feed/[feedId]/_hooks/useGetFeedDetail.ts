@@ -1,10 +1,11 @@
 import { useSuspenseQuery } from "@tanstack/react-query"
 import getFeedDetail from "../_api/getFeedDetail"
+import { FeedItemTypes } from "../../types"
 
 const useGetFeedDetail = (feedId: string) => {
-  const { data } = useSuspenseQuery({
+  const { data } = useSuspenseQuery<FeedItemTypes>({
     queryKey: ["feedDetail", feedId],
-    queryFn: () => getFeedDetail
+    queryFn: () => getFeedDetail(feedId)
   })
   return { data }
 }

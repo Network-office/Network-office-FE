@@ -1,15 +1,16 @@
 import { http } from "@/lib/http"
 import CustomError from "@/lib/CustomError"
+import { FeedItemTypes } from "../../types"
 
-const getFeedDetail = (feedId: string) => {
+const getFeedDetail = async (feedId: string) => {
   try {
-    const request = http(
+    const request = await http<FeedItemTypes>(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/feed/${feedId}`,
       {
-        method: "get"
+        method: "GET"
       }
     )
-    return request
+    return request.data
   } catch (error) {
     throw new CustomError("network-error", 500)
   }
