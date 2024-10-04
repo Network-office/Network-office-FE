@@ -8,7 +8,8 @@ const generateMockFeed채CommentData = (count: number) => {
     authorId: faker.number.int({ min: 1, max: 10 }),
     author: faker.internet.userName().slice(0, 8),
     detail: faker.lorem.sentences(3),
-    authorProfileImage: null
+    authorProfileImage: null,
+    createdAt: faker.date.past().toDateString()
   }))
 }
 const feedComment = generateMockFeed채CommentData(5)

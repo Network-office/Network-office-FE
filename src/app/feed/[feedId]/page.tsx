@@ -1,6 +1,7 @@
 import Topbar from "@/_common/_components/Topbar"
 import FeedDetailContentSection from "./_components/FeedDetailContentSection"
 import FeedCommentSection from "./_components/FeedCommentSection"
+import FeedCommentInputBar from "./_components/FeedCommentInputBar"
 import { faker } from "@faker-js/faker"
 
 const generateMockFeedData = (count: number, region: string[]) => {
@@ -28,7 +29,7 @@ const feedDetail = generateMockFeedData(1, ["서울시", "구로구", "항동"])
 
 const FeedDetailPage = () => {
   return (
-    <div>
+    <div className="relative w-screen h-screen">
       <Topbar
         className="bg-green-300 border-none"
         leftContent={
@@ -42,6 +43,7 @@ const FeedDetailPage = () => {
       />
       <FeedDetailContentSection {...feedDetail} />
       <FeedCommentSection />
+      <FeedCommentInputBar />
     </div>
   )
 }
