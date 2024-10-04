@@ -16,7 +16,8 @@ const generateMockFeedData = (count: number, region: string[]) => {
     description: faker.lorem.sentences(3),
     region: [...region],
     date: faker.date.recent().toDateString(),
-    views: faker.number.int({ min: 0, max: 1000 })
+    views: faker.number.int({ min: 0, max: 1000 }),
+    like: faker.number.int({ min: 0, max: 1000 })
   }))
 }
 

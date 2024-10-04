@@ -9,6 +9,7 @@ interface FeedItemProps {
   region: string[]
   date: string
   views: number
+  like: number
 }
 
 const FeedItem = ({
@@ -17,7 +18,8 @@ const FeedItem = ({
   description,
   region,
   date,
-  views
+  views,
+  like
 }: FeedItemProps) => {
   return (
     <div className="mx-4 py-1 pl-3 pr-1 border-b-[1px] border-t-[1px] border-gray-400">
@@ -35,7 +37,7 @@ const FeedItem = ({
       <div className="flex text-[12px] justify-between mx-1">
         <div className="flex gap-1">
           <ThumbsUp className="w-4 my-auto mt-[1px]" />
-          <p className="my-auto mr-2">{views}</p>
+          <p className="my-auto mr-2">{like}</p>
           <Eye className="w-4 my-auto mt-[1px]" />
           <p className="my-auto">{views}</p>
         </div>
