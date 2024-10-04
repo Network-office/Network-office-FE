@@ -1,5 +1,6 @@
 import { http, HttpResponse } from "msw"
 import feedMockData from "../mockData/feedData"
+import commentMockData from "../mockData/commentData"
 
 const handler = [
   http.post(`http://localhost:8080/api/feed`, async ({ request }) => {
@@ -49,7 +50,19 @@ const handler = [
       }),
       { status: 200, headers: { "Content-Type": "application/json" } }
     )
-  })
+  }),
+  http.get(
+    `http://localhost:8080/api/feed/:feedId/comments`,
+    async ({ params }) => {
+      const { feedId } = params
+      const comments = commentMockData[feedId] || []
+
+      return new HttpResponse(JSON.stringify(comments), {
+        status: 200,
+        headers: { "Content-Type": "application/json" }
+      })
+    }
+  )
 ]
 
 export default handler
