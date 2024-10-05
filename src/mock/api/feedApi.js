@@ -67,22 +67,26 @@ const handler = [
       const { content } = await request.json()
 
       const newComment = {
-        commentId: faker.number.int({ min: 100000, max: 999999 }).toString(),
-        author: faker.internet.userName(),
-        authorProfileImage: faker.image.avatar(),
-        detail: content,
-        createdAt: new Date().toISOString()
+        commentId: faker.string.uuid(),
+        author: "주장권",
+        authorProfileImage: null,
+        createdAt: new Date().toISOString(),
+        authorId: faker.string.uuid()
       }
 
       if (!commentMockData[feedId]) {
         commentMockData[feedId] = []
       }
-      commentMockData[feedId].push(newComment)
+      commentMockData[feedId].push({
+        ...newComment,
+        detail: content,
+        authorId: faker.string.uuid() // authorId는 클라이언트에서 필요하지만 API 응답에는 포함되지 않습니다
+      })
 
-      return new HttpResponse(
-        JSON.stringify({ message: "댓글이 성공적으로 추가되었습니다." }),
-        { status: 200, headers: { "Content-Type": "application/json" } }
-      )
+      return new HttpResponse(JSON.stringify(newComment), {
+        status: 200,
+        headers: { "Content-Type": "application/json" }
+      })
     }
   )
 ]

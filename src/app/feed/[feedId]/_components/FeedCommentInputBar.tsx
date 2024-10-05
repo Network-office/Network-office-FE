@@ -10,12 +10,12 @@ interface FeedCommentInputBarProps {
 
 const FeedCommentInputBar = ({ feedId }: FeedCommentInputBarProps) => {
   const [comment, setComment] = useState("")
-  const { mutate } = usePostFeedComment()
+  const { mutate } = usePostFeedComment(feedId)
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if (comment.trim()) {
-      mutate({ feedId, comment })
+    if (comment.trim() && comment.length) {
+      mutate({ comment })
       setComment("")
     }
   }
