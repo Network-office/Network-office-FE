@@ -1,4 +1,5 @@
 import { TooltipProps } from "@/_common/_components/types"
+import useDurationOpen from "@/_common/_hooks/useDurationOpen"
 import {
   TooltipContent,
   TooltipProvider,
@@ -7,27 +8,6 @@ import {
 } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils"
 import { TooltipArrow } from "@radix-ui/react-tooltip"
-import { useEffect, useState } from "react"
-
-const useDurationOpen = (
-  defaultOpen: boolean,
-  open: boolean | undefined,
-  openDuration: number
-) => {
-  const [openState, setOpenState] = useState(open)
-
-  useEffect(() => {
-    if (!defaultOpen) return
-
-    const timer = setTimeout(() => {
-      setOpenState(false)
-    }, openDuration)
-
-    return () => clearTimeout(timer)
-  }, [defaultOpen, openDuration])
-
-  return openState
-}
 
 const Tooltip = ({
   children,
