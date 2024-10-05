@@ -1,7 +1,7 @@
 "use client"
 
 import Topbar from "@/_common/_components/Topbar"
-import useGetFeedDetail from "../_hooks/useGetFeedDetail"
+import useGetFeedDetail from "../_hooks/_quries/useGetFeedDetail"
 import FeedDetailContentSection from "./FeedDetailContentSection"
 
 const FeedDetailContent = ({ feedId }: { feedId: string }) => {

@@ -60,28 +60,31 @@ const handler = [
       })
     }
   ),
-  http.post(`http://localhost:8080/api/feed/:feedId/comments`, async ({ params, request }) => {
-    const { feedId } = params
-    const { content } = await request.json()
+  http.post(
+    `http://localhost:8080/api/feed/:feedId/comments/create`,
+    async ({ params, request }) => {
+      const { feedId } = params
+      const { content } = await request.json()
 
-    const newComment = {
-      commentId: faker.number.int({ min: 100000, max: 999999 }).toString(),
-      author: faker.internet.userName(),
-      authorProfileImage: faker.image.avatar(),
-      detail: content,
-      createdAt: new Date().toISOString()
+      const newComment = {
+        commentId: faker.number.int({ min: 100000, max: 999999 }).toString(),
+        author: faker.internet.userName(),
+        authorProfileImage: faker.image.avatar(),
+        detail: content,
+        createdAt: new Date().toISOString()
+      }
+
+      if (!commentMockData[feedId]) {
+        commentMockData[feedId] = []
+      }
+      commentMockData[feedId].push(newComment)
+
+      return new HttpResponse(
+        JSON.stringify({ message: "댓글이 성공적으로 추가되었습니다." }),
+        { status: 200, headers: { "Content-Type": "application/json" } }
+      )
     }
-
-    if (!commentMockData[feedId]) {
-      commentMockData[feedId] = []
-    }
-    commentMockData[feedId].push(newComment)
-
-    return new HttpResponse(
-      JSON.stringify({ message: "댓글이 성공적으로 추가되었습니다." }),
-      { status: 200, headers: { "Content-Type": "application/json" } }
-    )
-  })
+  )
 ]
 
 export default handler

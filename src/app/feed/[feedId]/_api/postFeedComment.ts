@@ -1,18 +1,10 @@
 import { http } from "@/lib/http"
 import CustomError from "@/lib/CustomError"
 
-interface PostCommentParams {
-  feedId: string
-  content: string
-}
-
-export const postFeedComment = async ({
-  feedId,
-  content
-}: PostCommentParams) => {
+export const postFeedComment = async (feedId: string, content: string) => {
   try {
     const response = await http<{ message: string }>(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/feed/${feedId}/comments`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/feed/${feedId}/comments/create`,
       {
         method: "POST",
         body: JSON.stringify({ content })

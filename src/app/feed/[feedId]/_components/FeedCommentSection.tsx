@@ -1,4 +1,4 @@
-import useGetFeedComments from "../_hooks/useGetFeedComments"
+import useGetFeedComments from "../_hooks/_quries/useGetFeedComments"
 import FeedCommentItem from "./FeedCommentItem"
 
 interface FeedCommentSectionProps {

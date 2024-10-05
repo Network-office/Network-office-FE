@@ -20,7 +20,7 @@ const FeedDetailPage = () => {
       <Suspense fallback={<FeedCommentsLoading />}>
         <FeedCommentSection feedId={feedId} />
       </Suspense>
-      <FeedCommentInputBar />
+      <FeedCommentInputBar feedId={feedId} />
     </div>
   )
 }
