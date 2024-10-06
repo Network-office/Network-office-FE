@@ -5,7 +5,8 @@ import { FeedItemTypes } from "@/app/feed/types"
 const useGetFeedDetail = (feedId: string) => {
   const { data } = useSuspenseQuery<FeedItemTypes>({
     queryKey: ["feedDetail", feedId],
-    queryFn: () => getFeedDetail(feedId)
+    queryFn: () => getFeedDetail(feedId),
+    retry: false
   })
   return { data }
 }
