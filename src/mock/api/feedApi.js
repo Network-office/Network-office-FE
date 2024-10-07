@@ -80,13 +80,34 @@ const handler = [
       commentMockData[feedId].push({
         ...newComment,
         detail: content,
-        authorId: faker.string.uuid() // authorId는 클라이언트에서 필요하지만 API 응답에는 포함되지 않습니다
+        authorId: faker.string.uuid()
       })
 
       return new HttpResponse(JSON.stringify(newComment), {
         status: 200,
         headers: { "Content-Type": "application/json" }
       })
+    }
+  ),
+  http.post(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/feed/create`,
+    async ({ request }) => {
+      const feedData = await request.json()
+
+      const createdFeed = {
+        feedId: faker.string.uuid(),
+        ...feedData,
+        createdAt: new Date().toISOString(),
+        author: "주장권",
+        authorProfileImage: null,
+        authorId: faker.string.uuid(),
+        region: [faker.location.city()], // 예시로 하나의 지역을 추가
+        likeCount: 0,
+        commentCount: 0,
+        isLiked: false
+      }
+
+      return HttpResponse.json(createdFeed, { status: 201 })
     }
   )
 ]
