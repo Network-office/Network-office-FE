@@ -7,7 +7,7 @@ describe("Topbar 컴포넌트", () => {
     render(
       <Topbar
         title="Test Topbar"
-        leftContent={<Topbar.BackLink />}
+        leftContent={<button aria-label="back">back</button>}
         rightContent={
           <>
             <Topbar.ProfileLink />
