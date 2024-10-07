@@ -37,7 +37,7 @@ const handler = [
       return new HttpResponse(
         JSON.stringify({ message: "해당 게시글이 존재하지 않습니다" }),
         {
-          status: 400,
+          status: 404,
           headers: { "Content-Type": "application/json" }
         }
       )
@@ -80,7 +80,7 @@ const handler = [
       commentMockData[feedId].push({
         ...newComment,
         detail: content,
-        authorId: faker.string.uuid() // authorId는 클라이언트에서 필요하지만 API 응답에는 포함되지 않습니다
+        authorId: faker.string.uuid()
       })
 
       return new HttpResponse(JSON.stringify(newComment), {
