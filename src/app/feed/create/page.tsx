@@ -6,7 +6,6 @@ import { useFunnel } from "@/_common/_hooks/useFunnel"
 import CreateFeedHeader from "./_components/CreateFeedHeader"
 import FeedTitleInput from "./_components/FeedTitleInput"
 import FeedCategoryInput from "./_components/FeedCategoryInput"
-import { ArrowLeft } from "lucide-react"
 import FeedContentInput from "./_components/FeedContentInput"
 
 import { FeedFormTypes } from "./types"
@@ -25,7 +24,7 @@ export default function CreateFeedPage() {
     <div className="">
       <CreateFeedHeader
         popStep={popStep}
-        step={step}
+        step={step as "title" | "category" | "content"}
       />
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
