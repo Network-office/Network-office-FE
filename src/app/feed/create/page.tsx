@@ -2,9 +2,8 @@
 
 import { useForm, FormProvider } from "react-hook-form"
 import { useFunnel } from "@/_common/_hooks/useFunnel"
-import Button from "@/_common/_components/Button"
 
-import Topbar from "@/_common/_components/Topbar"
+import CreateFeedHeader from "./_components/CreateFeedHeader"
 import FeedTitleInput from "./_components/FeedTitleInput"
 import FeedCategoryInput from "./_components/FeedCategoryInput"
 import { ArrowLeft } from "lucide-react"
@@ -24,18 +23,9 @@ export default function CreateFeedPage() {
 
   return (
     <div className="">
-      <Topbar
-        className="bg-slate-100"
-        leftContent={
-          <div className="flex gap-2">
-            <button
-              className="bg-none"
-              onClick={popStep}>
-              <ArrowLeft />
-            </button>
-            <h1 className="font-semibold tex">{step}</h1>
-          </div>
-        }
+      <CreateFeedHeader
+        popStep={popStep}
+        step={step}
       />
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
