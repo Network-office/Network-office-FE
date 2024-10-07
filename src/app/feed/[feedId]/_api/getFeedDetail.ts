@@ -11,8 +11,11 @@ const getFeedDetail = async (feedId: string) => {
       }
     )
     return request.data
-  } catch (error) {
-    throw new CustomError("network-error", 500)
+  } catch (error: unknown) {
+    if (error instanceof CustomError && error.response) {
+      throw new CustomError(error.message, error.response.status)
+    }
+    throw new CustomError("Unknown Error", 500)
   }
 }
 
