@@ -7,6 +7,7 @@ import CreateFeedHeader from "./_components/CreateFeedHeader"
 import FeedTitleInput from "./_components/FeedTitleInput"
 import FeedCategoryInput from "./_components/FeedCategoryInput"
 import FeedContentInput from "./_components/FeedContentInput"
+import usePostFeed from "./_hooks/_mutations/usePostFeed"
 
 import { FeedFormTypes } from "./types"
 
@@ -14,10 +15,11 @@ const STEPS = ["title", "category", "content"]
 
 export default function CreateFeedPage() {
   const { Funnel, step, pushStep, popStep } = useFunnel(STEPS)
+  const { mutate } = usePostFeed()
   const methods = useForm<FeedFormTypes>()
 
   const onSubmit = (data: FeedFormTypes) => {
-    console.log("피드 생성:", data)
+    mutate(data)
   }
 
   return (
@@ -32,13 +34,11 @@ export default function CreateFeedPage() {
             <Funnel.Step name="title">
               <FeedTitleInput onNextStep={pushStep} />
             </Funnel.Step>
-
             <Funnel.Step name="category">
               <FeedCategoryInput onNextStep={pushStep} />
             </Funnel.Step>
-
             <Funnel.Step name="content">
-              <FeedContentInput onNextStep={pushStep} />
+              <FeedContentInput onSubmitForm={methods.handleSubmit(onSubmit)} />
             </Funnel.Step>
           </Funnel>
         </form>

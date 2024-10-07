@@ -89,27 +89,40 @@ const handler = [
       })
     }
   ),
-  http.post(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/feed/create`,
-    async ({ request }) => {
+  http.post(`http://localhost:8080/api/feed/create`, async ({ request }) => {
+    try {
       const feedData = await request.json()
+      if (!feedData) {
+        return new HttpResponse(
+          JSON.stringify({ message: "피드 데이터가 없습니다" }),
+          {
+            status: 400,
+            headers: { "Content-Type": "application/json" }
+          }
+        )
+      }
 
       const createdFeed = {
         feedId: faker.string.uuid(),
         ...feedData,
-        createdAt: new Date().toISOString(),
         author: "주장권",
-        authorProfileImage: null,
-        authorId: faker.string.uuid(),
-        region: [faker.location.city()], // 예시로 하나의 지역을 추가
-        likeCount: 0,
-        commentCount: 0,
-        isLiked: false
+        createdAt: new Date().toISOString(),
+        region: ["서울시", "구로구", "항동"],
+        likes: 0,
+        views: 0
       }
+      feedMockData.push(createdFeed)
 
-      return HttpResponse.json(createdFeed, { status: 201 })
+      return new HttpResponse(JSON.stringify({ ...createdFeed }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" }
+      })
+    } catch (error) {
+      return new HttpResponse(JSON.stringify({ success: false }), {
+        status: 500
+      })
     }
-  )
+  })
 ]
 
 export default handler

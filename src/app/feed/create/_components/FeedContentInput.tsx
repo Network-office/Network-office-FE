@@ -4,10 +4,10 @@ import { useFormContext } from "react-hook-form"
 import Button from "@/_common/_components/Button"
 
 interface FeedContentInputProps {
-  onNextStep: () => void
+  onSubmitForm: () => void
 }
 
-const FeedContentInput = ({ onNextStep }: FeedContentInputProps) => {
+const FeedContentInput = ({ onSubmitForm }: FeedContentInputProps) => {
   const {
     register,
     formState: { errors },
@@ -17,7 +17,7 @@ const FeedContentInput = ({ onNextStep }: FeedContentInputProps) => {
   const handleNextStep = async () => {
     const isValid = await trigger("content")
     if (isValid) {
-      onNextStep()
+      onSubmitForm()
     } else {
       const error = errors.content?.message
       if (typeof error === "string") {
@@ -33,7 +33,7 @@ const FeedContentInput = ({ onNextStep }: FeedContentInputProps) => {
       </h1>
       <textarea
         className="w-[85%] min-h-[400px] border-[1px] rounded-lg border-slate-200 p-2 mx-auto"
-        {...register("content", {
+        {...register("description", {
           required: "내용을 입력해주세요",
           minLength: {
             value: 10,

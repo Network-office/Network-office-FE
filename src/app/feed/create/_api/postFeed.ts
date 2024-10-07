@@ -2,12 +2,15 @@ import { http } from "@/lib/http"
 import CustomError from "@/lib/CustomError"
 import { FeedFormTypes } from "../types"
 
-interface PostFeedResponse {
+export interface PostFeedResponse {
   feedId: string
   title: string
-  category: string
-  content: string
   createdAt: string
+  region: string
+  category: string
+  likes: number
+  views: number
+  description: string
 }
 
 export const postFeed = async (
@@ -15,7 +18,7 @@ export const postFeed = async (
 ): Promise<PostFeedResponse> => {
   try {
     const response = await http<PostFeedResponse>(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/feed/create`,
+      `http://localhost:8080/api/feed/create`,
       {
         method: "POST",
         body: JSON.stringify(feedData)
