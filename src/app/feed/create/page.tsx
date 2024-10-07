@@ -7,6 +7,7 @@ import Button from "@/_common/_components/Button"
 import Topbar from "@/_common/_components/Topbar"
 import FeedTitleInput from "./_components/FeedTitleInput"
 import FeedCategoryInput from "./_components/FeedCategoryInput"
+import { ArrowLeft } from "lucide-react"
 import FeedContentInput from "./_components/FeedContentInput"
 
 import { FeedFormTypes } from "./types"
@@ -27,7 +28,11 @@ export default function CreateFeedPage() {
         className="bg-slate-100"
         leftContent={
           <div className="flex gap-2">
-            <Topbar.BackLink />
+            <button
+              className="bg-none"
+              onClick={popStep}>
+              <ArrowLeft />
+            </button>
             <h1 className="font-semibold tex">{step}</h1>
           </div>
         }
