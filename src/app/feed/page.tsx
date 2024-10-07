@@ -8,7 +8,7 @@ import FeedBoard from "./_components/FeedBoard"
 const FeedPage = () => {
   const [nowRegion, setNowRegion] = useState("항동")
   return (
-    <div className="w-screen h-svh">
+    <div className="w-svh h-svh">
       <FeedHeader
         nowPosition={nowRegion}
         setNowRegion={(selectedRegion: string) => setNowRegion(selectedRegion)}

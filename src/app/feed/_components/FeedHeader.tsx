@@ -12,9 +12,9 @@ const FeedHeader = ({ nowPosition, setNowRegion }: FeedHeaderProps) => {
   const { ModalComponent, setModalOpen, setModalClose } = useModal()
 
   return (
-    <div>
+    <div className="w-full">
       <div className="w-full h-[110px] bg-slate-100 flex items-center">
-        <div className="flex gap-2 overflow-hidden h-[80px] items-center shrink-0 ml-4">
+        <div className="flex gap-2 w-fit overflow-hidden h-[80px] items-center shrink-0 ml-4">
           <Button
             className="w-[70px] h-[70px] rounded-full"
             onClick={setModalOpen}>
