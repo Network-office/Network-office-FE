@@ -1,4 +1,3 @@
-import React from "react"
 import {
   DropdownMenu as ShadcnDropBox,
   DropdownMenuTrigger,
@@ -6,6 +5,8 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel
 } from "./shadcn_DropBox"
+import { cn } from "@/lib/utils"
+import { buttonVariants } from "@/components/ui/button"
 
 interface DropBoxItem {
   label: string
@@ -34,7 +35,9 @@ const DropBox = ({
   return (
     <ShadcnDropBox>
       <DropdownMenuTrigger asChild>
-        <button className={triggerClassName}>{triggerText}</button>
+        <button className={cn(buttonVariants(), triggerClassName)}>
+          {triggerText}
+        </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className={contentClassName}>
         {title && (
