@@ -3,7 +3,7 @@ import { Meta, StoryFn } from "@storybook/react"
 import DropBox from "@/_common/_components/DropBox"
 
 export default {
-  title: "Components/DropBox",
+  title: "component/DropBox",
   component: DropBox,
   argTypes: {
     title: { control: "text", description: "제목 (선택사항)" },
