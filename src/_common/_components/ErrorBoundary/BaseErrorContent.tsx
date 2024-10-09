@@ -3,6 +3,7 @@
 import { CircleX } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useRouter } from "next/navigation"
+import Button from "../Button"
 
 const ERROR_TEXT: Record<number, { title: string; message: string }> = {
   400: {
@@ -64,18 +65,18 @@ const BaseErrorContent = ({
       <p className="text-center text-[10px] mt-[3px]">{errorMessage}</p>
 
       <div className="flex justify-center mt-2">
-        {!onReset ? (
-          <button
+        {onReset ? (
+          <Button
             onClick={onClickBackButton}
-            className="w-[220px] h-[50px] mt-[20px] mx-auto text-xl font-medium bg-blue-300 text-white rounded-sm shadow-lg ">
-            돌아가기
-          </button>
-        ) : (
-          <button
-            onClick={onReset}
-            className="w-[220px] h-[50px] mt-[20px] mx-auto text-xl font-medium bg-blue-300 text-white rounded-sm shadow-lg ">
+            className="w-[220px] h-[50px] mt-[20px] mx-auto text-xl font-medium text-white rounded-sm shadow-lg ">
             재시도
-          </button>
+          </Button>
+        ) : (
+          <Button
+            onClick={onReset}
+            className="w-[220px] h-[50px] mt-[20px] mx-auto text-xl font-medium  text-white rounded-sm shadow-lg ">
+            돌아가기
+          </Button>
         )}
       </div>
     </div>
