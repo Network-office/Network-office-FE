@@ -5,7 +5,7 @@ const createHTTP = () => {
   return async <T>(
     input: URL | RequestInfo,
     init?: RequestInit
-  ): Promise<{ data: T }> => {
+  ): Promise<{ data: T; status?: number }> => {
     return returnFetch({
       baseUrl: "",
       headers: {
@@ -21,11 +21,15 @@ const createHTTP = () => {
           return config
         },
         response: async (response: Response) => {
-          if (response.status >= 400) {
-            const errorData = await response.json()
-            throw new CustomError(response.status.toString(), errorData)
-          }
           const responseBody = await response.json()
+
+          if (response.status >= 400) {
+            throw new CustomError(
+              response.statusText || "Unknown Error",
+              response.status
+            )
+          }
+
           return new Response(JSON.stringify(responseBody))
         }
       }
@@ -44,7 +48,7 @@ export const clientHTTP = createHTTP()
 export const http = <T>(
   input: URL | RequestInfo,
   init?: RequestInit
-): Promise<{ data: T }> => {
+): Promise<{ data: T; status?: number }> => {
   if (typeof window !== "undefined") {
     return clientHTTP<T>(input, init)
   }
