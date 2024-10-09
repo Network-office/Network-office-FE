@@ -88,7 +88,41 @@ const handler = [
         headers: { "Content-Type": "application/json" }
       })
     }
-  )
+  ),
+  http.post(`http://localhost:8080/api/feed/create`, async ({ request }) => {
+    try {
+      const feedData = await request.json()
+      if (!feedData) {
+        return new HttpResponse(
+          JSON.stringify({ message: "피드 데이터가 없습니다" }),
+          {
+            status: 400,
+            headers: { "Content-Type": "application/json" }
+          }
+        )
+      }
+
+      const createdFeed = {
+        feedId: faker.string.uuid(),
+        ...feedData,
+        author: "주장권",
+        createdAt: new Date().toISOString(),
+        region: ["서울시", "구로구", "항동"],
+        likes: 0,
+        views: 0
+      }
+      feedMockData.push(createdFeed)
+
+      return new HttpResponse(JSON.stringify({ ...createdFeed }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" }
+      })
+    } catch (error) {
+      return new HttpResponse(JSON.stringify({ success: false }), {
+        status: 500
+      })
+    }
+  })
 ]
 
 export default handler

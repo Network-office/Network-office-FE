@@ -4,11 +4,12 @@ import { Star } from "lucide-react"
 
 import FeedHeader from "./_components/FeedHeader"
 import FeedBoard from "./_components/FeedBoard"
+import FeedFootBar from "./_components/FeedFootBar"
 
 const FeedPage = () => {
   const [nowRegion, setNowRegion] = useState("항동")
   return (
-    <div className="w-svh h-svh">
+    <div className="relative w-svh h-svh">
       <FeedHeader
         nowPosition={nowRegion}
         setNowRegion={(selectedRegion: string) => setNowRegion(selectedRegion)}
@@ -20,6 +21,7 @@ const FeedPage = () => {
         </p>
       </div>
       <FeedBoard region={nowRegion} />
+      <FeedFootBar />
     </div>
   )
 }
