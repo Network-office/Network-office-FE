@@ -18,4 +18,7 @@ export interface FeedCommentType {
   detail: string
   createdAt: string
   authorId: string
+  region: string[]  
+  date: string
+  views: number
 }

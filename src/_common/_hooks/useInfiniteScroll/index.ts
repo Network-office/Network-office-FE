@@ -7,7 +7,6 @@ const useInfiniteScroll = (
   options?: IntersectionObserverInit
 ) => {
   const ref = useRef(null)
-  
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) =>
