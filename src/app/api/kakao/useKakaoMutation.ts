@@ -9,10 +9,16 @@ interface KakaoOAuthLoginReq {
 
 export const kakaoOAuthLogin = async ({ code }: KakaoOAuthLoginReq) => {
   try {
-    await http<{ code: string }>("api/v1/login/oauth", {
+    const response = await http<{ code: string }>("/api/v1/login/oauth", {
       method: "POST",
-      body: JSON.stringify({ code })
+      body: JSON.stringify({ code }),
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json"
+      }
     })
+
+    return response
   } catch (e) {
     throw e
   }

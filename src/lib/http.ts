@@ -7,16 +7,19 @@ const createHTTP = () => {
     init?: RequestInit
   ): Promise<{ data: T; status?: number }> => {
     return returnFetch({
-      baseUrl: "https://network-office.duckdns.org/dev",
+      baseUrl: "https://network-office.duckdns.org/dev/",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": "true"
       },
       interceptors: {
         request: async (config: FetchArgs) => {
           config[1] = {
             ...config[1],
-            ...init
+            ...init,
+            credentials: "include"
           }
           return config
         },
