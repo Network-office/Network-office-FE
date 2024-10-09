@@ -39,18 +39,20 @@ const FeedBoard = ({ region }: FeedBoardProps) => {
     )
 
   return (
-    <div>
+    <div className="w-[90%]">
       <ul className="w-full h-[500px]">
         {isFetch &&
           feedList.length > 0 &&
           feedList.map((item) => (
-            <li key={item.feedId}>
+            <li
+              className="w-full"
+              key={item.feedId}>
               <FeedItem {...item} />
             </li>
           ))}
 
         {isFetch && feedList.length === 0 && (
-          <div className=" w-screen">
+          <div className=" w-full">
             <Ghost className="w-[35%] h-[35%] mt-[150px] mx-auto text-gray-500" />
             <p className="text-xl font-semibold text-center mt-4">
               아직 작성된글이 없습니다.
