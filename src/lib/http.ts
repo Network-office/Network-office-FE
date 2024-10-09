@@ -7,7 +7,7 @@ const createHTTP = () => {
     init?: RequestInit
   ): Promise<{ data: T; status?: number }> => {
     return returnFetch({
-      baseUrl: "",
+      baseUrl: "https://network-office.duckdns.org/dev",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
