@@ -5,6 +5,7 @@ import {
   useState,
   ReactNode
 } from "react"
+import { cn } from "@/lib/utils"
 import { ChipProps } from "./types"
 import Chip from "./chip"
 
@@ -12,6 +13,8 @@ export interface ChipsProps {
   children: ReactNode
   selectionMode?: "single" | "multiple"
   maxSelection?: number
+  className?: string
+  direction?: "horizontal" | "vertical"
   onSelectionChange?: (selectedIds: string[]) => void
 }
 
@@ -19,6 +22,8 @@ const Chips = ({
   children,
   selectionMode = "multiple",
   maxSelection,
+  className,
+  direction,
   onSelectionChange
 }: ChipsProps) => {
   const [selectedChips, setSelectedChips] = useState<string[]>([])
@@ -55,7 +60,17 @@ const Chips = ({
     return child
   })
 
-  return <div className="flex flex-wrap">{childrenWithProps}</div>
+  return (
+    <div
+      className={cn(
+        direction === "vertical"
+          ? "flex flex-col items-start"
+          : "flex flex-wrap",
+        className
+      )}>
+      {childrenWithProps}
+    </div>
+  )
 }
 
 Chips.Chip = Chip

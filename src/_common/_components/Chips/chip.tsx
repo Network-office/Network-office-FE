@@ -10,13 +10,13 @@ const Chip = ({
   const colorClasses = {
     default: isSelected
       ? "bg-white text-gray-700 border-gray-700"
-      : "bg-gray-200 text-gray-700 border-gray-200",
+      : "bg-gray-300 text-gray-700 border-gray-200",
     primary: isSelected
-      ? "bg-white text-blue-700 border-blue-700"
-      : "bg-blue-100 text-blue-700 border-blue-100",
+      ? "bg-blue-100 text-blue-700 border-blue-100"
+      : "bg-gray-100 text-slate-500",
     secondary: isSelected
-      ? "bg-white text-purple-700 border-purple-700"
-      : "bg-purple-100 text-purple-700 border-purple-100"
+      ? "bg-purple-100 text-purple-700 border-purple-100"
+      : "bg-gray-100 text-slate-500"
   }
 
   const onClickChip = () => {
