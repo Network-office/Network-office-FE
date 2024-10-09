@@ -4,4 +4,13 @@ export default class CustomError extends Error {
     status: number
     headers: string
   }
+
+  constructor(message: string, status: number) {
+    super(message)
+    this.response = {
+      data: null,
+      status,
+      headers: ""
+    }
+  }
 }
