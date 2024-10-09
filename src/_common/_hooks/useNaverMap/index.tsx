@@ -42,6 +42,7 @@ const useNaverMap = (
   const setMapPosition = (newLat: number, newLng: number) => {
     if (!mapRef.current || !naver) return
     mapRef.current.setCenter(new naver.maps.LatLng(newLat, newLng))
+    mapRef.current.setZoom(15)
   }
 
   const setMarkers = (makers: MakersProps[]) => {
