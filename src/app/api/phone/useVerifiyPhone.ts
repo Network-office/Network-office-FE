@@ -3,7 +3,7 @@ import { useMutation } from "@tanstack/react-query"
 
 const verifyPhoneCode = async ({ phoneNumber }: { phoneNumber: string }) => {
   try {
-    return await http<string>("/api/v1/verification/phone/verify", {
+    return await http<string>("/dev/api/v1/verification/phone/verify", {
       method: "POST",
       body: JSON.stringify(phoneNumber)
     })

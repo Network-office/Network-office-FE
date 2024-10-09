@@ -8,8 +8,10 @@ import Step from "@/_common/_hooks/useFunnel/_component/Step"
 import { UserSignInProvider } from "@/app/kakao/_context/signinContext"
 import { SuccessLogin } from "@/app/kakao/_components/SuccessLogin"
 import { useRouter } from "next/navigation"
+import { useGetCSRFToken } from "@/app/api/auth/csrf"
 import { toast } from "@/_common/_hooks/useToast"
 import AvatarForm from "@/app/kakao/_components/AvatarForm"
+import { useEffect } from "react"
 
 const KakaoLoginWithSocialId = ({
   params
@@ -18,6 +20,10 @@ const KakaoLoginWithSocialId = ({
 }) => {
   const mutation = useKakaoOAuthMutation()
   const router = useRouter()
+  const { mutate } = useGetCSRFToken()
+  useEffect(() => {
+    mutate()
+  }, [])
 
   const handleLoginSuccess = () => {
     mutation.mutate(

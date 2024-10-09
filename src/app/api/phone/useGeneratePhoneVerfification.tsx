@@ -10,7 +10,7 @@ const generatePhoneVerificationCode = async ({
     return await http<{
       code: "string"
       phoneNumber: "string"
-    }>("/api/v1/verification/phone/code", {
+    }>("/dev/api/v1/verification/phone/code", {
       method: "POST",
       body: JSON.stringify({ phoneNumber })
     })
