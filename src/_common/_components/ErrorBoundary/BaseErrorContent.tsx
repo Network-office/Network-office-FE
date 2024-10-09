@@ -1,6 +1,7 @@
 "use client"
 
 import { CircleX } from "lucide-react"
+import { cn } from "@/lib/utils"
 import { useRouter } from "next/navigation"
 
 const ERROR_TEXT: Record<number, { title: string; message: string }> = {
@@ -28,11 +29,15 @@ const ERROR_TEXT: Record<number, { title: string; message: string }> = {
 interface BaseErrorContentProps {
   status: number
   onReset?: () => void
+  className?: string
 }
 
-const BaseErrorContent = ({ status, onReset }: BaseErrorContentProps) => {
+const BaseErrorContent = ({
+  status,
+  onReset,
+  className
+}: BaseErrorContentProps) => {
   const router = useRouter()
-
   const errorTitle = ERROR_TEXT[status].title
   const errorMessage = ERROR_TEXT[status].message
 
@@ -47,7 +52,11 @@ const BaseErrorContent = ({ status, onReset }: BaseErrorContentProps) => {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center w-full min-h-screen">
+    <div
+      className={cn(
+        "flex flex-col justify-center items-center w-full h-screen",
+        className
+      )}>
       <CircleX className="text-red-500 w-[25%] h-[25%] mx-auto" />
       <h1 className="mt-[20px] font-semibold text-2xl text-center">
         {errorTitle}
@@ -55,7 +64,7 @@ const BaseErrorContent = ({ status, onReset }: BaseErrorContentProps) => {
       <p className="text-center text-[10px] mt-[3px]">{errorMessage}</p>
 
       <div className="flex justify-center mt-2">
-        {onReset ? (
+        {!onReset ? (
           <button
             onClick={onClickBackButton}
             className="w-[220px] h-[50px] mt-[20px] mx-auto text-xl font-medium bg-blue-300 text-white rounded-sm shadow-lg ">

@@ -7,6 +7,7 @@ import BaseErrorContent from "./BaseErrorContent"
 interface Props {
   children?: ReactNode
   fallback?: ReactNode
+  onReset?: () => void
 }
 
 interface State {
@@ -36,8 +37,14 @@ class ErrorBoundary extends Component<Props, State> {
         return this.props.fallback
       }
       const status = this.state.error?.response?.status
+
       if (status) {
-        return <BaseErrorContent status={status} />
+        return (
+          <BaseErrorContent
+            status={status}
+            onReset={this.props.onReset}
+          />
+        )
       }
     }
     return this.props.children
