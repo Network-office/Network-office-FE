@@ -1,11 +1,11 @@
 import Button from "@/_common/_components/Button"
-import Input from "@/_common/_components/Input"
+import { Input } from "@/_common/_components/Input"
 import Tooltip from "@/_common/_components/Tooltip"
 import { Meta, StoryObj } from "@storybook/react"
 import { FormEvent, useState } from "react"
 
 const meta = {
-  title: "Common/Tooltip",
+  title: "component/Tooltip",
   component: Tooltip,
   parameters: {
     layout: "centered"

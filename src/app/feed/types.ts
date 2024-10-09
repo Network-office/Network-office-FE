@@ -5,7 +5,20 @@ export interface FeedItemTypes {
   category: string
   title: string
   description: string
-  region: string[]  
+  region: string[]
+  date: string
+  views: number
+  likes: number
+}
+
+export interface FeedCommentType {
+  commentId: string
+  author: string
+  authorProfileImage: string | null
+  detail: string
+  createdAt: string
+  authorId: string
+  region: string[]
   date: string
   views: number
 }
