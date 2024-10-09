@@ -2,7 +2,7 @@
 
 import { useFunnel } from "@/_common/_hooks/useFunnel"
 import { useKakaoOAuthMutation } from "@/app/api/kakao/useKakaoMutation"
-import { useEffect } from "react"
+
 import NickNameForm from "@/app/kakao/_components/NickNameForm"
 import Step from "@/_common/_hooks/useFunnel/_component/Step"
 import { UserSignInProvider } from "@/app/kakao/_context/signinContext"
@@ -20,7 +20,6 @@ const KakaoLoginWithSocialId = ({
   const router = useRouter()
 
   const handleLoginSuccess = () => {
-    console.log(params.socialid)
     mutation.mutate(
       { code: params.socialid },
       {
