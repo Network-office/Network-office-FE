@@ -37,7 +37,7 @@ class ErrorBoundary extends Component<Props, State> {
         return this.props.fallback
       }
       const status = this.state.error?.response?.status
-
+      
       if (status) {
         return (
           <BaseErrorContent
