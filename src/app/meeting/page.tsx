@@ -44,7 +44,6 @@ const Meeting = () => {
         />
         <SearchBar
           setMapPosition={(newPosition) => {
-            console.log(newPosition.lat, newPosition.lng)
             setMapPosition(newPosition.lat, newPosition.lng)
           }}
         />
