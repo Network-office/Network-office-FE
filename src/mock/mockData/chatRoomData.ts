@@ -6,6 +6,7 @@ import { faker } from "@faker-js/faker"
 
 const generateChatRoomData = (): ChatRoom => {
   return {
+    id: faker.string.uuid(),
     title: faker.lorem.sentence(),
     authorInfo: {
       name: faker.internet.userName(),
