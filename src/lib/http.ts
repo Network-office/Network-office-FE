@@ -7,7 +7,6 @@ const createHTTP = () => {
     init?: RequestInit
   ): Promise<{ data: T; status?: number }> => {
     return returnFetch({
-      baseUrl: "https://network-office.duckdns.org/dev/",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -21,6 +20,10 @@ const createHTTP = () => {
             ...init,
             credentials: "include"
           }
+          const xsrfToken = (config[1].headers as Record<string, string>)[
+            "XSRF-TOKEN"
+          ]
+
           return config
         },
         response: async (response: Response) => {
