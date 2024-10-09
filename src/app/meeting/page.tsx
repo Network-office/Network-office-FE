@@ -42,7 +42,12 @@ const Meeting = () => {
             </div>
           }
         />
-        <SearchBar />
+        <SearchBar
+          setMapPosition={(newPosition) => {
+            console.log(newPosition.lat, newPosition.lng)
+            setMapPosition(newPosition.lat, newPosition.lng)
+          }}
+        />
       </div>
       <NaverMapComponent className="absolute top-0 z-0" />
       <FootBar

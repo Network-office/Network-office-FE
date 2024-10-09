@@ -41,7 +41,7 @@ const useNaverMap = (
 
   const setMapPosition = (newLat: number, newLng: number) => {
     if (!mapRef.current || !naver) return
-
+    console.log(newLat, newLng)
     mapRef.current.setCenter(new naver.maps.LatLng(newLat, newLng))
   }
 

@@ -4,7 +4,11 @@ import { Search, AlignJustifyIcon } from "lucide-react"
 import PlaceTypes from "@/_common/_utils/searchPlace/type"
 import searchPlace from "@/_common/_utils/searchPlace"
 
-const SearchBar = () => {
+interface SearchBarProps {
+  setMapPosition: (newPosition: { lat: number; lng: number }) => void
+}
+
+const SearchBar = ({ setMapPosition }: SearchBarProps) => {
   const [inputKeyword, setInputKeyWord] = useState("")
   const [searchResult, setSearchResult] = useState<PlaceTypes[] | null>(null)
 
@@ -18,6 +22,11 @@ const SearchBar = () => {
   }
   const onClickSearchResult = (selectedResult: PlaceTypes) => {
     setSearchResult(null)
+    setInputKeyWord("")
+    setMapPosition({
+      lat: selectedResult.y as number,
+      lng: selectedResult.x as number
+    })
   }
 
   return (
@@ -25,6 +34,7 @@ const SearchBar = () => {
       <div className="w-[85%] h-[40px] mt-3 mx-auto rounded-lg  border-black  bg-white drop-shadow-lg flex gap-2 justify-center items-center">
         <AlignJustifyIcon size={24} />
         <input
+          value={inputKeyword}
           onChange={(event) => setInputKeyWord(event.target.value)}
           onKeyUp={searchBarhandle}
           className="w-[70%] border-[1px] rounded-sm px-2"
