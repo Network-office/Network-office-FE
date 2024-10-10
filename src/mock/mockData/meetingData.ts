@@ -1,11 +1,18 @@
 import { faker } from "@faker-js/faker"
-import { users, TOTAL_MEETINGS } from "./commonData"
+import { users, TOTAL_MEETINGS, generateUserData } from "./commonData"
 
 export const meetingData = Array.from(
   { length: TOTAL_MEETINGS },
   (_, index) => {
     const user = users[index % users.length]
     const isFirstMeeting = index === 0
+    const totalPeople = faker.number.int({ min: 5, max: 20 })
+    const nowPeople = faker.number.int({ min: 1, max: totalPeople })
+
+    const confirmedParticipants = Array.from({ length: nowPeople }, () => {
+      const participantId = faker.string.uuid()
+      return generateUserData(participantId)
+    })
 
     return {
       id: index + 1,
@@ -18,12 +25,13 @@ export const meetingData = Array.from(
       startTime: "14:00",
       endTime: "18:00",
       category: "스포츠",
-      totalPeople: faker.number.int({ min: 5, max: 20 }),
-      nowPeople: faker.number.int({ min: 1, max: 5 }),
+      totalPeople,
+      nowPeople,
       fee: 5000,
       detail: "이 모임은 함께 운동을 즐기기 위한 모임입니다.",
       lng: isFirstMeeting ? 127.027619 : faker.location.longitude(),
-      lat: isFirstMeeting ? 37.497942 : faker.location.latitude()
+      lat: isFirstMeeting ? 37.497942 : faker.location.latitude(),
+      confirmedParticipants
     }
   }
 )
