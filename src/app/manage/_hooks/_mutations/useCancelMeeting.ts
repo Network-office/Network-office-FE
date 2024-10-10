@@ -3,7 +3,13 @@ import cancelMeeting from "../../_api/cancelMeeting"
 
 const useCancelMeeting = () => {
   const { mutate } = useMutation({
-    mutationFn: cancelMeeting
+    mutationFn: ({
+      meetingId,
+      reason
+    }: {
+      meetingId: number
+      reason: string
+    }) => cancelMeeting(meetingId, reason)
   })
   return { mutate }
 }
