@@ -161,7 +161,28 @@ const handlers = [
         )
       }
     }
-  )
+  ),
+  http.post("http://localhost:8080/api/meeting/close", async ({ request }) => {
+    const { meetingId } = await request.json()
+    console.log(meetingId)
+    if (!meetingId) {
+      return new HttpResponse(
+        JSON.stringify({ message: "유효하지 않은 모임 ID입니다." }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" }
+        }
+      )
+    }
+
+    return new HttpResponse(
+      JSON.stringify({ message: "모임이 성공적으로 마감되었습니다." }),
+      {
+        status: 200,
+        headers: { "Content-Type": "application/json" }
+      }
+    )
+  })
 ]
 
 export default handlers
