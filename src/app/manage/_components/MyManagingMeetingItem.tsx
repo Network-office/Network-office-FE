@@ -8,10 +8,13 @@ import { Users, Clock, Settings } from "lucide-react"
 import useModal from "@/_common/_hooks/useModal"
 import MeetingOptionModal from "./MeetingOptionModal"
 import NewParticipateModal from "./NewParticipateModal"
+import ExpelReasonModal from "./ExpelREasonModal"
 import { UserInformTypes } from "@/app/mypage/types"
 import { ScrollArea } from "@/_common/_components/ScrollArea"
 import DropBox from "@/_common/_components/DropBox"
 import Button from "@/_common/_components/Button"
+import useExpelParticipant from "../_hooks/_mutations/useExpelParticipant"
+import { useToast } from "@/_common/_hooks/useToast"
 
 interface MyManagingMeetingItemProps {
   title: string
@@ -30,17 +33,52 @@ const MyManagingMeetingItem = ({
   date,
   startTime,
   endTime,
-  nowPeople,
+  nowPeople: initialNowPeople,
   totalPeople,
   meetingId,
-  confirmedParticipants,
+  confirmedParticipants: initialConfirmedParticipants,
   status
 }: MyManagingMeetingItemProps) => {
   const { ModalComponent, setModalOpen, setModalClose } = useModal()
   const [selectedModal, setSelectedModal] = useState("")
+  const [selectedParticipant, setSelectedParticipant] =
+    useState<UserInformTypes | null>(null)
+  const [showExpelModal, setShowExpelModal] = useState(false)
+  const [confirmedParticipants, setConfirmedParticipants] = useState(
+    initialConfirmedParticipants
+  )
+  const [nowPeople, setNowPeople] = useState(initialNowPeople)
+
+  const expelMutation = useExpelParticipant(meetingId)
+  const { toast } = useToast()
+
+  const handleExpel = (reason: string) => {
+    if (selectedParticipant) {
+      expelMutation.mutate(
+        { userId: selectedParticipant.userId, reason },
+        {
+          onSuccess: () => {
+            setShowExpelModal(false)
+            setConfirmedParticipants((prev) =>
+              prev.filter((p) => p.userId !== selectedParticipant.userId)
+            )
+            setNowPeople((prev) => prev - 1)
+          },
+          onError: () => {
+            toast({
+              title: "추방 실패 했습니다.",
+              description: "잠시 후 다시 시도해주세요"
+            })
+          }
+        }
+      )
+    } else {
+      console.error("선택된 참가자가 없습니다.")
+    }
+  }
 
   return (
-    <div className="w-full border-b-[1px] border-t-[1px] h-[180px] mb-1 shadow-lg px-4 py-2">
+    <div className="w-full border-b-[1px] border-t-[1px] mb-1 shadow-lg px-4 py-2">
       <div className="flex w-full">
         <div className="w-full  flex justify-between">
           <span className="font-medium text-xl mt-1 text-ellipsis w-[88%] overflow-hidden whitespace-nowrap">
@@ -58,14 +96,20 @@ const MyManagingMeetingItem = ({
       <ScrollArea
         enableDrag={true}
         orientation="horizontal"
-        className="w-full my-2">
-        <div className="flex space-x-2 min-w-max p-1">
+        className="w-full my-1 ">
+        <div className="flex space-x-2 min-w-max p-1 ">
           {confirmedParticipants.map((participant) => (
             <DropBox
               key={participant.userId}
               items={[
                 { label: participant.nickName, onClick: () => {} },
-                { label: "프로필 보기", onClick: () => {} }
+                {
+                  label: "추방하기",
+                  onClick: () => {
+                    setSelectedParticipant(participant)
+                    setShowExpelModal(true)
+                  }
+                }
               ]}
               triggerClassName="w-[40px] h-[40px] rounded-full"
               contentClassName="w-32">
@@ -75,7 +119,7 @@ const MyManagingMeetingItem = ({
                   alt={participant.nickName}
                   width={40}
                   height={40}
-                  className="rounded-full"
+                  className="rounded-full "
                 />
               )}
             </DropBox>
@@ -126,8 +170,15 @@ const MyManagingMeetingItem = ({
           />
         )}
       </ModalComponent>
+      {showExpelModal && (
+        <ExpelReasonModal
+          onClose={() => setShowExpelModal(false)}
+          onExpel={(reason) => {
+            handleExpel(reason)
+          }}
+        />
+      )}
     </div>
   )
 }
-
 export default MyManagingMeetingItem

@@ -3,7 +3,7 @@ import CustomError from "@/lib/CustomError"
 
 const expelParticipant = async (
   meetingId: number,
-  userId: number,
+  userId: string,
   reason: string
 ) => {
   try {

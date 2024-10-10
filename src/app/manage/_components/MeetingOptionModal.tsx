@@ -1,7 +1,7 @@
 import { useState } from "react"
 import useCloseMeeting from "../_hooks/_mutations/useCloseMeeting"
 import useCancelMeeting from "../_hooks/_mutations/useCancelMeeting"
-import CancelReasonModal from "./\bCancleReasonModal"
+import CancelReasonModal from "./CancleReasonModal"
 
 interface MeetingOptionModalProps {
   meetingId: number
