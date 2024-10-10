@@ -162,7 +162,7 @@ const handlers = [
   ),
   http.post("http://localhost:8080/api/meeting/close", async ({ request }) => {
     const { meetingId } = await request.json()
-    console.log(meetingId)
+
     if (!meetingId) {
       return new HttpResponse(
         JSON.stringify({ message: "유효하지 않은 모임 ID입니다." }),
@@ -172,7 +172,10 @@ const handlers = [
         }
       )
     }
-
+    const meetingIndex = meetingData.findIndex(
+      (meeting) => meeting.meetingId === meetingId
+    )
+    meetingData[meetingIndex].status = "모짐 마감"
     return new HttpResponse(
       JSON.stringify({ message: "모임이 성공적으로 마감되었습니다." }),
       {

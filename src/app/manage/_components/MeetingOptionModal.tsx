@@ -10,7 +10,6 @@ const MeetingOptionModal = ({
   onClose
 }: MeetingOptionModalProps) => {
   const closeMeetingMutation = useCloseMeeting()
-
   const handleCloseMeeting = () => {
     closeMeetingMutation.mutate(meetingId, {
       onSuccess: () => {

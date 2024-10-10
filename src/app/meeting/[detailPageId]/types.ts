@@ -6,6 +6,7 @@ export interface MeetingDetailTypes {
   date: string
   startTime: number
   endTime: number
+  status: string
   category: string
   totalPeople: number
   nowPeople: number

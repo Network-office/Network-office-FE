@@ -1,12 +1,12 @@
 "use client"
 
 import Link from "next/link"
+import { useState } from "react"
 
 import { Users, Clock, Settings } from "lucide-react"
 import useModal from "@/_common/_hooks/useModal"
 import MeetingOptionModal from "./MeetingOptionModal"
 import NewParticipateModal from "./NewParticipateModal"
-import { useState } from "react"
 
 interface MyManagingMeetingItemProps {
   title: string
@@ -16,6 +16,7 @@ interface MyManagingMeetingItemProps {
   nowPeople: number
   totalPeople: number
   meetingId: number
+  status: string
 }
 
 const MyManagingMeetingItem = ({
@@ -25,7 +26,8 @@ const MyManagingMeetingItem = ({
   endTime,
   nowPeople,
   totalPeople,
-  meetingId
+  meetingId,
+  status
 }: MyManagingMeetingItemProps) => {
   const { ModalComponent, setModalOpen, setModalClose } = useModal()
   const [selectedModal, setSelectedModal] = useState("")
@@ -77,7 +79,12 @@ const MyManagingMeetingItem = ({
         </button>
       </div>
       <ModalComponent className="w-full h-full">
-        {selectedModal === "meetingOption" && <MeetingOptionModal />}
+        {selectedModal === "meetingOption" && (
+          <MeetingOptionModal
+            meetingId={meetingId}
+            onClose={setModalClose}
+          />
+        )}
         {selectedModal === "newParticipate" && (
           <NewParticipateModal
             meetingId={meetingId}

@@ -8,6 +8,7 @@ export interface MeetingInform extends MeetingPositionTypes {
   title: string
   place: string
   fare: string
+  status: string
   totalPeople: number
   nowPeople: number
   startTime: string

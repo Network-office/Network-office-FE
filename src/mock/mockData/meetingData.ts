@@ -11,6 +11,7 @@ export const meetingData = Array.from(
       id: index + 1,
       author: user.nickName,
       authorId: user.userId,
+      status: "모집중",
       title: `${faker.person.firstName()}과 함께하는 ${faker.vehicle.vehicle()}타기`,
       place: "서울 강남구 주노동 준오아파트 103동 ",
       date: isFirstMeeting ? "09.24" : faker.date.future().toISOString(),
