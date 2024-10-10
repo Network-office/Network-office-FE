@@ -29,19 +29,79 @@ const ScrollArea = React.forwardRef<
   React.ElementRef<typeof ScrollAreaPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Root> & {
     orientation?: "vertical" | "horizontal"
+    enableDrag?: boolean
   }
->(({ className, children, orientation = "vertical", ...props }, ref) => (
-  <ScrollAreaPrimitive.Root
-    ref={ref}
-    className={cn("relative overflow-hidden", className)}
-    {...props}>
-    <ScrollAreaPrimitive.Viewport className="h-full w-full rounded-[inherit]">
-      {children}
-    </ScrollAreaPrimitive.Viewport>
-    <ScrollBar orientation={orientation} />
-    <ScrollAreaPrimitive.Corner />
-  </ScrollAreaPrimitive.Root>
-))
+>(
+  (
+    {
+      className,
+      children,
+      orientation = "vertical",
+      enableDrag = false,
+      ...props
+    },
+    ref
+  ) => {
+    const viewportRef = React.useRef<HTMLDivElement>(null)
+    const [isDragging, setIsDragging] = React.useState(false)
+    const [startX, setStartX] = React.useState(0)
+    const [startY, setStartY] = React.useState(0)
+    const [scrollLeft, setScrollLeft] = React.useState(0)
+    const [scrollTop, setScrollTop] = React.useState(0)
+
+    const handleMouseDown = (e: React.MouseEvent) => {
+      if (!enableDrag) return
+      setIsDragging(true)
+      setStartX(e.pageX - (viewportRef.current?.offsetLeft || 0))
+      setStartY(e.pageY - (viewportRef.current?.offsetTop || 0))
+      setScrollLeft(viewportRef.current?.scrollLeft || 0)
+      setScrollTop(viewportRef.current?.scrollTop || 0)
+    }
+
+    const handleMouseLeave = () => {
+      setIsDragging(false)
+    }
+
+    const handleMouseUp = () => {
+      setIsDragging(false)
+    }
+
+    const handleMouseMove = (e: React.MouseEvent) => {
+      if (!isDragging || !enableDrag) return
+      e.preventDefault()
+      const x = e.pageX - (viewportRef.current?.offsetLeft || 0)
+      const y = e.pageY - (viewportRef.current?.offsetTop || 0)
+      const walkX = (x - startX) * 2
+      const walkY = (y - startY) * 2
+      if (viewportRef.current) {
+        viewportRef.current.scrollLeft = scrollLeft - walkX
+        viewportRef.current.scrollTop = scrollTop - walkY
+      }
+    }
+
+    return (
+      <ScrollAreaPrimitive.Root
+        ref={ref}
+        className={cn("relative overflow-hidden", className)}
+        {...props}>
+        <ScrollAreaPrimitive.Viewport
+          ref={viewportRef}
+          className={cn(
+            "h-full w-full rounded-[inherit]",
+            enableDrag && "cursor-grab active:cursor-grabbing"
+          )}
+          onMouseDown={handleMouseDown}
+          onMouseLeave={handleMouseLeave}
+          onMouseUp={handleMouseUp}
+          onMouseMove={handleMouseMove}>
+          {children}
+        </ScrollAreaPrimitive.Viewport>
+        <ScrollBar orientation={orientation} />
+        <ScrollAreaPrimitive.Corner />
+      </ScrollAreaPrimitive.Root>
+    )
+  }
+)
 
 ScrollArea.displayName = ScrollAreaPrimitive.Root.displayName
 ScrollBar.displayName = ScrollAreaPrimitive.ScrollAreaScrollbar.displayName

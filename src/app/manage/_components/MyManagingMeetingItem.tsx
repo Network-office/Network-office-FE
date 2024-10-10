@@ -56,9 +56,10 @@ const MyManagingMeetingItem = ({
         </div>
       </div>
       <ScrollArea
+        enableDrag={true}
         orientation="horizontal"
         className="w-full my-2">
-        <div className="flex space-x-2 min-w-max">
+        <div className="flex space-x-2 min-w-max p-1">
           {confirmedParticipants.map((participant) => (
             <DropBox
               key={participant.userId}
