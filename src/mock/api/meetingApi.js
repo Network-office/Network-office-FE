@@ -336,11 +336,11 @@ const handlers = [
     )
   }),
   http.post("http://localhost:8080/api/meeting/cancel", async ({ request }) => {
-    const { meetingId } = await request.json()
+    const { meetingId, reason } = await request.json()
 
-    if (!meetingId) {
+    if (!meetingId || !reason) {
       return new HttpResponse(
-        JSON.stringify({ message: "유효하지 않은 모임 ID입니다." }),
+        JSON.stringify({ message: "유효하지 않은 요청입니다." }),
         {
           status: 400,
           headers: { "Content-Type": "application/json" }
@@ -363,6 +363,7 @@ const handlers = [
     }
 
     meetingData[meetingIndex].status = "모임 취소"
+    meetingData[meetingIndex].cancelReason = reason
 
     return new HttpResponse(
       JSON.stringify({
