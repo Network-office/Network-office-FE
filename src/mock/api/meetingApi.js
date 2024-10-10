@@ -183,6 +183,46 @@ const handlers = [
         headers: { "Content-Type": "application/json" }
       }
     )
+  }),
+  http.post("http://localhost:8080/api/meeting/cancel", async ({ request }) => {
+    const { meetingId } = await request.json()
+
+    if (!meetingId) {
+      return new HttpResponse(
+        JSON.stringify({ message: "유효하지 않은 모임 ID입니다." }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" }
+        }
+      )
+    }
+
+    const meetingIndex = meetingData.findIndex(
+      (meeting) => meeting.id === meetingId
+    )
+
+    if (meetingIndex === -1) {
+      return new HttpResponse(
+        JSON.stringify({ message: "해당 모임을 찾을 수 없습니다." }),
+        {
+          status: 404,
+          headers: { "Content-Type": "application/json" }
+        }
+      )
+    }
+
+    meetingData[meetingIndex].status = "모임 취소"
+
+    return new HttpResponse(
+      JSON.stringify({
+        message: "모임이 성공적으로 취소되었습니다.",
+        meeting: meetingData[meetingIndex]
+      }),
+      {
+        status: 200,
+        headers: { "Content-Type": "application/json" }
+      }
+    )
   })
 ]
 
