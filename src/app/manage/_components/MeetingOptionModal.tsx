@@ -14,7 +14,7 @@ const MeetingOptionModal = ({
 }: MeetingOptionModalProps) => {
   const [showCancelReason, setShowCancelReason] = useState(false)
   const closeMeetingMutation = useCloseMeeting()
-  const cancelMeetingMutation = useCancelMeeting()
+  const cancelMeetingMutation = useCancelMeeting(meetingId)
 
   const handleCloseMeeting = () => {
     closeMeetingMutation.mutate(meetingId, {
@@ -30,7 +30,7 @@ const MeetingOptionModal = ({
 
   const handleCancelMeeting = (reason: string) => {
     cancelMeetingMutation.mutate(
-      { meetingId, reason },
+      { reason },
       {
         onSuccess: () => {
           alert("모임이 성공적으로 취소되었습니다.")
