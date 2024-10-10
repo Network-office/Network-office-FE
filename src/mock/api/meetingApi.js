@@ -1,6 +1,6 @@
 import { http, HttpResponse } from "msw"
 import { meetingData } from "../mockData/meetingData"
-import { participateData } from "../mockData/pariticpateData"
+import { participateData } from "../mockData/participateData"
 
 const handlers = [
   http.get(`http://localhost:8080/api/meeting`, ({ request }) => {
@@ -9,9 +9,7 @@ const handlers = [
     if (authorId) {
       return new HttpResponse(
         JSON.stringify({
-          content: meetingData.filter(
-            (item) => item.authorId === parseInt(authorId)
-          )
+          content: meetingData.filter((item) => item.authorId === authorId)
         }),
         {
           status: 200
