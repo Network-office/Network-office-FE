@@ -28,17 +28,17 @@ const FootBar = ({ setMapPosition }: FootBarProps) => {
   }
 
   return (
-    <div className="absolute w-full bottom-12 left-0 z-10 px-4 flex justify-between ">
+    <div className="absolute w-full bottom-20 left-0 z-10 px-4 flex justify-between ">
       <button onClick={onClicksetMapToMyPosition}>
         <LocateFixed
-          className="bg-white rounded-full px-1"
-          size={44}
+          className="bg-slate-100 rounded-full px-1 shadow-2xl"
+          size={48}
         />
       </button>
       <Link href="meeting/create">
         <Plus
-          className="bg-white rounded-full px-1"
-          size={44}
+          className="bg-slate-100 rounded-full px-1 shadow-2xl"
+          size={48}
         />
       </Link>
     </div>
