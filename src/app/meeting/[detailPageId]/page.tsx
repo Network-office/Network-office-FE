@@ -8,6 +8,7 @@ import MeetingMapSection from "./_components/MeetingMapSection"
 import useGetMeetingDetail from "./_hooks/_quries/useGetMeetingDetail"
 import MeetingParticipateModal from "./_components/MeetingParticipateModal"
 import useModal from "@/_common/_hooks/useModal"
+import Button from "@/_common/_components/Button"
 
 const MeetingDetailPage = () => {
   const path = usePathname()
@@ -18,7 +19,7 @@ const MeetingDetailPage = () => {
   if (!meetingDetail) return <div></div>
 
   return (
-    <div className="w-screen h-screen">
+    <div className="w-screen h-screen ">
       <MeetingDetailHeader title={meetingDetail.title} />
       <MeetingContentSection meetingDetail={meetingDetail} />
       <hr />
@@ -28,15 +29,16 @@ const MeetingDetailPage = () => {
         meetingId={meetingDetail.id}
         place={meetingDetail.place}
       />
-      <div className="flex justify-between mx-6 mt-[20px]">
+      <hr className="my-1" />
+      <div className="w-screen flex justify-between px-6 pb-[4.5rem]">
         <button>
           <HeartOff />
         </button>
-        <button
+        <Button
           onClick={setModalOpen}
-          className="w-[150px] h-[40px] rounded-md bg-blue-300 text-white">
+          className="w-[150px] h-[40px] rounded-md text-white">
           참가신청
-        </button>
+        </Button>
       </div>
       <ModalComponent className="bg-white w-[380px] h-[300px] rounded-sm shadow-2xl px-4 py-4 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <MeetingParticipateModal
