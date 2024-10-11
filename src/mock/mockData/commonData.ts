@@ -9,7 +9,7 @@ export const CATEGORIES = ["스포츠", "술", "음식", "여행", "기타"]
 export const users = Array.from({ length: TOTAL_USERS }, (_, index) => ({
   userId: (index + 1).toString(),
   nickName: faker.internet.userName(),
-  profileImg: faker.image.avatar(),
+  profileImg: null,
   profileIntroduce: faker.lorem.sentence(),
   participatedMeetingList: faker.helpers.arrayElements(CATEGORIES, {
     min: 1,
@@ -31,8 +31,7 @@ export const generateUserData = (userId: string) => ({
   participatedMeetingList: faker.helpers.arrayElements(CATEGORIES, {
     min: 1,
     max: 5
-  }),
-  
+  })
 })
 
 export const generateDate = () => faker.date.recent().toISOString()
