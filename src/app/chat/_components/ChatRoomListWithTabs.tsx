@@ -14,15 +14,13 @@ const roleToKorean = {
 } as const
 
 interface ChatRoomListWithTabsProps {
-  defaultRole: "admin" | "user" | undefined
+  defaultRole: "admin" | "user" | "all"
 }
 
 const ChatRoomListWithTabs = ({ defaultRole }: ChatRoomListWithTabsProps) => {
   const router = useRouter()
   const pathName = usePathname()
-  const [role, setRole] = useState<"admin" | "user" | "all">(
-    defaultRole ?? "all"
-  )
+  const [role, setRole] = useState(defaultRole)
   const { data: rooms } = useGetChatRoomList(role)
 
   const handleTabClick = (role: "admin" | "user" | "all") => {
@@ -34,16 +32,20 @@ const ChatRoomListWithTabs = ({ defaultRole }: ChatRoomListWithTabsProps) => {
 
   return (
     <Tabs defaultValue={role}>
-      <TabsList>
-        {Object.entries(roleToKorean).map(([roleEn, roleKo]) => (
-          <TabsTrigger
-            key={roleEn}
-            value={roleEn}
-            onClick={() => handleTabClick(roleEn as "admin" | "user" | "all")}>
-            {roleKo}
-          </TabsTrigger>
-        ))}
-      </TabsList>
+      <div className="p-2">
+        <TabsList>
+          {Object.entries(roleToKorean).map(([roleEn, roleKo]) => (
+            <TabsTrigger
+              key={roleEn}
+              value={roleEn}
+              onClick={() =>
+                handleTabClick(roleEn as "admin" | "user" | "all")
+              }>
+              {roleKo}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+      </div>
       <TabsContent value={role}>
         <div className="flex flex-col">
           {rooms?.map((room) => (
