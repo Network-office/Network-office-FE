@@ -15,6 +15,7 @@ import DropBox from "@/_common/_components/DropBox"
 import Button from "@/_common/_components/Button"
 import useExpelParticipant from "../_hooks/_mutations/useExpelParticipant"
 import { useToast } from "@/_common/_hooks/useToast"
+import { User } from "lucide-react"
 
 interface MyManagingMeetingItemProps {
   title: string
@@ -111,9 +112,9 @@ const MyManagingMeetingItem = ({
                   }
                 }
               ]}
-              triggerClassName="w-[40px] h-[40px] rounded-full"
+              triggerClassName="w-[40px] h-[40px] p-1 bg-slate-400 rounded-full"
               contentClassName="w-32">
-              {participant.profileImg && (
+              {participant.profileImg ? (
                 <Image
                   src={participant.profileImg}
                   alt={participant.nickName}
@@ -121,6 +122,8 @@ const MyManagingMeetingItem = ({
                   height={40}
                   className="rounded-full "
                 />
+              ) : (
+                <User className="w-[40px] h-[40px] rounded-full" />
               )}
             </DropBox>
           ))}

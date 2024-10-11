@@ -13,7 +13,8 @@ const feedMockData = Array.from({ length: TOTAL_FEEDS }, (_, index) => {
     createdAt: faker.date.past().toISOString(),
     region: ["서울시", "구로구", "항동"],
     date: faker.date.recent().toISOString(),
-    views: faker.number.int({ min: 0, max: 1000 })
+    views: faker.number.int({ min: 0, max: 1000 }),
+    likes: faker.number.int({ min: 0, max: 1000 })
   }
 })
 
