@@ -17,6 +17,8 @@ export interface ChatRoom {
 
 export interface ChatRoomListResponse {
   rooms: ChatRoom[]
+  totalPage: number
+  hasNext: boolean
 }
 
 const getChatRoomList = async (role: "admin" | "user" | "all") => {

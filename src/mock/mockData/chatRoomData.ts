@@ -21,10 +21,7 @@ const generateChatRoomData = (): ChatRoom => {
   }
 }
 
-const generateChatRoomListData = (length: number): ChatRoomListResponse => {
-  return {
-    rooms: Array.from({ length }, generateChatRoomData)
-  }
-}
+const generateChatRoomListData = (length: number) =>
+  Array.from({ length }, generateChatRoomData)
 
 export const chatRoomListData = generateChatRoomListData(10)
