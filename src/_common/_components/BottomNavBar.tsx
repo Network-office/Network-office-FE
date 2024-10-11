@@ -15,7 +15,7 @@ const BottomNavBar = () => {
   const pathname = usePathname()
 
   return (
-    <nav className="fixed bottom-0 z-[200] left-0 right-0 bg-white border-t border-gray-200">
+    <nav className="fixed bottom-0 z-45 left-0 right-0 bg-white border-t border-gray-200">
       <div className="flex justify-around items-center h-16">
         {NAV_ITEMS.map((item) => {
           const isActive = pathname === item.href
