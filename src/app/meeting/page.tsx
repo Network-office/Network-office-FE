@@ -52,7 +52,7 @@ const Meeting = () => {
       <FootBar
         setMapPosition={(result) => setMapPosition(result.lat, result.lng)}
       />
-      <ModalComponent className="bottom-0">
+      <ModalComponent className="bottom-0 z-50">
         {selectedMeeting && (
           <MeetingInformModal meetingData={selectedMeeting} />
         )}
