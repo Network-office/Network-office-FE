@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import dateToString from "@/_common/_utils/dateToString"
 
 interface MeetingInformModalProps {
   meetingData: {
@@ -51,7 +52,8 @@ const MeetingInformModal = ({ meetingData }: MeetingInformModalProps) => {
       <div className="flex w-[80%] justify-between mx-auto">
         <label className="font-semibold">일시 / 활동시간</label>
         <p>
-          {meetingData.date} / {meetingData.startTime}~{meetingData.endTime}
+          {dateToString(meetingData.date)} | {meetingData.startTime}~
+          {meetingData.endTime}
         </p>
       </div>
       <div className="flex justify-center items-center mt-4">

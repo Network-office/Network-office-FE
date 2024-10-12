@@ -1,6 +1,6 @@
 import { useState } from "react"
-import useCloseMeeting from "../_hooks/_mutations/useCloseMeeting"
-import useCancelMeeting from "../_hooks/_mutations/useCancelMeeting"
+import useCloseMeeting from "../../_hooks/_mutations/useCloseMeeting"
+import useCancelMeeting from "../../_hooks/_mutations/useCancelMeeting"
 import CancelReasonModal from "./CancleReasonModal"
 import Button from "@/_common/_components/Button"
 

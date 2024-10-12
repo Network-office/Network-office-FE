@@ -13,7 +13,7 @@ import { UserInformTypes } from "@/app/mypage/types"
 import { ScrollArea } from "@/_common/_components/ScrollArea"
 import DropBox from "@/_common/_components/DropBox"
 import Button from "@/_common/_components/Button"
-import useExpelParticipant from "../_hooks/_mutations/useExpelParticipant"
+import useExpelParticipant from "../../_hooks/_mutations/useExpelParticipant"
 import { useToast } from "@/_common/_hooks/useToast"
 import { User } from "lucide-react"
 
