@@ -27,7 +27,7 @@ const Topbar = ({
   )
 }
 
-const BackLink = () => {
+export const BackLink = () => {
   const router = useRouter()
   return (
     <button
@@ -38,7 +38,7 @@ const BackLink = () => {
   )
 }
 
-const ProfileLink = () => (
+export const ProfileLink = () => (
   <Link
     aria-label="Profile"
     href="/user">
@@ -46,7 +46,7 @@ const ProfileLink = () => (
   </Link>
 )
 
-const AlarmLink = () => (
+export const AlarmLink = () => (
   <Link
     aria-label="Alarm"
     href="/alarm">

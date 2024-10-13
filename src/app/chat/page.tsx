@@ -1,4 +1,4 @@
-import Topbar from "@/_common/_components/Topbar"
+import Topbar, { AlarmLink } from "@/_common/_components/Topbar"
 import { getQueryClient } from "@/_common/_utils/getClientQuery"
 import getChatRoomList from "@/app/chat/_apis/getChatRoomList"
 import ChatRoomListWithTabs from "@/app/chat/_components/ChatRoomListWithTabs"
@@ -23,7 +23,7 @@ const ChatRoomPage = ({ searchParams }: ChatRoomPageProps) => {
       <div className="relative">
         <Topbar
           title="채팅방"
-          rightContent={<Topbar.AlarmLink />}
+          rightContent={<AlarmLink />}
         />
         <Suspense fallback={<>Loading...</>}>
           <ChatRoomListWithTabs defaultRole={role} />
