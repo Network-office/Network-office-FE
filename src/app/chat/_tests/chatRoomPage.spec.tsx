@@ -1,15 +1,21 @@
 import ChatRoomPage from "@/app/chat/page"
 import { QueryProvider } from "@/app/provider"
 import { describe, expect, jest, test } from "@jest/globals"
-import {
-  act,
-  cleanup,
-  fireEvent,
-  render,
-  screen,
-  waitFor
-} from "@testing-library/react"
+import { act, fireEvent, render, screen, waitFor } from "@testing-library/react"
 import { AppRouterContext } from "next/dist/shared/lib/app-router-context.shared-runtime.js"
+
+const callbackSpy = jest.fn()
+
+// @ts-ignore
+global.IntersectionObserver = jest.fn((callback, options) => {
+  callbackSpy.mockImplementation(callback as any)
+  return {
+    observe: jest.fn(),
+    disconnect: jest.fn(),
+    unobserve: jest.fn(),
+    callback
+  }
+})
 
 const mockRouter = {
   push: jest.fn(),
@@ -19,6 +25,7 @@ const mockRouter = {
   forward: jest.fn(),
   refresh: jest.fn()
 }
+
 describe("ChatRoomPage", () => {
   test("채팅방 목록이 렌더링되고 aria-label이 '-link'를 포함하는 링크들이 존재한다", async () => {
     const { getAllByLabelText } = render(
@@ -54,7 +61,7 @@ describe("ChatRoomPage", () => {
   })
 
   test("무한 스크롤로 데이터 fetch 가 된다", async () => {
-    const { getByText } = render(
+    render(
       <AppRouterContext.Provider value={mockRouter}>
         <QueryProvider>
           <ChatRoomPage searchParams={{ role: undefined }} />
@@ -70,7 +77,7 @@ describe("ChatRoomPage", () => {
     })
 
     act(() => {
-      fireEvent.scroll(window, { target: { scrollY: 1000 } })
+      callbackSpy([{ isIntersecting: true }])
     })
 
     await waitFor(() => {
