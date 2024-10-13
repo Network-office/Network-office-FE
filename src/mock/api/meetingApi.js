@@ -310,6 +310,46 @@ const handlers = [
         }
       )
     }
+  ),
+  http.get(
+    "http://localhost:8080/api/meeting/participating/:userId",
+    ({ params }) => {
+      const userId = params.userId
+
+      const participatingMeetings = meetingData.filter((meeting) =>
+        meeting.confirmedParticipants.some(
+          (participant) => participant.userId === userId
+        )
+      )
+      if (participatingMeetings.length === 0) {
+        return new HttpResponse(
+          JSON.stringify({ error: "참여 중인 모임이 없습니다." }),
+          {
+            status: 404
+          }
+        )
+      }
+
+      const response = {
+        content: participatingMeetings.map((meeting) => ({
+          id: meeting.id,
+          title: meeting.title,
+          date: meeting.date,
+          startTime: meeting.startTime,
+          endTime: meeting.endTime,
+          nowPeople: meeting.nowPeople,
+          totalPeople: meeting.totalPeople,
+          status: meeting.status,
+          category: meeting.category,
+          place: meeting.place,
+          confirmedParticipants: meeting.confirmedParticipants
+        }))
+      }
+
+      return HttpResponse.json(response, {
+        status: 200
+      })
+    }
   )
 ]
 

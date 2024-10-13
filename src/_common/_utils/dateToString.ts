@@ -6,9 +6,9 @@ const dateToString = (dateString: string | Date): string => {
   const day = date.getDate()
 
   if (year === currentYear) {
-    return `${month}/${day}`
+    return `${month}.${day}`
   } else {
-    return `${year}/${month}/${day}`
+    return `${year}.${month}.${day}`
   }
 }
 

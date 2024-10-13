@@ -28,7 +28,7 @@ export const meetingData = Array.from(
       totalPeople,
       nowPeople,
       fee: 5000,
-      detail: "이 모임은 함께 운동을 즐기기 위한 모임입니다.",
+      detail: "이 모임은 함께 운동을 ��기 위한 모임입니다.",
       lng: isFirstMeeting ? 127.027619 : faker.location.longitude(),
       lat: isFirstMeeting ? 37.497942 : faker.location.latitude(),
       confirmedParticipants
@@ -61,4 +61,63 @@ meetingData[2] = {
   author: users[0].nickName,
   lng: 127.024619,
   lat: 37.457942
+}
+
+meetingData[3] = {
+  ...meetingData[3],
+  id: 3,
+  authorId: "2",
+  author: users[0].nickName,
+  lng: 127.024619,
+  lat: 37.457942,
+  nowPeople: 2,
+  confirmedParticipants: [
+    {
+      userId: "1",
+      nickName: "참여자1",
+      profileImg: null,
+      profileIntroduce: "",
+      participatedMeetingList: []
+    },
+    {
+      userId: "6",
+      nickName: "참여자2",
+      profileImg: null,
+      profileIntroduce: "",
+      participatedMeetingList: []
+    }
+  ]
+}
+
+meetingData[4] = {
+  ...meetingData[4],
+  id: 3,
+  authorId: "2",
+  author: users[0].nickName,
+  lng: 127.024619,
+  lat: 37.457942,
+  nowPeople: 3,
+  confirmedParticipants: [
+    {
+      userId: "1",
+      nickName: "참여자1",
+      profileImg: null,
+      profileIntroduce: "",
+      participatedMeetingList: []
+    },
+    {
+      userId: "6",
+      nickName: "참여자2",
+      profileImg: null,
+      profileIntroduce: "",
+      participatedMeetingList: []
+    },
+    {
+      userId: "8",
+      nickName: "참여자3",
+      profileImg: null,
+      profileIntroduce: "",
+      participatedMeetingList: []
+    }
+  ]
 }
