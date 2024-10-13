@@ -47,7 +47,9 @@ const ChatRoomListWithTabs = ({ defaultRole }: ChatRoomListWithTabsProps) => {
         </TabsList>
       </div>
       <TabsContent value={role}>
-        <div className="flex flex-col">
+        <div
+          aria-label="chat-room-list"
+          className="flex flex-col">
           {rooms?.map((room) => (
             <Link
               aria-label={`${room.title}-link`}

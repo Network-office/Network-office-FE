@@ -1,7 +1,14 @@
 import ChatRoomPage from "@/app/chat/page"
 import { QueryProvider } from "@/app/provider"
 import { describe, expect, jest, test } from "@jest/globals"
-import { render, waitFor } from "@testing-library/react"
+import {
+  act,
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  waitFor
+} from "@testing-library/react"
 import { AppRouterContext } from "next/dist/shared/lib/app-router-context.shared-runtime.js"
 
 const mockRouter = {
@@ -28,11 +35,47 @@ describe("ChatRoomPage", () => {
     })
   })
 
-  test("필터링 테스트 tab 으로 목록이 필터링된다", () => {
-    // test code
+  test("필터링 테스트 tab 으로 목록이 필터링된다", async () => {
+    const { getByText } = render(
+      <AppRouterContext.Provider value={mockRouter}>
+        <QueryProvider>
+          <ChatRoomPage searchParams={{ role: undefined }} />
+        </QueryProvider>
+      </AppRouterContext.Provider>
+    )
+
+    await waitFor(() => {
+      const filterTab = getByText("소장")
+      fireEvent.click(filterTab)
+
+      const chatRoomList = screen.getByLabelText("chat-room-list")
+      expect(chatRoomList.childElementCount).toBeGreaterThan(0)
+    })
   })
 
-  test("무한 스크롤로 데이터 fetch 가 된다", () => {
-    // test code
+  test("무한 스크롤로 데이터 fetch 가 된다", async () => {
+    const { getByText } = render(
+      <AppRouterContext.Provider value={mockRouter}>
+        <QueryProvider>
+          <ChatRoomPage searchParams={{ role: undefined }} />
+        </QueryProvider>
+      </AppRouterContext.Provider>
+    )
+
+    let initialLength = 0
+    await waitFor(() => {
+      const chatRoomList = screen.getByLabelText("chat-room-list")
+      initialLength = chatRoomList.childElementCount
+      expect(initialLength).toBeGreaterThan(0)
+    })
+
+    act(() => {
+      fireEvent.scroll(window, { target: { scrollY: 1000 } })
+    })
+
+    await waitFor(() => {
+      const chatRoomList = screen.getByLabelText("chat-room-list")
+      expect(chatRoomList.childElementCount).toBeGreaterThan(initialLength)
+    })
   })
 })
