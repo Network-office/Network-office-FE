@@ -350,6 +350,62 @@ const handlers = [
         status: 200
       })
     }
+  ),
+  http.post(
+    "http://localhost:8080/api/meetings/:meetingId/leave",
+    async ({ params, request }) => {
+      const { meetingId } = params
+      const { userId } = await request.json()
+
+      const meetingIndex = meetingData.findIndex(
+        (meeting) => meeting.id === Number(meetingId)
+      )
+      if (meetingIndex === -1) {
+        return new HttpResponse(
+          JSON.stringify({ message: "해당 모임을 찾을 수 없습니다." }),
+          {
+            status: 404,
+            headers: { "Content-Type": "application/json" }
+          }
+        )
+      }
+
+      const participantIndex = meetingData[
+        meetingIndex
+      ].confirmedParticipants.findIndex(
+        (participant) => participant.userId === userId
+      )
+      if (participantIndex === -1) {
+        return new HttpResponse(
+          JSON.stringify({ message: "해당 참가자를 찾을 수 없습니다." }),
+          {
+            status: 404,
+            headers: { "Content-Type": "application/json" }
+          }
+        )
+      }
+
+      meetingData[meetingIndex].confirmedParticipants.splice(
+        participantIndex,
+        1
+      )
+      meetingData[meetingIndex].nowPeople -= 1
+
+      return new HttpResponse(
+        JSON.stringify({
+          message: "모임에서 성공적으로 나갔습니다.",
+          contents: {
+            meetingId: meetingId,
+            participantId: userId,
+            status: "LEFT"
+          }
+        }),
+        {
+          status: 200,
+          headers: { "Content-Type": "application/json" }
+        }
+      )
+    }
   )
 ]
 
