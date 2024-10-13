@@ -50,6 +50,7 @@ const ChatRoomListWithTabs = ({ defaultRole }: ChatRoomListWithTabsProps) => {
         <div className="flex flex-col">
           {rooms?.map((room) => (
             <Link
+              aria-label={`${room.title}-link`}
               key={room.title}
               href={`/chat/${room.id}`}>
               <ChatRoomItem
