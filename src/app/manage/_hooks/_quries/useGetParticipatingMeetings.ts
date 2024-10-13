@@ -3,8 +3,9 @@ import getParticipatingMeetings from "@/app/manage/_api/getParticipatingMeetings
 
 const useGetParticipatingMeetings = (userId: number) => {
   const { data } = useQuery({
-    queryKey: ["participatingMeetingList", userId],
-    queryFn: () => getParticipatingMeetings(userId)
+    queryKey: ["participatingMeetings", userId],
+    queryFn: () => getParticipatingMeetings(userId),
+    select: (data) => data || []
   })
   return { data }
 }

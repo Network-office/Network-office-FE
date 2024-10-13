@@ -32,28 +32,17 @@ const ParticipatingMeetingItem = ({
   confirmedParticipants
 }: ParticipatingMeetingItemProps) => {
   const { ModalComponent, setModalOpen, setModalClose } = useModal()
-  const leaveMeetingMutation = useLeaveMeeting()
-  const { toast } = useToast()
+  const { mutate: leaveMeeting } = useLeaveMeeting()
 
   const handleLeaveMeeting = () => {
-    leaveMeetingMutation.mutate(meetingId.toString(), {
-      onSuccess: () => {
-        toast({
-          title: "모임 나가기 성공",
-          width: "200px",
-          height: "80px",
-          description: "모임에서 성공적으로 나갔습니다."
-        })
-      },
-      onError: () => {
-        toast({
-          title: "모임 나가기 실패",
-          description: "오류가 발생했습니다. 다시 시도해주세요.",
-          variant: "destructive"
-        })
+    leaveMeeting(
+      { userId: 1, meetingId: meetingId.toString() },
+      {
+        onSuccess: () => {
+          setModalClose()
+        }
       }
-    })
-    setModalClose()
+    )
   }
 
   return (

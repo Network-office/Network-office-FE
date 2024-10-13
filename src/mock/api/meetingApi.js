@@ -321,14 +321,6 @@ const handlers = [
           (participant) => participant.userId === userId
         )
       )
-      if (participatingMeetings.length === 0) {
-        return new HttpResponse(
-          JSON.stringify({ error: "참여 중인 모임이 없습니다." }),
-          {
-            status: 404
-          }
-        )
-      }
 
       const response = {
         content: participatingMeetings.map((meeting) => ({
@@ -357,6 +349,7 @@ const handlers = [
       const { meetingId } = params
       const { userId } = await request.json()
 
+
       const meetingIndex = meetingData.findIndex(
         (meeting) => meeting.id === Number(meetingId)
       )
@@ -375,6 +368,7 @@ const handlers = [
       ].confirmedParticipants.findIndex(
         (participant) => participant.userId === userId
       )
+
       if (participantIndex === -1) {
         return new HttpResponse(
           JSON.stringify({ message: "해당 참가자를 찾을 수 없습니다." }),
