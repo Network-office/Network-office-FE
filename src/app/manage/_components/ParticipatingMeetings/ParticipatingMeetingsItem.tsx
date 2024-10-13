@@ -7,6 +7,9 @@ import { ScrollArea } from "@/_common/_components/ScrollArea"
 import { UserInformTypes } from "@/app/mypage/types"
 import Button from "@/_common/_components/Button"
 import useModal from "@/_common/_hooks/useModal"
+import useLeaveMeeting from "../../_hooks/_mutations/useLeaveMeeting"
+import { useToast } from "@/_common/_hooks/useToast"
+
 interface ParticipatingMeetingItemProps {
   meetingId: number
   title: string
@@ -29,6 +32,29 @@ const ParticipatingMeetingItem = ({
   confirmedParticipants
 }: ParticipatingMeetingItemProps) => {
   const { ModalComponent, setModalOpen, setModalClose } = useModal()
+  const leaveMeetingMutation = useLeaveMeeting()
+  const { toast } = useToast()
+
+  const handleLeaveMeeting = () => {
+    leaveMeetingMutation.mutate(meetingId.toString(), {
+      onSuccess: () => {
+        toast({
+          title: "모임 나가기 성공",
+          width: "200px",
+          height: "80px",
+          description: "모임에서 성공적으로 나갔습니다."
+        })
+      },
+      onError: () => {
+        toast({
+          title: "모임 나가기 실패",
+          description: "오류가 발생했습니다. 다시 시도해주세요.",
+          variant: "destructive"
+        })
+      }
+    })
+    setModalClose()
+  }
 
   return (
     <div className="w-full border-b-[1px] border-t-[1px] mb-1 shadow-lg px-4 py-2">
@@ -97,7 +123,11 @@ const ParticipatingMeetingItem = ({
                 className="mr-2">
                 취소
               </Button>
-              <Button variant="destructive">나가기</Button>
+              <Button
+                variant="destructive"
+                onClick={handleLeaveMeeting}>
+                나가기
+              </Button>
             </div>
           </div>
         </div>
