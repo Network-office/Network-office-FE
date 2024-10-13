@@ -1,5 +1,6 @@
 "use client"
 
+import useInfiniteScroll from "@/_common/_hooks/useInfiniteScroll"
 import ChatRoomItem from "@/app/chat/_components/ChatRoomItem"
 import useGetChatRoomList from "@/app/chat/_hooks/queries/useGetChatRoomList"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -21,7 +22,8 @@ const ChatRoomListWithTabs = ({ defaultRole }: ChatRoomListWithTabsProps) => {
   const router = useRouter()
   const pathName = usePathname()
   const [role, setRole] = useState(defaultRole)
-  const { data: rooms } = useGetChatRoomList(role)
+  const { fetchNextPage, data: rooms } = useGetChatRoomList(role, 10)
+  const { ref } = useInfiniteScroll(fetchNextPage)
 
   const handleTabClick = (role: "admin" | "user" | "all") => {
     role === "all"
@@ -61,6 +63,7 @@ const ChatRoomListWithTabs = ({ defaultRole }: ChatRoomListWithTabsProps) => {
               />
             </Link>
           ))}
+          <div ref={ref} />
         </div>
       </TabsContent>
     </Tabs>

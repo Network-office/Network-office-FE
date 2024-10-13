@@ -1,7 +1,4 @@
-import {
-  ChatRoom,
-  ChatRoomListResponse
-} from "@/app/chat/_apis/getChatRoomList"
+import { ChatRoom } from "@/app/chat/_apis/getChatRoomList"
 import { faker } from "@faker-js/faker"
 
 const generateChatRoomData = (): ChatRoom => {
@@ -24,4 +21,4 @@ const generateChatRoomData = (): ChatRoom => {
 const generateChatRoomListData = (length: number) =>
   Array.from({ length }, generateChatRoomData)
 
-export const chatRoomListData = generateChatRoomListData(10)
+export const chatRoomListData = generateChatRoomListData(100)
