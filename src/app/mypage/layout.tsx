@@ -4,7 +4,7 @@ export default function MyPageLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="kr">
       <body>{children}</body>
     </html>
   )

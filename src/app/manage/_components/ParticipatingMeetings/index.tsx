@@ -5,7 +5,7 @@ const Participate = () => {
   const { data: participatingMeetings } = useGetParticipatingMeetingList(1)
 
   return (
-    <div className="w-screen h-fit mb-6">
+    <div className="w-screen h-fit mb-4">
       <ul>
         {participatingMeetings?.map((meetingItem) => (
           <li key={meetingItem.id}>
