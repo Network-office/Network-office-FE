@@ -1,8 +1,14 @@
 import useGetParticipatingMeetingList from "../../_hooks/_quries/useGetParticipatingMeetings"
 import ParticipatingMeetingItem from "./ParticipatingMeetingsItem"
 
-const Participate = () => {
+interface ParticipateProps {
+  setMyParticipaiteMeetingNum: (num: number) => void
+}
+
+const Participate = ({ setMyParticipaiteMeetingNum }: ParticipateProps) => {
   const { data: participatingMeetings } = useGetParticipatingMeetingList(1)
+
+  setMyParticipaiteMeetingNum(participatingMeetings?.length || 0)
 
   return (
     <div className="w-screen h-fit mb-4">

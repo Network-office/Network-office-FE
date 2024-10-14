@@ -1,8 +1,15 @@
 import MyManagingMeetingItem from "./MyManagingMeetingItem"
 import useGetCreatedMeetingList from "../../_hooks/_quries/useGetCreatedMeetingList"
 
-const CreatedMeetings = () => {
+interface CreatedMeetingsProps {
+  setMyCreatedMeetingNum: (num: number) => void
+}
+
+const CreatedMeetings = ({ setMyCreatedMeetingNum }: CreatedMeetingsProps) => {
   const { data: createdMeetingList } = useGetCreatedMeetingList(1)
+
+  setMyCreatedMeetingNum(createdMeetingList?.length || 0)
+
   return (
     <div className="w-screen h-fit mb-6">
       <ul>
