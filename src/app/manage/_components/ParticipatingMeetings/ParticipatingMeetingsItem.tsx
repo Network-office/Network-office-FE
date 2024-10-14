@@ -46,7 +46,7 @@ const ParticipatingMeetingItem = ({
   }
 
   return (
-    <div className="w-full border-b-[1px] border-t-[1px] mb-1 shadow-lg px-4 py-2">
+    <div className="w-[95%] border-b-[1px] border-t-[1px] mb-1 shadow-lg px-4 py-2">
       <h2 className="text-lg font-semibold">{title}</h2>
       <ScrollArea
         enableDrag={true}
