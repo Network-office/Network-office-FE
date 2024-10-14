@@ -5,8 +5,7 @@ const Participate = () => {
   const { data: participatingMeetings } = useGetParticipatingMeetingList(1)
 
   return (
-    <div className="w-screen h-screen">
-      <h1 className="text-xl px-2 py-1">내가 참여 중인 모임</h1>
+    <div className="w-screen h-fit mb-6">
       <ul>
         {participatingMeetings?.map((meetingItem) => (
           <li key={meetingItem.id}>

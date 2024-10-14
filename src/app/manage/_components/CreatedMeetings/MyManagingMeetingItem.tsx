@@ -79,7 +79,7 @@ const MyManagingMeetingItem = ({
   }
 
   return (
-    <div className="w-full border-b-[1px] border-t-[1px] mb-1 shadow-lg px-4 py-2">
+    <div className="w-[95%] border-b-[1px] border-t-[1px] mb-1 shadow-lg px-4 py-2">
       <div className="flex w-full">
         <div className="w-full  flex justify-between">
           <span className="font-medium text-xl mt-1 text-ellipsis w-[88%] overflow-hidden whitespace-nowrap">

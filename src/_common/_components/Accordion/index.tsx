@@ -6,10 +6,7 @@ import { forwardRef } from "react"
 
 import { cn } from "@/lib/utils"
 
-const Accordion = AccordionPrimitive as typeof AccordionPrimitive & {
-  AccordionTrigger: typeof AccordionTrigger
-  AccordionContent: typeof AccordionContent
-}
+const AccordionRoot = AccordionPrimitive.Root
 
 const AccordionItem = forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Item>,
@@ -56,7 +53,10 @@ const AccordionContent = forwardRef<
 
 AccordionContent.displayName = AccordionPrimitive.Content.displayName
 
-Accordion.AccordionTrigger = AccordionTrigger
-Accordion.AccordionContent = AccordionContent
+const Accordion = Object.assign(AccordionRoot, {
+  Item: AccordionItem,
+  Trigger: AccordionTrigger,
+  Content: AccordionContent,
+})
 
-export { Accordion }
+export default Accordion

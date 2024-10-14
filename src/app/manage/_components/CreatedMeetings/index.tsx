@@ -4,8 +4,7 @@ import useGetCreatedMeetingList from "../../_hooks/_quries/useGetCreatedMeetingL
 const CreatedMeetings = () => {
   const { data: createdMeetingList } = useGetCreatedMeetingList(1)
   return (
-    <div>
-      <h1 className="text-xl px-2 py-1">내가 개설한 모임</h1>
+    <div className="w-screen h-fit mb-6">
       <ul>
         {createdMeetingList?.map((meetingItem) => (
           <li key={meetingItem.meetingId}>
