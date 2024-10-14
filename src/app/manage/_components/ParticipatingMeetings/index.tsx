@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import useGetParticipatingMeetingList from "../../_hooks/_quries/useGetParticipatingMeetings"
 import ParticipatingMeetingItem from "./ParticipatingMeetingsItem"
 
@@ -8,7 +9,11 @@ interface ParticipateProps {
 const Participate = ({ setMyParticipaiteMeetingNum }: ParticipateProps) => {
   const { data: participatingMeetings } = useGetParticipatingMeetingList(1)
 
-  setMyParticipaiteMeetingNum(participatingMeetings?.length || 0)
+  useEffect(() => {
+    if (participatingMeetings) {
+      setMyParticipaiteMeetingNum(participatingMeetings.length)
+    }
+  }, [participatingMeetings, setMyParticipaiteMeetingNum])
 
   return (
     <div className="w-screen h-fit mb-4">

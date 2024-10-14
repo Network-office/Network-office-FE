@@ -1,21 +1,29 @@
-import MyManagingMeetingItem from "./MyManagingMeetingItem"
+import { useEffect } from "react"
 import useGetCreatedMeetingList from "../../_hooks/_quries/useGetCreatedMeetingList"
+import MyManagingMeetingItem from "./MyManagingMeetingItem"
 
 interface CreatedMeetingsProps {
   setMyCreatedMeetingNum: (num: number) => void
 }
 
 const CreatedMeetings = ({ setMyCreatedMeetingNum }: CreatedMeetingsProps) => {
-  const { data: createdMeetingList } = useGetCreatedMeetingList(1)
+  const { data: createdMeetings } = useGetCreatedMeetingList(1)
 
-  setMyCreatedMeetingNum(createdMeetingList?.length || 0)
+  useEffect(() => {
+    if (createdMeetings) {
+      setMyCreatedMeetingNum(createdMeetings.length)
+    }
+  }, [createdMeetings, setMyCreatedMeetingNum])
 
   return (
-    <div className="w-screen h-fit mb-6">
+    <div className="w-screen h-fit mb-4">
       <ul>
-        {createdMeetingList?.map((meetingItem) => (
-          <li key={meetingItem.meetingId}>
-            <MyManagingMeetingItem {...meetingItem} />
+        {createdMeetings?.map((meetingItem) => (
+          <li key={meetingItem.id}>
+            <MyManagingMeetingItem
+              {...meetingItem}
+              meetingId={meetingItem.id}
+            />
           </li>
         ))}
       </ul>
