@@ -3,7 +3,6 @@ import { getQueryClient } from "@/_common/_utils/getClientQuery"
 import getChatRoomList from "@/app/chat/_apis/getChatRoomList"
 import ChatRoomListWithTabs from "@/app/chat/_components/ChatRoomListWithTabs"
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query"
-import { Suspense } from "react"
 
 interface ChatRoomPageProps {
   searchParams: { role?: "admin" | "user" }
@@ -25,9 +24,7 @@ const ChatRoomPage = ({ searchParams }: ChatRoomPageProps) => {
           title="채팅방"
           rightContent={<AlarmLink />}
         />
-        <Suspense fallback={<>Loading...</>}>
-          <ChatRoomListWithTabs defaultRole={role} />
-        </Suspense>
+        <ChatRoomListWithTabs defaultRole={role} />
       </div>
     </HydrationBoundary>
   )

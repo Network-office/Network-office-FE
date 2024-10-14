@@ -1,12 +1,10 @@
 "use client"
 
-import useInfiniteScroll from "@/_common/_hooks/useInfiniteScroll"
-import ChatRoomItem from "@/app/chat/_components/ChatRoomItem"
-import useGetChatRoomList from "@/app/chat/_hooks/queries/useGetChatRoomList"
+import ChatRoomList from "@/app/chat/_components/ChatRoomList"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import Link from "next/link"
+import { Loader } from "lucide-react"
 import { useRouter, usePathname } from "next/navigation"
-import { useState } from "react"
+import { Suspense, useState } from "react"
 
 const roleToKorean = {
   all: "전체",
@@ -22,8 +20,6 @@ const ChatRoomListWithTabs = ({ defaultRole }: ChatRoomListWithTabsProps) => {
   const router = useRouter()
   const pathName = usePathname()
   const [role, setRole] = useState(defaultRole)
-  const { fetchNextPage, data: rooms } = useGetChatRoomList(role, 10)
-  const { ref } = useInfiniteScroll(fetchNextPage)
 
   const handleTabClick = (role: "admin" | "user" | "all") => {
     role === "all"
@@ -48,24 +44,16 @@ const ChatRoomListWithTabs = ({ defaultRole }: ChatRoomListWithTabsProps) => {
           ))}
         </TabsList>
       </div>
-      <TabsContent value={role}>
-        <div
-          aria-label="chat-room-list"
-          className="flex flex-col">
-          {rooms?.map((room) => (
-            <Link
-              aria-label={`${room.title}-link`}
-              key={room.title}
-              href={`/chat/${room.id}`}>
-              <ChatRoomItem
-                key={room.title}
-                room={room}
-              />
-            </Link>
-          ))}
-          <div ref={ref} />
-        </div>
-      </TabsContent>
+      <Suspense
+        fallback={
+          <div className="flex justify-center w-full h-full py-16">
+            <Loader className="animate-pulse w-[20%] h-[20%]" />
+          </div>
+        }>
+        <TabsContent value={role}>
+          <ChatRoomList role={role} />
+        </TabsContent>
+      </Suspense>
     </Tabs>
   )
 }
