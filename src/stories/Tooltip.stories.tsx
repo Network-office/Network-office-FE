@@ -5,7 +5,7 @@ import { Meta, StoryObj } from "@storybook/react"
 import { FormEvent, useState } from "react"
 
 const meta = {
-  title: "Common/Tooltip",
+  title: "component/Tooltip",
   component: Tooltip,
   parameters: {
     layout: "centered"
