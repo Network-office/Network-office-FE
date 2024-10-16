@@ -22,7 +22,7 @@ const ChatRoomPage = ({ searchParams }: ChatRoomPageProps) => {
     <HydrationBoundary state={dehydrate(queryClient)}>
       <div className="relative">
         <Topbar
-          title="채팅방"
+          title="내 채팅방"
           rightContent={<AlarmLink />}
         />
         <ErrorBoundary>

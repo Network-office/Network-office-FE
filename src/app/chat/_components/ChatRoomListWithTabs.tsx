@@ -1,6 +1,7 @@
 "use client"
 
 import ChatRoomList from "@/app/chat/_components/ChatRoomList"
+import ChatRoomListSkeleton from "@/app/chat/_components/skeletons/ChatRoomListSkeleton"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Loader } from "lucide-react"
 import { useRouter, usePathname } from "next/navigation"
@@ -44,12 +45,7 @@ const ChatRoomListWithTabs = ({ defaultRole }: ChatRoomListWithTabsProps) => {
           ))}
         </TabsList>
       </div>
-      <Suspense
-        fallback={
-          <div className="flex justify-center w-full h-full py-16">
-            <Loader className="animate-pulse w-[20%] h-[20%]" />
-          </div>
-        }>
+      <Suspense fallback={<ChatRoomListSkeleton />}>
         <TabsContent value={role}>
           <ChatRoomList role={role} />
         </TabsContent>
