@@ -17,7 +17,7 @@ const useGetChatRoomList = (role: "admin" | "user" | "all", size: number) => {
     select: (data) => data?.pages.map((item) => item.data.rooms).flat() ?? []
   })
 
-  if (!(queryData.error instanceof CustomError)) {
+  if (queryData.error && !(queryData.error instanceof CustomError)) {
     throw new CustomError("Unknown Error", 500)
   }
 

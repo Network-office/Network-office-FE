@@ -8,7 +8,7 @@ export const useFetchChatHistory = (chatRoomId: string) => {
     queryFn: () => getChatHistory(chatRoomId)
   })
 
-  if (!(queryData.error instanceof CustomError)) {
+  if (queryData.error && !(queryData.error instanceof CustomError)) {
     throw new CustomError("Unknown Error", 500)
   }
 
