@@ -26,15 +26,13 @@ const getChatRoomList = async (
   size: number,
   page: number
 ) => {
-  const response = await http<ChatRoomListResponse>(
+  return await http<ChatRoomListResponse>(
     `http://localhost:8080/api/chat-room/${role}?size=${size}&page=${page}`,
     {
       cache: "no-store",
       method: "GET"
     }
   )
-
-  return response
 }
 
 export default getChatRoomList
