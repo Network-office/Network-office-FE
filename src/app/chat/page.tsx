@@ -1,9 +1,9 @@
+import ErrorBoundary from "@/_common/_components/ErrorBoundary"
 import Topbar, { AlarmLink } from "@/_common/_components/Topbar"
 import { getQueryClient } from "@/_common/_utils/getClientQuery"
 import getChatRoomList from "@/app/chat/_apis/getChatRoomList"
 import ChatRoomListWithTabs from "@/app/chat/_components/ChatRoomListWithTabs"
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query"
-import { Suspense } from "react"
 
 interface ChatRoomPageProps {
   searchParams: { role?: "admin" | "user" }
@@ -22,12 +22,12 @@ const ChatRoomPage = ({ searchParams }: ChatRoomPageProps) => {
     <HydrationBoundary state={dehydrate(queryClient)}>
       <div className="relative">
         <Topbar
-          title="채팅방"
+          title="내 채팅방"
           rightContent={<AlarmLink />}
         />
-        <Suspense fallback={<>Loading...</>}>
+        <ErrorBoundary>
           <ChatRoomListWithTabs defaultRole={role} />
-        </Suspense>
+        </ErrorBoundary>
       </div>
     </HydrationBoundary>
   )
