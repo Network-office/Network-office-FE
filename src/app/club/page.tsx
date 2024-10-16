@@ -1,15 +1,17 @@
 "use client"
 
 import ClubHeader from "./_components/ClubHeader"
+import ClubGenreList from "./_components/ClubGenreList"
 
 const ClubPage = () => {
   return (
-    <div>
+    <div className="w-screen">
       <ClubHeader
         onCreateClick={() => {
           console.log("create")
         }}
       />
+      <ClubGenreList />
     </div>
   )
 }
