@@ -1,5 +1,5 @@
 import { MeetingDetailTypes } from "../types"
-
+import dateToString from "@/_common/_utils/dateToString"
 interface MeetingContentSectionProps {
   meetingDetail: MeetingDetailTypes
 }
@@ -19,7 +19,7 @@ const MeetingContentSection = ({
           </tr>
           <tr>
             <td className="text-[#A1824A] p-2">날짜</td>
-            <td>{meetingDetail.date}</td>
+            <td>{dateToString(meetingDetail.date)}</td>
             <td className="text-[#A1824A] p-2">활동 시간</td>
             <td>
               {meetingDetail.startTime} ~ {meetingDetail.endTime}

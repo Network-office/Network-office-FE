@@ -42,13 +42,17 @@ const Meeting = () => {
             </div>
           }
         />
-        <SearchBar />
+        <SearchBar
+          setMapPosition={(newPosition) => {
+            setMapPosition(newPosition.lat, newPosition.lng)
+          }}
+        />
       </div>
       <NaverMapComponent className="absolute top-0 z-0" />
       <FootBar
         setMapPosition={(result) => setMapPosition(result.lat, result.lng)}
       />
-      <ModalComponent className="bottom-0">
+      <ModalComponent className="bottom-0 z-50">
         {selectedMeeting && (
           <MeetingInformModal meetingData={selectedMeeting} />
         )}

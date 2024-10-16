@@ -8,7 +8,7 @@ export interface FeedItemTypes {
   region: string[]
   date: string
   views: number
-  like: number
+  likes: number
 }
 
 export interface FeedCommentType {
@@ -18,7 +18,7 @@ export interface FeedCommentType {
   detail: string
   createdAt: string
   authorId: string
-  region: string[]  
+  region: string[]
   date: string
   views: number
 }
