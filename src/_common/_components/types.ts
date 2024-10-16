@@ -1,6 +1,7 @@
 import { LucideIcon } from "lucide-react"
 import type { ButtonProps as ShadcnButtonProps } from "../../components/ui/button"
 import type { InputProps as ShadcnInputProps } from "../../components/ui/input"
+import { PropsWithChildren, ReactNode } from "react"
 
 export interface AvatarProps {
   src?: string
@@ -35,4 +36,17 @@ export interface TopbarProps {
   className?: string
   leftContent?: React.ReactNode
   rightContent?: React.ReactNode
+}
+
+export interface TooltipProps extends PropsWithChildren<{}> {
+  content: ReactNode
+  side: "top" | "right" | "bottom" | "left" | undefined
+  sideOffset?: number
+  arrow?: boolean
+  defaultOpen?: boolean
+  openDuration?: number
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
+  className?: string
+  arrowClassName?: string
 }

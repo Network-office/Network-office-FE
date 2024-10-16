@@ -1,10 +1,12 @@
 import { Message } from "@/app/chat/[chatId]/_components/types"
 import { useEffect, useRef, useState } from "react"
 import { Client } from "@stomp/stompjs"
+import { useQueryClient } from "@tanstack/react-query"
 
 const useStomp = (chatRoomId: string) => {
   const client = useRef<Client | null>(null)
   const [messages, setMessages] = useState<Message[]>([])
+  const queryClient = useQueryClient()
 
   useEffect(() => {
     if (!client.current) {
@@ -17,6 +19,7 @@ const useStomp = (chatRoomId: string) => {
     }
 
     client.current.onConnect = () => {
+      queryClient.refetchQueries({ queryKey: ["chatHistory", chatRoomId] })
       client.current?.subscribe(`/topic/chat/${chatRoomId}`, (message) => {
         setMessages((prev) => [...prev, JSON.parse(message.body)])
       })

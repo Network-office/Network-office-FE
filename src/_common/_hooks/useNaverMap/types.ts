@@ -1,5 +1,5 @@
 export interface NaverMapComponentProps {
-  className: string
+  className?: string
   width?: number
   height?: number
 }

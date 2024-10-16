@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils"
-import { Badge } from "lucide-react"
 import Avatar from "@/_common/_components/Avatar"
+import { Badge } from "@/components/ui/badge"
 
 interface MessageHeaderProps {
   avatarSrc: string

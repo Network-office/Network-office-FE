@@ -19,6 +19,7 @@ const useModal = () => {
   }: Omit<ModalProps, "isOpen" | "close">) => {
     return (
       <Modal
+        className="w-full h-full"
         close={setModalClose}
         isOpen={isModalOpen}
         {...props}>

@@ -19,7 +19,7 @@ const Meeting = () => {
     setModalOpen()
   }
   const { NaverMapComponent, setMapPosition, setMarkers } = useNaverMap(
-    { lat: 37, lng: 127 },
+    { lat: 37.497942, lng: 127.027619 },
     meetingList,
     { markerClickHandler: handleMarkerClick }
   )
@@ -42,13 +42,17 @@ const Meeting = () => {
             </div>
           }
         />
-        <SearchBar />
+        <SearchBar
+          setMapPosition={(newPosition) => {
+            setMapPosition(newPosition.lat, newPosition.lng)
+          }}
+        />
       </div>
       <NaverMapComponent className="absolute top-0 z-0" />
       <FootBar
         setMapPosition={(result) => setMapPosition(result.lat, result.lng)}
       />
-      <ModalComponent className="bottom-0">
+      <ModalComponent className="bottom-0 z-50">
         {selectedMeeting && (
           <MeetingInformModal meetingData={selectedMeeting} />
         )}

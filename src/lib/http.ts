@@ -1,29 +1,34 @@
 import returnFetch, { FetchArgs } from "return-fetch"
+import CustomError from "@/lib/CustomError"
 
 const createHTTP = () => {
   return async <T>(
     input: URL | RequestInfo,
     init?: RequestInit
-  ): Promise<{ data: T }> => {
+  ): Promise<{ data: T; status?: number }> => {
     return returnFetch({
-      //로컬 or 서버 환경 구분하는 유틸 필요
-
+      baseUrl: "",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
       interceptors: {
         request: async (config: FetchArgs) => {
-          //요청에 헤더 있을 시 병합
           config[1] = {
             ...config[1],
             ...init
           }
           return config
         },
-
         response: async (response: Response) => {
           const responseBody = await response.json()
+
+          if (response.status >= 400) {
+            throw new CustomError(
+              response.statusText || "Unknown Error",
+              response.status
+            )
+          }
 
           return new Response(JSON.stringify(responseBody))
         }
@@ -43,11 +48,11 @@ export const clientHTTP = createHTTP()
 export const http = <T>(
   input: URL | RequestInfo,
   init?: RequestInit
-): Promise<{ data: T }> => {
+): Promise<{ data: T; status?: number }> => {
   if (typeof window !== "undefined") {
     return clientHTTP<T>(input, init)
   }
 
-  //Todo-서버 사이드 용 fetch함수
+  // 서버 사이드용 fetch 함수
   return clientHTTP<T>(input, init)
 }
