@@ -1,28 +1,16 @@
-import { makeToken, makeRefreshToken, verifyToken } from "@/app/lib"
+import { makeToken, makeRefreshToken, verifyToken } from "@/lib/token"
 
 import NextAuth from "next-auth/next"
 import KakaoProvider from "next-auth/providers/kakao"
-import type { DefaultUser } from "next-auth"
-import { cookies } from "next/headers"
 
-interface KakaoUser extends DefaultUser {
-  connected_at: string
-  kakao_account: {
-    profile: {
-      profile_image_url: string
-      nickname: string
-    }
-    email: string
-  }
-}
+import { cookies } from "next/headers"
 
 const handler = NextAuth({
   pages: {
-    signIn: "/login"
+    signIn: "kakao/login"
   },
   session: {
     strategy: "jwt",
-    //하루 동안 세션 유지
     maxAge: 24 * 60 * 60
   },
   logger: {},
@@ -30,7 +18,7 @@ const handler = NextAuth({
     KakaoProvider({
       clientId: process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID || "",
       clientSecret: process.env.NEXT_PUBLIC_KAKAO_CLIENT_SECRET || "",
-      profile(profile, tokens) {
+      profile(profile) {
         return profile
       }
     })
@@ -38,7 +26,6 @@ const handler = NextAuth({
   callbacks: {
     async jwt({ token, account, profile, user }) {
       try {
-        const { kakao_account } = profile as KakaoUser
         const refreshToken = makeRefreshToken(user.id)
 
         cookies().set("accessToken", makeToken(user.id), {
@@ -54,13 +41,22 @@ const handler = NextAuth({
           maxAge: 60 * 60 * 24 * 7 * 1000,
           httpOnly: true
         })
-      } catch (e) {
-        console.error(e)
-      }
+        return {
+          ...profile,
+          ...account,
+          ...user,
+          ...token
+        }
+      } catch (e) {}
 
-      return token
+      return {
+        ...profile,
+        ...account,
+        ...user,
+        ...token
+      }
     },
-    async session({ session, token }) {
+    async session({ session, user, token }) {
       const sessionUser = {
         ...token
       }

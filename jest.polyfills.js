@@ -1,3 +1,4 @@
+// jest.polyfills.js
 /**
  * @note The block below contains polyfills for Node.js globals
  * required for Jest to function when running JSDOM tests.
@@ -8,14 +9,12 @@
  * you don't want to deal with this.
  */
 
-const { TextDecoder, TextEncoder } = require("node:util")
-const { ReadableStream, TransformStream } = require("node:stream/web")
+const { TextDecoder, TextEncoder, ReadableStream } = require("node:util")
 
 Object.defineProperties(globalThis, {
   TextDecoder: { value: TextDecoder },
   TextEncoder: { value: TextEncoder },
-  ReadableStream: { value: ReadableStream },
-  TransformStream: { value: TransformStream }
+  ReadableStream: { value: ReadableStream }
 })
 
 const { Blob, File } = require("node:buffer")

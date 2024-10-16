@@ -49,7 +49,6 @@ const CreateMeeting = () => {
         popStepHandler={popStep}
         nowStep={step}
       />
-
       <Funnel>
         <Funnel.Step name="title">
           <MeetingTitleInput onNextStep={() => setStep("category")} />

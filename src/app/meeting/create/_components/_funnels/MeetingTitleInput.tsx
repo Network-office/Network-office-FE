@@ -57,5 +57,4 @@ const MeetingTitleInput = ({ onNextStep }: MeetingTitleInputProps) => {
     </div>
   )
 }
-
 export default MeetingTitleInput
