@@ -349,7 +349,6 @@ const handlers = [
       const { meetingId } = params
       const { userId } = await request.json()
 
-
       const meetingIndex = meetingData.findIndex(
         (meeting) => meeting.id === Number(meetingId)
       )
