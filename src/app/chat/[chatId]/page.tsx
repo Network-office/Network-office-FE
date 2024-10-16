@@ -12,15 +12,7 @@ interface ChatPageProps {
 }
 
 const ChatPage = ({ params }: ChatPageProps) => {
-  const { data, error } = useFetchChatHistory(params.chatId)
-
-  if (error) {
-    throw new Error(error.message)
-  }
-
-  if (!data) {
-    return null
-  }
+  const { data } = useFetchChatHistory(params.chatId)
 
   return (
     <div>

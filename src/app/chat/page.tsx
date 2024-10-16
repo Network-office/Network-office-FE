@@ -1,3 +1,4 @@
+import ErrorBoundary from "@/_common/_components/ErrorBoundary"
 import Topbar, { AlarmLink } from "@/_common/_components/Topbar"
 import { getQueryClient } from "@/_common/_utils/getClientQuery"
 import getChatRoomList from "@/app/chat/_apis/getChatRoomList"
@@ -24,7 +25,9 @@ const ChatRoomPage = ({ searchParams }: ChatRoomPageProps) => {
           title="채팅방"
           rightContent={<AlarmLink />}
         />
-        <ChatRoomListWithTabs defaultRole={role} />
+        <ErrorBoundary>
+          <ChatRoomListWithTabs defaultRole={role} />
+        </ErrorBoundary>
       </div>
     </HydrationBoundary>
   )
