@@ -4,7 +4,9 @@ import getNewClubs from "../../_api/getNewClubs"
 const useGetNewClubs = () => {
   return useQuery({
     queryKey: ["useGetNewClubs"],
-    queryFn: getNewClubs
+    queryFn: getNewClubs,
+    throwOnError: true,
+    retry: 2
   })
 }
 
