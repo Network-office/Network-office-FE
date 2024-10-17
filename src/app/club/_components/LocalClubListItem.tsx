@@ -1,0 +1,44 @@
+import Image from "next/image"
+import { ClubItemTypes } from "../types"
+
+interface LocalClubListItemProps {
+  clubDetail: ClubItemTypes
+}
+
+const LocalClubListItem = ({ clubDetail }: LocalClubListItemProps) => {
+  return (
+    <div className="bg-white rounded-lg shadow-md overflow-hidden">
+      <div className="relative h-48 w-full">
+        {clubDetail.imageUrl ? (
+          <Image
+            src={clubDetail.imageUrl}
+            alt={clubDetail.name}
+            layout="fill"
+            objectFit="cover"
+          />
+        ) : (
+          <div className="w-full h-full bg-gray-200"></div>
+        )}
+      </div>
+      <div className="p-4">
+        <h2 className="text-xl font-semibold mb-2">{clubDetail.name}</h2>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-1">
+            <span className="inline-block bg-blue-200 text-blue-800 px-2 py-1 rounded-full text-sm font-semibold">
+              {clubDetail.genre}
+            </span>
+            <p className="text-sm font-semibold">동호회</p>
+          </div>
+          <div className="flex items-center gap-1 ">
+            <p className="font-semibold text-yellow-500 ">
+              {clubDetail.meetingFrequency}
+            </p>
+            <p className="text-gray-500 text-sm font-bold">정모</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default LocalClubListItem

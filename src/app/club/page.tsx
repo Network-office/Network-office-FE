@@ -5,6 +5,7 @@ import ClubGenreList from "./_components/ClubGenreList"
 import ClubSearchBar from "./_components/ClubSearchBar"
 import NewClubList from "./_components/NewClubList"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import LocalClubList from "./_components/LocalClubList"
 
 const ClubPage = () => {
   return (
@@ -37,7 +38,7 @@ const ClubPage = () => {
           <NewClubList />
         </TabsContent>
         <TabsContent value="newClub2">
-          <NewClubList />
+          <LocalClubList />
         </TabsContent>
       </Tabs>
     </div>

@@ -9,6 +9,14 @@ const handlers = [
       }),
       { status: 200, headers: { "Content-Type": "application/json" } }
     )
+  }),
+  http.get(`http://localhost:8080/api/club/local`, () => {
+    return new HttpResponse(
+      JSON.stringify({
+        clubList: clubData.slice(4, 8)
+      }),
+      { status: 200, headers: { "Content-Type": "application/json" } }
+    )
   })
 ]
 
