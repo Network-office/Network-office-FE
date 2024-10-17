@@ -11,7 +11,7 @@ const CLUB_GENRE = [
 
 const ClubGenreList = () => {
   return (
-    <div className="w-[90%] h-[200px] mx-auto">
+    <div className="w-[90%] h-[250px] mx-auto">
       <h2 className="text-lg font-medium">동호회 분류</h2>
       <div className="w-[95%] mx-auto grid grid-cols-4">
         {CLUB_GENRE.map((genre) => (

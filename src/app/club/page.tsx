@@ -3,6 +3,7 @@
 import ClubHeader from "./_components/ClubHeader"
 import ClubGenreList from "./_components/ClubGenreList"
 import ClubSearchBar from "./_components/ClubSearchBar"
+import NewClubList from "./_components/NewClubList"
 
 const ClubPage = () => {
   return (
@@ -14,6 +15,7 @@ const ClubPage = () => {
       />
       <ClubSearchBar />
       <ClubGenreList />
+      <NewClubList />
     </div>
   )
 }
