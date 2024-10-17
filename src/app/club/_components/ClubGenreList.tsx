@@ -35,22 +35,21 @@ const CLUB_GENRE = [
 
 const ClubGenreList = () => {
   return (
-    <div className="w-[90%] h-[250px] mx-auto mt-2">
-      <h2 className="text-lg font-medium">동호회 분류</h2>
-      <div className="w-[95%] mx-auto grid grid-cols-4">
+    <div className="flex justify-center items-center w-full my-4">
+      <div className="w-[90%] max-w-2xl grid grid-cols-4 gap-4 px-4 rounded-lg py-4">
         {CLUB_GENRE.map((genre, index) => (
           <div
-            className="w-fit my-1"
+            className="flex flex-col items-center"
             key={genre}>
-            <button className="bg-blue-100 px-2 py-2 w-[65px] h-[65px] shadow-2xl mx-auto rounded-lg">
+            <button className="bg-blue-100 w-16 h-16 rounded-lg shadow-md flex items-center justify-center mb-2">
               <Image
                 src={CLUB_GENRE_ICON[index]}
                 alt={genre}
-                width={65}
-                height={65}
+                width={40}
+                height={40}
               />
             </button>
-            <p className="text-center">{genre}</p>
+            <p className="text-center font-medium text-sm">{genre}</p>
           </div>
         ))}
       </div>
