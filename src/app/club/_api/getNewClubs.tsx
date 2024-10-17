@@ -2,13 +2,13 @@ import { http } from "@/lib/http"
 import CustomError from "@/lib/CustomError"
 import { ClubItemTypes } from "../types"
 
-interface GetNewClubListResponse {
+interface GetNewClubsResponse {
   clubList: ClubItemTypes[]
 }
 
-const getNewClubList = async () => {
+const getNewClubs = async () => {
   try {
-    const request = await http<GetNewClubListResponse>(
+    const request = await http<GetNewClubsResponse>(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/club/new?limit=4`,
       {
         method: "GET"
@@ -24,4 +24,4 @@ const getNewClubList = async () => {
   }
 }
 
-export default getNewClubList
+export default getNewClubs
