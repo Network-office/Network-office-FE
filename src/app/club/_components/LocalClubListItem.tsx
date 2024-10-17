@@ -20,17 +20,18 @@ const LocalClubListItem = ({ clubDetail }: LocalClubListItemProps) => {
           <div className="w-full h-full bg-gray-200"></div>
         )}
       </div>
-      <div className="p-4">
+      <div className="p-4 pb-2">
         <h2 className="text-xl font-semibold mb-2">{clubDetail.name}</h2>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-1">
-            <span className="inline-block bg-blue-200 text-blue-800 px-2 py-1 rounded-full text-sm font-semibold">
+            <p className="font-bold text-sm">{clubDetail.location.district}</p>
+            <span className="inline-block text-blue-800 text-sm font-bold">
               {clubDetail.genre}
             </span>
-            <p className="text-sm font-semibold">동호회</p>
+            <p className="text-xs font-semibold">동호회</p>
           </div>
-          <div className="flex items-center gap-1 ">
-            <p className="font-semibold text-yellow-500 ">
+          <div className="flex items-center gap-1">
+            <p className="font-semibold text-yellow-500">
               {clubDetail.meetingFrequency}
             </p>
             <p className="text-gray-500 text-sm font-bold">정모</p>

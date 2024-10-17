@@ -4,4 +4,9 @@ export interface ClubItemTypes {
   imageUrl: string | null
   meetingFrequency: string
   genre: string
+  location: {
+    city: string
+    district: string
+    neighborhood: string
+  }
 }
