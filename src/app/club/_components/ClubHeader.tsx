@@ -9,7 +9,7 @@ const ClubHeader = ({ onCreateClick }: ClubHeaderProps) => {
   return (
     <Topbar
       className="py-3"
-      leftContent={<h1 className="text-xl font-semibold">동호회</h1>}
+      leftContent={<h1 className="text-lg font-semibold">서울 구로구</h1>}
       rightContent={
         <div className="flex gap-1">
           <Topbar.ProfileLink />
