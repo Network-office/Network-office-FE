@@ -66,7 +66,7 @@ const Carousel = ({
       {showNavBar && (
         <div
           className={cn(
-            "absolute left-0 right-0 flex justify-center gap-2",
+            "mt-1 absolute left-0 right-0 flex justify-center gap-2",
             navBarClassName
           )}>
           {[...Array(count)].map((_, index) => (
