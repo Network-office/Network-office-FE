@@ -11,7 +11,6 @@ import {
 
 type CarouselProps = {
   children: React.ReactNode
-  showArrows?: boolean
   autoPlay?: boolean
   interval?: number
   showNavBar?: boolean
