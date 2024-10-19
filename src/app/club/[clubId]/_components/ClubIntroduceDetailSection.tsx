@@ -18,7 +18,7 @@ const ClubIntroduceDetailSection = ({ clubData }: { clubData: ClubData }) => {
         showNavBar
         navBarClassName="mt-2"
         className="mb-6 border-[0.5px] rounded-lg shadow-lg">
-        {clubData.images.length > 0 &&
+        {clubData.images.length > 0 ? (
           clubData.images.map((image, index) => (
             <Carousel.Slide key={index}>
               <Image
@@ -29,7 +29,12 @@ const ClubIntroduceDetailSection = ({ clubData }: { clubData: ClubData }) => {
                 objectFit="cover"
               />
             </Carousel.Slide>
-          ))}
+          ))
+        ) : (
+          <span className="w-full h-[250px] bg-gray-200 text-center flex items-center justify-center font-bold text-xl">
+            {"No Image"}
+          </span>
+        )}
       </Carousel>
 
       <p className="mb-2 mt-8 px-2 min-h-[300px] border-t-[1px] pt-4 pb-12">
