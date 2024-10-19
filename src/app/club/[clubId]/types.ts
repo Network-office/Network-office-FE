@@ -1,9 +1,7 @@
-import { StaticImageData } from "next/image"
-
 export interface ClubDetailData {
   clubId: string
   name: string
-  images: StaticImageData[]
+  images: string[]
   schedule: string
   fee: string
   organizer: string

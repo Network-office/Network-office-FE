@@ -1,9 +1,8 @@
 import Image from "next/image"
-import { StaticImageData } from "next/image"
 import Carousel from "@/_common/_components/Carousel"
 
 interface ClubData {
-  images: StaticImageData[]
+  images: string[]
   schedule: string
   fee: string
   organizer: string
@@ -19,17 +18,18 @@ const ClubIntroduceDetailSection = ({ clubData }: { clubData: ClubData }) => {
         showNavBar
         navBarClassName="mt-2"
         className="mb-6 border-[0.5px] rounded-lg shadow-lg">
-        {clubData.images.map((image, index) => (
-          <Carousel.Slide key={index}>
-            <Image
-              src={image}
-              alt={`Club image ${index + 1}`}
-              width={500}
-              height={250}
-              objectFit="cover"
-            />
-          </Carousel.Slide>
-        ))}
+        {clubData.images.length > 0 &&
+          clubData.images.map((image, index) => (
+            <Carousel.Slide key={index}>
+              <Image
+                src={image}
+                alt={`Club image ${index + 1}`}
+                width={500}
+                height={250}
+                objectFit="cover"
+              />
+            </Carousel.Slide>
+          ))}
       </Carousel>
 
       <p className="mb-2 mt-8 px-2 min-h-[300px] border-t-[1px] pt-4 pb-12">
