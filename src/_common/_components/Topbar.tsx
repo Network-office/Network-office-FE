@@ -41,7 +41,7 @@ const BackLink = () => {
 const ProfileLink = () => (
   <Link
     aria-label="Profile"
-    href="/user">
+    href="/mypage">
     <User />
   </Link>
 )

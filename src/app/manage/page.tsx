@@ -1,22 +1,50 @@
 "use client"
 
-import MyManagingMeetingItem from "./_components/MyManagingMeetingItem"
-import useGetCreatedMeetingList from "./_hooks/_quries/useGetCreatedMeetingList"
+import { useState } from "react"
+
+import ErrorBoundary from "@/_common/_components/ErrorBoundary"
+import Accordion from "@/_common/_components/Accordion"
+import CreatedMeetings from "./_components/CreatedMeetings"
+import Participate from "./_components/ParticipatingMeetings"
 
 const Manage = () => {
-  const { data: mockData } = useGetCreatedMeetingList(1)
+  const [myParticipaiteMeetingNum, setMyParticipaiteMeetingNum] = useState(0)
+  const [myCreatedMeetingNum, setMyCreatedMeetingNum] = useState(0)
 
-  if (!mockData) return <></>
   return (
-    <div className="w-screen h-screen">
-      <h1 className="text-xl px-2 py-1">내가 개설한 모임</h1>
-      <ul>
-        {mockData.map((meetingItem) => (
-          <li key={meetingItem.meetingId}>
-            <MyManagingMeetingItem {...meetingItem} />
-          </li>
-        ))}
-      </ul>
+    <div className="w-screen h-fit px-4 mb-12">
+      <Accordion
+        type="multiple"
+        defaultValue={["participate"]}>
+        <Accordion.Item value="participate">
+          <Accordion.Trigger className="w-full">
+            <p className="text-lg font-semibold">{`내가 참여 중인 모임 ${myParticipaiteMeetingNum > 0 ? `(${myParticipaiteMeetingNum})` : ""}`}</p>
+          </Accordion.Trigger>
+          <Accordion.Content>
+            <ErrorBoundary>
+              <Participate
+                setMyParticipaiteMeetingNum={(num: number) =>
+                  setMyParticipaiteMeetingNum(num)
+                }
+              />
+            </ErrorBoundary>
+          </Accordion.Content>
+        </Accordion.Item>
+        <Accordion.Item value="createds">
+          <Accordion.Trigger>
+            <p className="text-lg font-semibold">{`내가 생성한 모임 ${myCreatedMeetingNum > 0 ? `(${myCreatedMeetingNum})` : ""}`}</p>
+          </Accordion.Trigger>
+          <Accordion.Content>
+            <ErrorBoundary>
+              <CreatedMeetings
+                setMyCreatedMeetingNum={(num: number) =>
+                  setMyCreatedMeetingNum(num)
+                }
+              />
+            </ErrorBoundary>
+          </Accordion.Content>
+        </Accordion.Item>
+      </Accordion>
     </div>
   )
 }

@@ -15,8 +15,9 @@ interface DropBoxItem {
 
 interface DropBoxProps {
   title?: string
-  triggerText: string
+  triggerText?: string
   items: DropBoxItem[]
+  children?: React.ReactNode
   triggerClassName?: string
   contentClassName?: string
   labelClassName?: string
@@ -27,6 +28,7 @@ const DropBox = ({
   title,
   triggerText,
   items,
+  children,
   triggerClassName,
   contentClassName,
   labelClassName,
@@ -36,7 +38,7 @@ const DropBox = ({
     <ShadcnDropBox>
       <DropdownMenuTrigger asChild>
         <button className={cn(buttonVariants(), triggerClassName)}>
-          {triggerText}
+          {children || triggerText}
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className={contentClassName}>
