@@ -39,6 +39,15 @@ const handlers = [
       }),
       { status: 200, headers: { "Content-Type": "application/json" } }
     )
+  }),
+  http.post(`http://localhost:8080/api/club/:clubId/join`, async () => {
+    return new HttpResponse(
+      JSON.stringify({
+        success: true,
+        message: `모임 생성 완료`
+      }),
+      { status: 200, headers: { "Content-Type": "application/json" } }
+    )
   })
 ]
 
