@@ -10,15 +10,12 @@ const AvatarForm = ({ onSubmit }: { onSubmit?: () => void }) => {
   const { user, setUser } = useSignInContext()
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const { data } = useSession()
-  const defaultImage = data?.user?.image ?? ""
-
   const { avatarSrc, handleFileChange } = useAvatarForm()
 
   const handleNextStep = () => {
     setUser((prevUser) => ({
       ...prevUser,
-      profile_image_url: avatarSrc ?? defaultImage
+      profile_image_url: avatarSrc ?? ""
     }))
     if (onSubmit) onSubmit()
   }
@@ -35,7 +32,7 @@ const AvatarForm = ({ onSubmit }: { onSubmit?: () => void }) => {
         <div className="flex flex-col items-center space-y-4">
           <Avatar className="w-32 h-32">
             <AvatarImage
-              src={avatarSrc ?? defaultImage}
+              src={avatarSrc ?? ""}
               alt="userImage"
             />
           </Avatar>

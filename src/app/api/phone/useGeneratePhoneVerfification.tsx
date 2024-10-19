@@ -1,4 +1,3 @@
-import { http } from "@/lib/http"
 import { useMutation } from "@tanstack/react-query"
 
 const generatePhoneVerificationCode = async ({
@@ -7,13 +6,14 @@ const generatePhoneVerificationCode = async ({
   phoneNumber: string
 }) => {
   try {
-    return await http<{
-      code: "string"
-      phoneNumber: "string"
-    }>("/dev/api/v1/verification/phone/code", {
+    const response = await fetch("/server/api/v1/verification/phone/code", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({ phoneNumber })
     })
+    return response
   } catch (e) {
     throw e
   }

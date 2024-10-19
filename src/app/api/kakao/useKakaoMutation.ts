@@ -9,15 +9,11 @@ interface KakaoOAuthLoginReq {
 
 export const kakaoOAuthLogin = async ({ code }: KakaoOAuthLoginReq) => {
   try {
-    const response = await http<{ code: string }>(
-      "/dev/api/v1/login/oauth/kakao",
+    const response = await fetch(
+      `/dev/api/v1/login/oauth/kakao/kakao?code=${code}`,
       {
         method: "POST",
-        body: JSON.stringify({ code }),
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json"
-        }
+        credentials: "include"
       }
     )
 
@@ -29,12 +25,6 @@ export const kakaoOAuthLogin = async ({ code }: KakaoOAuthLoginReq) => {
 
 export const useKakaoOAuthMutation = () => {
   return useMutation({
-    mutationFn: kakaoOAuthLogin,
-    onSuccess: (data) => {
-      console.log(data)
-    },
-    onError: (error) => {
-      console.log(error)
-    }
+    mutationFn: kakaoOAuthLogin
   })
 }

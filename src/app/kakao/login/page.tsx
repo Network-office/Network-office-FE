@@ -9,12 +9,14 @@ function Login() {
   const params = useSearchParams()
 
   useEffect(() => {
-    if (params.get("code")) router.push(`/kakao/login/${params.get("code")}`)
+    if (params.get("code")) {
+      window.location.href = `https://localhost:3000/kakao/login/${params.get("code")}`
+    }
   }, [params.get("code")])
 
   const handleKakaoLogin = () => {
     window.location.href =
-      "https://kauth.kakao.com/oauth/authorize?redirect_uri=http://localhost:3000/kakao/login&response_type=code&client_id=dda9ca07ec9d628b718b8475c11feec6"
+      "https://kauth.kakao.com/oauth/authorize?redirect_uri=https://localhost:3000/kakao/login&response_type=code&client_id=dda9ca07ec9d628b718b8475c11feec6"
   }
 
   return (
