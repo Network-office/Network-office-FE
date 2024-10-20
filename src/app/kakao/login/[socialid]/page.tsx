@@ -18,6 +18,7 @@ const KakaoLoginWithSocialId = ({
 }: {
   params: { socialid: string }
 }) => {
+  const { mutate: getCSRF } = useGetCSRFToken()
   const mutation = useKakaoOAuthMutation()
   const router = useRouter()
   const { mutate } = useGetCSRFToken()
@@ -30,10 +31,12 @@ const KakaoLoginWithSocialId = ({
       { code: params.socialid },
       {
         onSuccess: () => {
+          getCSRF()
           toast({
             title: "로그인 성공",
             description: "로그인에 성공하셨어요"
           })
+
           router.push("/meeting")
         }
       }
@@ -46,17 +49,7 @@ const KakaoLoginWithSocialId = ({
   return (
     <UserSignInProvider>
       <div>
-        <Funnel>
-          <Step name="nickname">
-            <NickNameForm onSubmit={() => setStep("profileAvatar")} />
-          </Step>
-          <Step name="profileAvatar">
-            <AvatarForm onSubmit={() => setStep("verify-user-info")} />
-          </Step>
-          <Step name="verify-user-info">
-            <SuccessLogin onLoginSuccess={handleLoginSuccess} />
-          </Step>
-        </Funnel>
+        <SuccessLogin onLoginSuccess={handleLoginSuccess} />
       </div>
     </UserSignInProvider>
   )

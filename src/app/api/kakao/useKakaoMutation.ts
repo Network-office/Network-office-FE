@@ -9,17 +9,14 @@ interface KakaoOAuthLoginReq {
 
 export const kakaoOAuthLogin = async ({ code }: KakaoOAuthLoginReq) => {
   try {
-    const response = await fetch(
-      `/dev/api/v1/login/oauth/kakao/kakao?code=${code}`,
-      {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          Accpet: "*",
-          "Access-Control-Allow-Origin": "*"
-        }
+    const response = await fetch(`/dev/api/v1/login/oauth/kakao?code=${code}`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        Accpet: "*",
+        "Access-Control-Allow-Origin": "*"
       }
-    )
+    })
 
     return response
   } catch (e) {
