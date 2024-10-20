@@ -8,8 +8,8 @@ import ClubIntroduceDetailSection from "./_components/ClubIntroduceDetailSection
 import Button from "@/_common/_components/Button"
 import JoinClubModal from "./_components/JoinClubModal"
 import useModal from "@/_common/_hooks/useModal"
-import { useEffect } from "react"
 import { useToast } from "@/_common/_hooks/useToast"
+import ErrorBoundary from "@/_common/_components/ErrorBoundary"
 
 const ClubDetailPage = () => {
   const { clubId } = useParams()
@@ -17,13 +17,6 @@ const ClubDetailPage = () => {
   const joinClubMutation = useJoinClub(clubId as string)
   const { ModalComponent, setModalOpen, setModalClose } = useModal()
   const { toast } = useToast()
-
-  useEffect(() => {
-    toast({
-      title: "성공",
-      description: "클럽 가입 신청이 완료되었습니다!"
-    })
-  }, [])
 
   const handleJoinSubmit = (message: string) => {
     joinClubMutation.mutate(message, {
@@ -67,4 +60,10 @@ const ClubDetailPage = () => {
   )
 }
 
-export default ClubDetailPage
+const ClubDetailPageWithErrorBoundary = () => (
+  <ErrorBoundary>
+    <ClubDetailPage />
+  </ErrorBoundary>
+)
+
+export default ClubDetailPageWithErrorBoundary
