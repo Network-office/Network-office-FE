@@ -5,7 +5,8 @@ const verifyPhoneCode = async ({ phoneNumber }: { phoneNumber: string }) => {
     const response = await fetch("/server/api/v1/verification/phone/verify", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
       },
       body: JSON.stringify({ phoneNumber })
     })

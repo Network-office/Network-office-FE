@@ -4,7 +4,12 @@ import { useMutation } from "@tanstack/react-query"
 const postCSRF = async () => {
   try {
     return fetch("/dev/api/v1/csrf", {
-      method: "POST"
+      method: "POST",
+      credentials: "include",
+      headers: {
+        Accept: "*",
+        "Access-Control-Allow-Origin": "*"
+      }
     })
   } catch (e) {
     throw e

@@ -13,7 +13,11 @@ export const kakaoOAuthLogin = async ({ code }: KakaoOAuthLoginReq) => {
       `/dev/api/v1/login/oauth/kakao/kakao?code=${code}`,
       {
         method: "POST",
-        credentials: "include"
+        credentials: "include",
+        headers: {
+          Accpet: "*",
+          "Access-Control-Allow-Origin": "*"
+        }
       }
     )
 

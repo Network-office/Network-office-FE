@@ -14,7 +14,8 @@ const generatePhoneVerificationCode = async ({
     const response = await fetch("/dev/api/v1/verification/phone/code", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
       },
       credentials: "include",
       body: JSON.stringify({ phoneNumber: phoneNumber.replaceAll("-", "") })

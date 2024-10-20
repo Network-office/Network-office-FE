@@ -7,7 +7,7 @@ import MyPageMenuSection from "./_componets/MyPageMenuSection"
 import useGetUserInform from "./_hooks/_quries/useGetUserInform"
 
 const MyPage = () => {
-  const { data: userInform } = useGetUserInform("1")
+  const { data: userInform } = useGetUserInform()
 
   if (!userInform) return null
 
