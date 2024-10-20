@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import LocalClubList from "./_components/LocalClubList"
 import ErrorBoundary from "@/_common/_components/ErrorBoundary"
 import BaseErrorContent from "@/_common/_components/ErrorBoundary/BaseErrorContent"
+import ClubFootBar from "./_components/ClubFootBar"
 
 const ClubPage = () => {
   return (
@@ -51,6 +52,7 @@ const ClubPage = () => {
           </TabsContent>
         </ErrorBoundary>
       </Tabs>
+      <ClubFootBar />
     </div>
   )
 }
