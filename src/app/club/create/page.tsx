@@ -11,7 +11,7 @@ import ClubMemberLimitInput from "./_components/_funnels/ClubMemberLimitInput"
 import ClubCreateSuccess from "./_components/_funnels/ClubCreateSuccess"
 
 const CreateClubPage = () => {
-  const { Funnel, pushStep, step } = useFunnel([
+  const { Funnel, pushStep, popStep, step } = useFunnel([
     "name",
     "category",
     "location",
@@ -24,7 +24,10 @@ const CreateClubPage = () => {
   return (
     <FormProvider {...methods}>
       <div className="min-h-screen bg-white">
-        <CreateClubFunnelHeader nowStep={step} />
+        <CreateClubFunnelHeader
+          nowStep={step}
+          popStep={popStep}
+        />
         <Funnel>
           <Funnel.Step name="name">
             <ClubNameInput onNextStep={pushStep} />

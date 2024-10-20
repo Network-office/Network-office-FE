@@ -1,7 +1,12 @@
+"use client"
+
+import Topbar from "@/_common/_components/Topbar"
 import { ChevronLeft } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 interface CreateClubFunnelHeaderProps {
   nowStep: string
+  popStep: () => void
 }
 
 const HEADER_TEXT = {
@@ -13,15 +18,35 @@ const HEADER_TEXT = {
   finish: "동호회 생성 완료!"
 } as const
 
-const CreateClubFunnelHeader = ({ nowStep }: CreateClubFunnelHeaderProps) => {
+const CreateClubFunnelHeader = ({
+  nowStep,
+  popStep
+}: CreateClubFunnelHeaderProps) => {
   if (nowStep === "finish") return null
 
+  const router = useRouter()
+
+  const handleBackButton = () => {
+    if (nowStep === "name") {
+      router.push("/club")
+    } else if (nowStep !== "finish") {
+      popStep()
+    }
+  }
+
   return (
-    <div className="flex h-[30px] my-auto gap-6 mt-2 ml-2">
-      <p className="my-auto text-lg font-semibold">
-        {HEADER_TEXT[nowStep as keyof typeof HEADER_TEXT]}
-      </p>
-    </div>
+    <Topbar
+      leftContent={
+        <div className="flex items-center gap-2">
+          <button onClick={handleBackButton}>
+            <ChevronLeft />
+          </button>
+          <p className="text-lg font-semibold">
+            {HEADER_TEXT[nowStep as keyof typeof HEADER_TEXT]}
+          </p>
+        </div>
+      }
+    />
   )
 }
 
