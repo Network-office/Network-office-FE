@@ -22,6 +22,8 @@ const ClubDetailPage = () => {
     joinClubMutation.mutate(message, {
       onSuccess: () => {
         toast({
+          width: "250px",
+          height: "80px",
           title: "성공",
           description: "클럽 가입 신청이 완료되었습니다!"
         })
