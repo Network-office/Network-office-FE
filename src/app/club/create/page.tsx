@@ -9,6 +9,8 @@ import ClubLocationInput from "./_components/_funnels/ClubLocationInput"
 import ClubScheduleInput from "./_components/_funnels/ClubScheduleInput"
 import ClubMemberLimitInput from "./_components/_funnels/ClubMemberLimitInput"
 import ClubCreateSuccess from "./_components/_funnels/ClubCreateSuccess"
+import useCreateClub from "./_hooks/_mutations/useCreateClub"
+import { useToast } from "@/_common/_hooks/useToast"
 
 const CreateClubPage = () => {
   const { Funnel, pushStep, popStep, step } = useFunnel([
@@ -20,6 +22,25 @@ const CreateClubPage = () => {
     "finish"
   ])
   const methods = useForm()
+  const createClubMutation = useCreateClub()
+  const { toast } = useToast()
+
+  const onSubmit = (data: any) => {
+    createClubMutation.mutate(data, {
+      onSuccess: () => {
+        pushStep()
+      },
+      onError: () => {
+        toast({
+          width: "260px",
+          height: "80px",
+          title: "오류",
+          description: "동호회 생성 중 오류가 발생했습니다.",
+          variant: "destructive"
+        })
+      }
+    })
+  }
 
   return (
     <FormProvider {...methods}>
@@ -42,7 +63,7 @@ const CreateClubPage = () => {
             <ClubScheduleInput onNextStep={pushStep} />
           </Funnel.Step>
           <Funnel.Step name="memberLimit">
-            <ClubMemberLimitInput onNextStep={pushStep} />
+            <ClubMemberLimitInput onNextStep={methods.handleSubmit(onSubmit)} />
           </Funnel.Step>
           <Funnel.Step name="finish">
             <ClubCreateSuccess />
