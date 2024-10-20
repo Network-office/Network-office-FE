@@ -53,7 +53,6 @@ const handlers = [
       })
     }
   }),
-
   http.get(`http://localhost:8080/api/meeting/:meetingId`, ({ params }) => {
     const meetingId = Number(params.meetingId)
     const meetingDetail = meetingData.find(
@@ -348,7 +347,6 @@ const handlers = [
     async ({ params, request }) => {
       const { meetingId } = params
       const { userId } = await request.json()
-
 
       const meetingIndex = meetingData.findIndex(
         (meeting) => meeting.id === Number(meetingId)
