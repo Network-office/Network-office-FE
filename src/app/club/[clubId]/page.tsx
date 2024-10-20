@@ -31,6 +31,8 @@ const ClubDetailPage = () => {
       },
       onError: () => {
         toast({
+          width: "270px",
+          height: "80px",
           title: "오류",
           description: "클럽 가입 신청 중 오류가 발생했습니다.",
           variant: "destructive"

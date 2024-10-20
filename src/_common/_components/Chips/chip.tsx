@@ -1,5 +1,5 @@
 import { ChipProps } from "./types"
-
+import { cn } from "@/lib/utils"
 const Chip = ({
   label,
   color = "default",
@@ -28,7 +28,11 @@ const Chip = ({
   return (
     <div
       onClick={onClickChip}
-      className={`inline-flex items-center px-2 py-1 rounded-full text-sm font-medium mr-2 mb-2 shadow-2xl border-[1px] cursor-pointer transition-colors duration-200 ${colorClasses[color]} ${className}`}>
+      className={cn(
+        "text-center items-center px-2 py-1 rounded-full text-sm font-medium mr-2 mb-2 shadow-2xl border-[1px] cursor-pointer transition-colors duration-200",
+        colorClasses[color],
+        className
+      )}>
       {label}
     </div>
   )
