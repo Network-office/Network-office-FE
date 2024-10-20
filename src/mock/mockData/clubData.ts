@@ -2,7 +2,7 @@ const clubData = [
   {
     clubId: "1231",
     name: "문화 문화 문화",
-    imageUrl: null,
+    imageUrl: "https://picsum.photos/500/299",
     meetingFrequency: "매주 수요일",
     genre: "문화",
     location: {
@@ -14,7 +14,7 @@ const clubData = [
   {
     clubId: "12312",
     name: "스포츠 스포츠",
-    imageUrl: null,
+    imageUrl: "https://picsum.photos/500/300",
     meetingFrequency: "매주 화요일",
     genre: "스포츠",
     location: {
@@ -26,7 +26,7 @@ const clubData = [
   {
     clubId: "123412",
     name: "스포츠 스포츠",
-    imageUrl: null,
+    imageUrl: "https://picsum.photos/500/298",
     meetingFrequency: "매주 화요일",
     genre: "스포츠",
     location: {
@@ -38,7 +38,7 @@ const clubData = [
   {
     clubId: "1142312",
     name: "스포츠 스포츠",
-    imageUrl: null,
+    imageUrl: "https://picsum.photos/500/301",
     meetingFrequency: "매주 화요일",
     genre: "스포츠",
     location: {
@@ -50,7 +50,7 @@ const clubData = [
   {
     clubId: "5555",
     name: "우리 동네 독서 모임",
-    imageUrl: null,
+    imageUrl: "https://picsum.photos/500/302",
     meetingFrequency: "격주 토요일",
     genre: "독서",
     location: {
@@ -62,7 +62,7 @@ const clubData = [
   {
     clubId: "6666",
     name: "지역 봉사 동아리",
-    imageUrl: null,
+    imageUrl: "https://picsum.photos/500/297",
     meetingFrequency: "매월 첫째 주 일요일",
     genre: "봉사",
     location: {
@@ -74,7 +74,7 @@ const clubData = [
   {
     clubId: "7777",
     name: "로컬 뮤지션 모임",
-    imageUrl: null,
+    imageUrl: "https://picsum.photos/500/296",
     meetingFrequency: "매주 금요일",
     genre: "음악",
     location: {
@@ -86,7 +86,7 @@ const clubData = [
   {
     clubId: "8888",
     name: "동네 산악회",
-    imageUrl: null,
+    imageUrl: "https://picsum.photos/500/299",
     meetingFrequency: "매월 셋째 주 토요일",
     genre: "여행",
     location: {

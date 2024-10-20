@@ -40,7 +40,7 @@ const ClubGenreList = () => {
         {CLUB_GENRE.map((genre, index) => (
           <div
             className="flex flex-col items-center"
-            key={genre}>
+            key={index}>
             <button className="bg-blue-100 w-16 h-16 rounded-lg shadow-md flex items-center justify-center mb-2">
               <Image
                 src={CLUB_GENRE_ICON[index]}
