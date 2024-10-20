@@ -8,18 +8,38 @@ import ClubIntroduceDetailSection from "./_components/ClubIntroduceDetailSection
 import Button from "@/_common/_components/Button"
 import JoinClubModal from "./_components/JoinClubModal"
 import useModal from "@/_common/_hooks/useModal"
+import { useEffect } from "react"
+import { useToast } from "@/_common/_hooks/useToast"
 
 const ClubDetailPage = () => {
   const { clubId } = useParams()
   const { data: clubData } = useGetClubDetail(clubId as string)
   const joinClubMutation = useJoinClub(clubId as string)
   const { ModalComponent, setModalOpen, setModalClose } = useModal()
+  const { toast } = useToast()
+
+  useEffect(() => {
+    toast({
+      title: "성공",
+      description: "클럽 가입 신청이 완료되었습니다!"
+    })
+  }, [])
 
   const handleJoinSubmit = (message: string) => {
     joinClubMutation.mutate(message, {
       onSuccess: () => {
+        toast({
+          title: "성공",
+          description: "클럽 가입 신청이 완료되었습니다!"
+        })
         setModalClose()
-        alert("클럽 가입 신청이 완료되었습니다!")
+      },
+      onError: () => {
+        toast({
+          title: "오류",
+          description: "클럽 가입 신청 중 오류가 발생했습니다.",
+          variant: "destructive"
+        })
       }
     })
   }

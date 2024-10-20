@@ -14,13 +14,11 @@ const JoinClubModal = ({ onClose, onSubmit }: JoinClubModalProps) => {
   const handleSubmit = () => {
     if (joinMessage.trim().length >= 10) {
       onSubmit(joinMessage)
-    } else {
-      alert("메시지는 10글자 이상 작성해야 합니다.")
     }
   }
 
   return (
-    <div className="bg-white">
+    <div className="bg-white w-[95%] mx-auto">
       <div className="flex justify-between items-center p-4 border-b">
         <h2 className="text-xl font-semibold">클럽 가입 신청</h2>
         <button

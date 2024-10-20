@@ -23,7 +23,11 @@ const handlers = [
       JSON.stringify({
         clubId: "1231",
         name: "서울 독서 모임",
-        images: [],
+        images: [
+          "https://picsum.photos/500/300",
+          "https://picsum.photos/500/299",
+          "https://picsum.photos/500/301"
+        ],
         schedule: "매주 토요일 오후 2시",
         fee: "월 10,000원",
         organizer: "김철수",

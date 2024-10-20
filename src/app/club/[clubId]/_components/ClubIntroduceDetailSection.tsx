@@ -26,7 +26,6 @@ const ClubIntroduceDetailSection = ({ clubData }: { clubData: ClubData }) => {
                 alt={`Club image ${index + 1}`}
                 width={500}
                 height={250}
-                objectFit="cover"
               />
             </Carousel.Slide>
           ))
