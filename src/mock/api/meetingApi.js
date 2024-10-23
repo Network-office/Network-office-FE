@@ -74,27 +74,7 @@ const handlers = [
   http.post(
     `http://localhost:8080/api/meeting/participate`,
     async ({ request }) => {
-      const result = await request.json()
-      const meetingIndex = meetingData.findIndex(
-        (item) => item.id === result.meetingId
-      )
-
-      if (meetingIndex === -1) {
-        return new HttpResponse(
-          JSON.stringify({ error: "해당 모임 정보가 존재하지 않습니다." }),
-          {
-            status: 400
-          }
-        )
-      }
-
-      const newParticipant = {
-        userId: result.userId,
-        nickName: result.nickName,
-        profileImg: null
-      }
-
-      meetingData[meetingIndex].pendingParticipants.push(newParticipant)
+      const { meetingId, message, userId } = await request.json()
 
       return new HttpResponse(JSON.stringify({ success: true }), {
         status: 200
@@ -348,7 +328,6 @@ const handlers = [
     async ({ params, request }) => {
       const { meetingId } = params
       const { userId } = await request.json()
-
 
       const meetingIndex = meetingData.findIndex(
         (meeting) => meeting.id === Number(meetingId)

@@ -153,6 +153,7 @@ function toast({ ...props }: Toast) {
     type: "ADD_TOAST",
     toast: {
       ...props,
+      role: "statusToast",
       id,
       open: true,
       onOpenChange: (open) => {
