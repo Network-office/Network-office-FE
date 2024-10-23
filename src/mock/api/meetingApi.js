@@ -24,7 +24,6 @@ const handlers = [
       "title",
       "category",
       "place",
-      "detailPlace",
       "x",
       "y",
       "startTime",
@@ -33,6 +32,7 @@ const handlers = [
       "peopleNumber",
       "detail"
     ]
+    console.log(data)
     try {
       meetingDataFields.forEach((item) => {
         if (

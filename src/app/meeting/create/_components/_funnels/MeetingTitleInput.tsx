@@ -2,6 +2,8 @@
 
 import { Input } from "@/components/ui/input"
 import { useFormContext } from "react-hook-form"
+import { useToast } from "@/_common/_hooks/useToast"
+import Button from "@/_common/_components/Button"
 
 interface MeetingTitleInputProps {
   onNextStep: () => void
@@ -14,6 +16,8 @@ const MeetingTitleInput = ({ onNextStep }: MeetingTitleInputProps) => {
     trigger
   } = useFormContext()
 
+  const { toast } = useToast()
+
   const handleNextStep = async () => {
     const isValid = await trigger("title")
     if (isValid) {
@@ -22,7 +26,12 @@ const MeetingTitleInput = ({ onNextStep }: MeetingTitleInputProps) => {
       const error = errors.title?.message
       console.log("Error message from errors object:", error)
       if (typeof error === "string") {
-        alert(error)
+        toast({
+          title: error,
+          description: "제목을 다시 작성해주세요.",
+          width: "280px",
+          height: "80px"
+        })
       }
     }
   }
@@ -49,11 +58,11 @@ const MeetingTitleInput = ({ onNextStep }: MeetingTitleInputProps) => {
           }
         })}
       />
-      <button
-        className="w-[70%] h-[40px] mt-8 mx-auto bg-blue-300 rounded-md flex justify-center text-center py-auto"
+      <Button
+        className="w-[70%] h-[40px] mt-8 mx-auto rounded-md flex justify-center text-center py-auto"
         onClick={handleNextStep}>
         <span className="my-auto text-white font-semibold">다음으로</span>
-      </button>
+      </Button>
     </div>
   )
 }

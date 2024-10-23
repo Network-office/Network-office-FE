@@ -9,7 +9,7 @@ const MeetingCreateSuccess = ({}: MeetingCreateSuccessProps) => {
         모임 생성 완료!
       </h1>
       <Link
-        className="w-[40%] h-[40px] mt-[200px] mx-auto bg-blue-300 rounded-md flex justify-center text-center py-auto"
+        className="w-[40%] h-[40px] mt-[200px] mx-auto bg-black rounded-md flex justify-center text-center py-auto"
         href={"/meeting"}>
         <span className="my-auto text-white font-semibold">다음으로</span>
       </Link>

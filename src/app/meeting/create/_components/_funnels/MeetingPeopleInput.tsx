@@ -1,4 +1,5 @@
 import { useFormContext } from "react-hook-form"
+import Button from "@/_common/_components/Button"
 
 interface MeetingPeopleInputProps {
   onNextStep: () => void
@@ -40,12 +41,12 @@ const MeetingPeopleInput = ({ onNextStep }: MeetingPeopleInputProps) => {
       </div>
 
       {peopleNumber > 1 && peopleNumber < 20 && (
-        <button
+        <Button
           disabled={!peopleNumber}
-          className="w-[60%] h-[40px] mt-[30px] mx-auto bg-blue-300 rounded-md flex justify-center text-center py-auto"
+          className="w-[60%] h-[40px] mt-[30px] mx-auto rounded-md flex justify-center text-center py-auto"
           onClick={onNextStep}>
           <span className="my-auto text-white font-semibold">다음으로</span>
-        </button>
+        </Button>
       )}
     </div>
   )
