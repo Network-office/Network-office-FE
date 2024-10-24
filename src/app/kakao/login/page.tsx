@@ -14,8 +14,7 @@ function Login() {
   }, [params.get("code")])
 
   const handleKakaoLogin = () => {
-    window.location.href =
-      "https://kauth.kakao.com/oauth/authorize?redirect_uri=https://localhost:3000/kakao/login&response_type=code&client_id=dda9ca07ec9d628b718b8475c11feec6"
+    window.location.href = `https://kauth.kakao.com/oauth/authorize?redirect_uri=${process.env.NEXT_PUBLIC_REDIRECT_URL}`
   }
 
   return (
