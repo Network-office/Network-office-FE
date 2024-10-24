@@ -22,7 +22,7 @@ const handler = NextAuth({
   },
   session: {
     strategy: "jwt",
-    //하루 동안 세션 유지
+
     maxAge: 24 * 60 * 60
   },
   logger: {},

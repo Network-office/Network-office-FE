@@ -5,7 +5,6 @@ import React, { useEffect } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
 
 function Login() {
-  const router = useRouter()
   const params = useSearchParams()
 
   useEffect(() => {

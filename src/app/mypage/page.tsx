@@ -8,15 +8,20 @@ import useGetUserInform from "./_hooks/_quries/useGetUserInform"
 
 const MyPage = () => {
   const { data: userInform } = useGetUserInform()
+  console.log(userInform)
 
   if (!userInform) return null
 
   return (
     <div>
       <MyPageTopBar />
-      <ProfileSection {...userInform} />
+      <ProfileSection
+        profileImg={userInform.profile_image_url}
+        nickName={userInform.nickname}
+        profileIntroduce=""
+      />
       <MeetingSummarySection
-        participatedMeetingList={userInform.participatedMeetingList}
+        participatedMeetingList={userInform.participatedMeetingList ?? []}
       />
       <MyPageMenuSection />
     </div>

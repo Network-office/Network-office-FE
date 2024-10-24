@@ -3,7 +3,6 @@ import { Input } from "@/_common/_components/Input"
 import Button from "@/_common/_components/Button"
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
 import { useGeneratePhoneVerification } from "@/app/api/phone/useGeneratePhoneVerfification"
-import { useRouter } from "next/navigation"
 
 interface PhoneInputModalProps {
   onConfirm?: (phone: string) => void
@@ -29,8 +28,6 @@ export const PhoneInputModal = ({
     const handleFocus = () => {
       if (isVerifying) {
         setIsVerifying(false)
-        // 여기에서 인증 완료 후의 로직을 처리할 수 있습니다.
-        // 예: API 호출을 통해 인증 상태 확인
       }
     }
 
@@ -52,7 +49,7 @@ export const PhoneInputModal = ({
       {
         onSuccess: (data) => {
           setIsVerifying(true)
-          const verificationUrl = `/dev.networkoffice@gmail.com/${data.data.code}`
+          const verificationUrl = `/dev.networkoffice@gmail.com/${data.code}`
           window.open(verificationUrl, "_blank")
         }
       }

@@ -1,8 +1,6 @@
 import { http } from "@/lib/http"
 import { useMutation } from "@tanstack/react-query"
 
-//로그인 성공 시 redirect주소로
-
 interface KakaoOAuthLoginReq {
   code: string
 }
