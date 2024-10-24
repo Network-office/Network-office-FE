@@ -1,5 +1,6 @@
 "use client"
 
+import useInfiniteScroll from "@/_common/_hooks/useInfiniteScroll"
 import ChatRoomItem from "@/app/chat/_components/ChatRoomItem"
 import useGetChatRoomList from "@/app/chat/_hooks/queries/useGetChatRoomList"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -14,16 +15,15 @@ const roleToKorean = {
 } as const
 
 interface ChatRoomListWithTabsProps {
-  defaultRole: "admin" | "user" | undefined
+  defaultRole: "admin" | "user" | "all"
 }
 
 const ChatRoomListWithTabs = ({ defaultRole }: ChatRoomListWithTabsProps) => {
   const router = useRouter()
   const pathName = usePathname()
-  const [role, setRole] = useState<"admin" | "user" | "all">(
-    defaultRole ?? "all"
-  )
-  const { data: rooms } = useGetChatRoomList(role)
+  const [role, setRole] = useState(defaultRole)
+  const { fetchNextPage, data: rooms } = useGetChatRoomList(role, 10)
+  const { ref } = useInfiniteScroll(fetchNextPage)
 
   const handleTabClick = (role: "admin" | "user" | "all") => {
     role === "all"
@@ -34,20 +34,27 @@ const ChatRoomListWithTabs = ({ defaultRole }: ChatRoomListWithTabsProps) => {
 
   return (
     <Tabs defaultValue={role}>
-      <TabsList>
-        {Object.entries(roleToKorean).map(([roleEn, roleKo]) => (
-          <TabsTrigger
-            key={roleEn}
-            value={roleEn}
-            onClick={() => handleTabClick(roleEn as "admin" | "user" | "all")}>
-            {roleKo}
-          </TabsTrigger>
-        ))}
-      </TabsList>
+      <div className="p-2">
+        <TabsList>
+          {Object.entries(roleToKorean).map(([roleEn, roleKo]) => (
+            <TabsTrigger
+              key={roleEn}
+              value={roleEn}
+              onClick={() =>
+                handleTabClick(roleEn as "admin" | "user" | "all")
+              }>
+              {roleKo}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+      </div>
       <TabsContent value={role}>
-        <div className="flex flex-col">
+        <div
+          aria-label="chat-room-list"
+          className="flex flex-col">
           {rooms?.map((room) => (
             <Link
+              aria-label={`${room.title}-link`}
               key={room.title}
               href={`/chat/${room.id}`}>
               <ChatRoomItem
@@ -56,6 +63,7 @@ const ChatRoomListWithTabs = ({ defaultRole }: ChatRoomListWithTabsProps) => {
               />
             </Link>
           ))}
+          <div ref={ref} />
         </div>
       </TabsContent>
     </Tabs>
