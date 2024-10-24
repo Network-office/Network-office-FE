@@ -21,7 +21,6 @@ const CreateMeetingFunnelHeader = ({
   nowStep
 }: CreateMeetingFunnelHeaderProps) => {
   if (nowStep === "finish") return <></>
-  console.log(nowStep)
   return (
     <div className="flex h-[50px] my-auto gap-6 pt-1 pl-2 bg-slate-100 drop-shadow-md">
       <button
