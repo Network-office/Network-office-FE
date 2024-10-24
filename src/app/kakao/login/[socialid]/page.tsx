@@ -7,6 +7,7 @@ import NickNameForm from "@/app/kakao/_components/NickNameForm"
 import Step from "@/_common/_hooks/useFunnel/_component/Step"
 import { UserSignInProvider } from "@/app/kakao/_context/signinContext"
 import { SuccessLogin } from "@/app/kakao/_components/SuccessLogin"
+import { useToast } from "@/_common/_hooks/useToast"
 import { useRouter } from "next/navigation"
 import { useGetCSRFToken } from "@/app/kakao/_api/auth/csrf"
 import { toast } from "@/_common/_hooks/useToast"
@@ -22,6 +23,7 @@ const KakaoLoginWithSocialId = ({
   const mutation = useKakaoOAuthMutation()
   const router = useRouter()
   const { mutate } = useGetCSRFToken()
+  const { toast } = useToast()
   useEffect(() => {
     mutate()
   }, [])
@@ -38,6 +40,13 @@ const KakaoLoginWithSocialId = ({
           })
 
           router.push("/meeting")
+        },
+        onError: () => {
+          toast({
+            type: "background",
+            title: "로그인에 실패하였습니다!",
+            color: "red"
+          })
         }
       }
     )
