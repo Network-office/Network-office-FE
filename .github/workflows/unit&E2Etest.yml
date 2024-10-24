@@ -32,7 +32,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-${{ matrix.node-version }}-
 
-
       - name: Install pnpm
         run: npm install -g pnpm
 
@@ -53,3 +52,19 @@ jobs:
           files: "./test-results/junit/results.xml"
           check_name: "Jest Test Results"
           comment_mode: always
+
+  cypress-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Start application
+        run: pnpm run dev &
+        env:
+          NODE_ENV: test
+
+      - name: Wait for application to be ready
+        run: npx wait-on http://localhost:3000
+
+      - name: Run Cypress tests
+        run: pnpm run e2e:ci
+        env:
+          CYPRESS_BASE_URL: http://localhost:3000
