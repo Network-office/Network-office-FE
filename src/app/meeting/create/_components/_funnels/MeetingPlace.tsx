@@ -38,6 +38,7 @@ const MeetingPlace = ({ onNextStep }: MeetingTitleInputProps) => {
       <h2 className="text-center text-slate-400 text-sm"></h2>
       <div className="w-[300px] h-[30px] border-b-2 flex mx-auto mt-14">
         <input
+          name="place"
           onChange={(event) => setInputKeyWord(event.target.value)}
           onKeyUp={searchBarhandle}
           placeholder="동네 이름을 적어주세요!"

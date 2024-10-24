@@ -16,6 +16,7 @@ const ParticipateRefuseModal = ({
     <div className="absolute w-[90%] h-[270px] bg-white left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 rounded-md shadow-lg px-2 py-2">
       <h1 className="mx-4 mt-2 text-xl font-medium">거절 사유 메세지 보내기</h1>
       <textarea
+        aria-label ="refuseMessageTextarea"
         onChange={(event) => setRefuseText(event.target.value)}
         className="w-[92%] h-[60%] flex justify-center focus:outline-none border-[1px] rounded-sm mx-auto mt-3 text-lg px-2 py-2"
         placeholder="100자 이하로 작성해주세요."

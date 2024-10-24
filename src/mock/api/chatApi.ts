@@ -1,5 +1,5 @@
-import { GetChatHistoryResponse } from "@/app/chat/[chatId]/_apis/getChatHistory"
-import { chatHistoryDataMap } from "@/mock/mockData/chatHistoryData"
+import { GetChatHistoryResponse } from "../../app/chat/[chatId]/_apis/getChatHistory"
+import { chatHistoryDataMap } from "../mockData/chatHistoryData"
 import { http, HttpResponse } from "msw"
 
 const handlers = [

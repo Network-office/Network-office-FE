@@ -1,5 +1,7 @@
 import { useFormContext } from "react-hook-form"
 import { cn } from "@/lib/utils"
+import Button from "@/_common/_components/Button"
+
 interface MeetingCategoriesProps {
   onNextStep: () => void
 }
@@ -28,11 +30,11 @@ const MeetingCategory = ({ onNextStep }: MeetingCategoriesProps) => {
           </button>
         ))}
       </div>
-      <button
-        className="w-[70%] h-[40px] mt-4 mx-auto bg-blue-300 rounded-md flex justify-center text-center py-auto"
+      <Button
+        className="w-[70%] h-[40px] mb-16 mt-4 mx-auto  rounded-md flex justify-center text-center py-auto"
         onClick={onNextStep}>
         <span className="my-auto text-white font-semibold">다음으로</span>
-      </button>
+      </Button>
     </div>
   )
 }

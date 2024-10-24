@@ -77,11 +77,11 @@ const ParticipatingMeetingItem = ({
       <div className="flex justify-between mr-8">
         <div className="flex gap-2">
           <Clock />
-          <p>{`${dateToString(date)} / ${startTime}~${endTime}`}</p>
+          <p data-testId="meetingDate">{`${dateToString(date)} / ${startTime}~${endTime}`}</p>
         </div>
         <div className="flex gap-2">
           <Users />
-          <p>
+          <p data-testId="meetingParticipatingPeople">
             {nowPeople}/{totalPeople}
           </p>
         </div>

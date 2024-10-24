@@ -40,7 +40,7 @@ const MeetingDetailPage = () => {
           참가신청
         </Button>
       </div>
-      <ModalComponent className="bg-white w-[380px] h-[300px] rounded-sm shadow-2xl px-4 py-4 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      <ModalComponent className="ParticipateModal bg-white w-[380px] h-[300px] rounded-sm shadow-2xl px-4 py-4 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <MeetingParticipateModal
           meetingId={meetingDetail.id}
           onMeetingModalClose={setModalClose}

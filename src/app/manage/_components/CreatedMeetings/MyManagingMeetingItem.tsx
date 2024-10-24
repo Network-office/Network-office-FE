@@ -64,9 +64,16 @@ const MyManagingMeetingItem = ({
               prev.filter((p) => p.userId !== selectedParticipant.userId)
             )
             setNowPeople((prev) => prev - 1)
+            toast({
+              width: "260px",
+              height: "50px",
+              description: "참가자가 성공적으로 추방되었습니다."
+            })
           },
           onError: () => {
             toast({
+              width: "260px",
+              height: "50px",
               title: "추방 실패 했습니다.",
               description: "잠시 후 다시 시도해주세요"
             })
@@ -82,10 +89,11 @@ const MyManagingMeetingItem = ({
     <div className="w-[95%] border-b-[1px] border-t-[1px] mb-1 shadow-lg px-4 py-2">
       <div className="flex w-full">
         <div className="w-full  flex justify-between">
-          <span className="font-medium text-xl mt-1 text-ellipsis w-[88%] overflow-hidden whitespace-nowrap">
+          <h2 className="font-medium text-xl mt-1 text-ellipsis w-[88%] overflow-hidden whitespace-nowrap">
             {title}
-          </span>
+          </h2>
           <button
+            aria-label="myCreatedMeetingSettingButton"
             onClick={() => {
               setSelectedModal("meetingOption")
               setModalOpen()
@@ -101,6 +109,7 @@ const MyManagingMeetingItem = ({
         <div className="flex space-x-2 min-w-max p-1 ">
           {confirmedParticipants.map((participant) => (
             <DropBox
+              aria-label="myMeetingParticipant"
               key={participant.userId}
               items={[
                 { label: participant.nickName, onClick: () => {} },
@@ -132,11 +141,11 @@ const MyManagingMeetingItem = ({
       <div className="flex justify-between mr-8">
         <div className="flex gap-2">
           <Clock />
-          <p>{`${date} / ${startTime}~${endTime}`}</p>
+          <p data-testId="meetingDate">{`${date} / ${startTime}~${endTime}`}</p>
         </div>
         <div className="flex gap-2">
           <Users />
-          <p>
+          <p data-testId="meetingParticipatingPeople">
             {nowPeople}/{totalPeople}
           </p>
         </div>

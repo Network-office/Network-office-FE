@@ -22,9 +22,9 @@ const CreateClubFunnelHeader = ({
   nowStep,
   popStep
 }: CreateClubFunnelHeaderProps) => {
-  if (nowStep === "finish") return null
-
   const router = useRouter()
+
+  if (nowStep === "finish") return null
 
   const handleBackButton = () => {
     if (nowStep === "name") {
