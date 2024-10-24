@@ -1,4 +1,6 @@
 import { NextAuthContext } from "@/app/provider"
+import BottomNavBar from "@/_common/_components/BottomNavBar"
+import { Toaster } from "@/components/ui/toaster"
 import type { Metadata } from "next"
 import Script from "next/script"
 import "./globals.css"
@@ -15,11 +17,13 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="ko">
       <body>
         <QueryProvider>
           <NextAuthContext>{children}</NextAuthContext>
         </QueryProvider>
+        <Toaster />
+        <BottomNavBar />
       </body>
       <Script
         id="naver"
@@ -29,3 +33,4 @@ export default function RootLayout({
     </html>
   )
 }
+

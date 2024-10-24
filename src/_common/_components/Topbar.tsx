@@ -1,4 +1,7 @@
+"use client"
+
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { TopbarProps } from "./types"
 import { Bell, ChevronLeft, User } from "lucide-react"
 import { cn } from "../../lib/utils"
@@ -12,7 +15,7 @@ const Topbar = ({
   return (
     <header
       className={cn(
-        "flex justify-between p-4 items-center border-b-2",
+        "flex justify-between p-4 items-center border-b-2 sticky top-0 bg-white z-50",
         className
       )}>
       <div className="flex gap-2 w-fit-content">
@@ -24,18 +27,21 @@ const Topbar = ({
   )
 }
 
-const BackLink = () => (
-  <Link
-    aria-label="Back"
-    href="..">
-    <ChevronLeft />
-  </Link>
-)
+const BackLink = () => {
+  const router = useRouter()
+  return (
+    <button
+      aria-label="Back"
+      onClick={() => router.back()}>
+      <ChevronLeft />
+    </button>
+  )
+}
 
 const ProfileLink = () => (
   <Link
     aria-label="Profile"
-    href="/user">
+    href="/mypage">
     <User />
   </Link>
 )
