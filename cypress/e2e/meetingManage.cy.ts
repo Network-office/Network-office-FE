@@ -89,5 +89,9 @@ describe("모임 관리 페이지", () => {
     cy.contains("button", "추방").should("be.visible").click()
 
     cy.contains("참가자가 성공적으로 추방되었습니다.").should("be.visible")
-  })
+  }),
+    it("게시글 이동 버튼 누르면 게시글로 이동하는지 테스트", () => {
+      cy.contains("게시글로 이동").click()
+      cy.url().should("match", /\/meeting\//)
+    })
 })
