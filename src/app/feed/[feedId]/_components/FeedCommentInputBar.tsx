@@ -23,7 +23,7 @@ const FeedCommentInputBar = ({ feedId }: FeedCommentInputBarProps) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="fixed w-screen bg-slate-200 h-[50px] bottom-0 left-0 flex justify-center gap-2 items-center">
+      className="fixed w-screen bg-slate-200 h-[50px] bottom-0 left-0 flex justify-center gap-2 items-center mb-16">
       <input
         className="w-[85%] h-[80%] border-2 px-2 rounded-lg"
         value={comment}

@@ -19,7 +19,9 @@ const Participate = ({ setMyParticipaiteMeetingNum }: ParticipateProps) => {
     <div className="w-screen h-fit mb-4">
       <ul>
         {participatingMeetings?.map((meetingItem) => (
-          <li key={meetingItem.id}>
+          <li
+            className="participatingMeetingItem"
+            key={meetingItem.id}>
             <ParticipatingMeetingItem
               {...meetingItem}
               meetingId={meetingItem.id}

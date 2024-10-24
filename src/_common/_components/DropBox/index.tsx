@@ -37,7 +37,9 @@ const DropBox = ({
   return (
     <ShadcnDropBox>
       <DropdownMenuTrigger asChild>
-        <button className={cn(buttonVariants(), triggerClassName)}>
+        <button
+          className={cn(buttonVariants(), triggerClassName)}
+          aria-label="myMeetingParticipant">
           {children || triggerText}
         </button>
       </DropdownMenuTrigger>
