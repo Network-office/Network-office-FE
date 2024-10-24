@@ -1,4 +1,4 @@
-name: Run Unit Test
+name: Run Unit Test & E2E Test
 
 on:
   pull_request:
@@ -56,14 +56,6 @@ jobs:
   cypress-test:
     runs-on: ubuntu-latest
     steps:
-      - name: Start application
-        run: pnpm run dev &
-        env:
-          NODE_ENV: test
-
-      - name: Wait for application to be ready
-        run: npx wait-on http://localhost:3000
-
       - name: Run Cypress tests
         run: pnpm run e2e:ci
         env:
