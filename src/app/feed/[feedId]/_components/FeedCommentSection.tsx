@@ -29,7 +29,7 @@ const FeedCommentSection = ({ feedId }: FeedCommentSectionProps) => {
   }, [feedComments, shouldScroll])
 
   return (
-    <div className="border-t-2 mx-auto w-[90%] pb-[50px] mb-[100px]">
+    <div className="border-t-2 mx-auto w-[90%] pb-[120px] ">
       <div className="flex gap-1">
         <p className="text-lg font-semibold mt-2">댓글</p>
         <p className="text-lg my-auto mt-2">

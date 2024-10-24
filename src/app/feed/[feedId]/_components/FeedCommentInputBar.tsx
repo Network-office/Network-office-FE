@@ -25,12 +25,14 @@ const FeedCommentInputBar = ({ feedId }: FeedCommentInputBarProps) => {
       onSubmit={handleSubmit}
       className="fixed w-screen bg-slate-200 h-[50px] bottom-0 left-0 flex justify-center gap-2 items-center mb-16">
       <input
+        aria-label="commentInput"
         className="w-[85%] h-[80%] border-2 px-2 rounded-lg"
         value={comment}
         onChange={(e) => setComment(e.target.value)}
         placeholder="댓글을 입력하세요..."
       />
       <button
+        aria-label="commentSubmitButton"
         type="submit"
         className="flex items-center">
         <Send />
