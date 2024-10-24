@@ -2,12 +2,15 @@
 const nextConfig = {
   reactStrictMode: false,
   async rewrites() {
-    return [
-      {
-        source: "/dev/:path*",
-        destination: "https://network-office.duckdns.org/dev/:path*"
-      }
-    ]
+    if (process.env.NODE_ENV === "production") {
+      return [
+        {
+          source: "/dev/:path*",
+          destination: `${process.env.NEXT_PUBLIC_API_URL}/dev/:path*`
+        }
+      ]
+    }
+    return []
   }
 }
 
