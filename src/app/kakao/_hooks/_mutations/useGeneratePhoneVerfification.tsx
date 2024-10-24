@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query"
-import { useGetCSRFToken } from "../auth/csrf"
+import { useGetCSRFToken } from "../../_api/auth/csrf"
 
 const generatePhoneVerificationCode = async ({
   phoneNumber

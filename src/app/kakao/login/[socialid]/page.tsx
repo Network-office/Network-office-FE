@@ -1,14 +1,14 @@
 "use client"
 
 import { useFunnel } from "@/_common/_hooks/useFunnel"
-import { useKakaoOAuthMutation } from "@/app/api/kakao/useKakaoMutation"
+import { useKakaoOAuthMutation } from "@/app/kakao/_hooks/_mutations/useKakaoMutation"
 
 import NickNameForm from "@/app/kakao/_components/NickNameForm"
 import Step from "@/_common/_hooks/useFunnel/_component/Step"
 import { UserSignInProvider } from "@/app/kakao/_context/signinContext"
 import { SuccessLogin } from "@/app/kakao/_components/SuccessLogin"
 import { useRouter } from "next/navigation"
-import { useGetCSRFToken } from "@/app/api/auth/csrf"
+import { useGetCSRFToken } from "@/app/kakao/_api/auth/csrf"
 import { toast } from "@/_common/_hooks/useToast"
 import AvatarForm from "@/app/kakao/_components/AvatarForm"
 import { useEffect } from "react"

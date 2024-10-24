@@ -1,6 +1,6 @@
 import { UserInformTypes } from "../types"
 import CustomError from "@/lib/CustomError"
-import { useGetCSRFToken } from "@/app/api/auth/csrf"
+import { useGetCSRFToken } from "@/app/kakao/_api/auth/csrf"
 
 const getUserInform = async () => {
   try {
