@@ -15,7 +15,8 @@ const generatePhoneVerificationCode = async ({
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
+        "Access-Control-Allow-Origin": "*",
+        "XSRF-TOKEN": xsrfToken + ""
       },
       credentials: "include",
       body: JSON.stringify({ phoneNumber: phoneNumber.replaceAll("-", "") })
@@ -36,6 +37,10 @@ export const useGeneratePhoneVerification = () => {
   const newCsrfToken = useGetCSRFToken()
   return useMutation({
     mutationFn: generatePhoneVerificationCode,
+    onMutate: ({ phoneNumber }) => {
+      newCsrfToken.mutate()
+      generatePhoneVerificationCode({ phoneNumber })
+    },
     onError: () => {
       newCsrfToken.mutate()
     }

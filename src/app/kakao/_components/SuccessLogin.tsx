@@ -43,11 +43,6 @@ export const SuccessLogin = ({
               className="bg-black hover:bg-gray-800 text-white py-3 px-6 rounded-sm text-base font-medium transition duration-200">
               미팅 페이지로 이동
             </Button>
-            <Button
-              onClick={setModalOpen}
-              className="bg-black hover:bg-gray-800 text-white py-3 px-6 rounded-sm text-base font-medium transition duration-200">
-              핸드폰 인증하기
-            </Button>
           </div>
         </div>
       </div>

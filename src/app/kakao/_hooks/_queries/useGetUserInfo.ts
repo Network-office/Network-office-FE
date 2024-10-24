@@ -11,7 +11,7 @@ interface GetUserInfoResponse {
 }
 export const getUserInfo = async () => {
   try {
-    return await http<GetUserInfoResponse>("/api/v1/users/profile", {
+    return await http<GetUserInfoResponse>("/dev/api/v1/users/profile", {
       method: "GET",
       cache: "no-store"
     })
