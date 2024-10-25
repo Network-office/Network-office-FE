@@ -10,6 +10,9 @@ export default defineConfig({
 
   e2e: {
     baseUrl: "http://localhost:3000",
-    setupNodeEvents(on, config) {}
+    setupNodeEvents(on, config) {},
+    env: {
+      NEXT_PUBLIC_BASE_URL: "http://localhost:8080"
+    }
   }
 })
