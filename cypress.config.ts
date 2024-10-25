@@ -12,8 +12,8 @@ export default defineConfig({
     baseUrl: "http://localhost:3000",
     setupNodeEvents(on, config) {},
     env: {
-      NEXT_PUBLIC_BASE_URL:
-        process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:8080"
+      defaultCommandTimeout: 10000,
+      pageLoadTimeout: 10000
     }
   }
 })
