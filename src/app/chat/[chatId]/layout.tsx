@@ -1,6 +1,5 @@
 import ErrorBoundary from "@/_common/_components/ErrorBoundary"
 import ChatPageTopbar from "@/app/chat/[chatId]/_components/ChatPageTopbar"
-import { Suspense } from "react"
 
 interface ChatPageLayoutProps {
   children: React.ReactNode
