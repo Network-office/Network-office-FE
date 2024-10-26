@@ -7,7 +7,7 @@ interface FeedDetailContentSectionProps {
   region: string[]
   date: string
   views: number
-  like: number
+  likes: number
 }
 
 const FeedDetailContentSection = ({
@@ -17,7 +17,7 @@ const FeedDetailContentSection = ({
   region,
   date,
   views,
-  like
+  likes
 }: FeedDetailContentSectionProps) => {
   return (
     <div>

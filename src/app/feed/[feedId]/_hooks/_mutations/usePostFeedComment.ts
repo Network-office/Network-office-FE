@@ -30,7 +30,10 @@ const usePostFeedComment = (feedId: string) => {
             authorProfileImage: data.authorProfileImage,
             detail: variables.comment,
             createdAt: data.createdAt,
-            authorId: "1234"
+            authorId: "1234",
+            region: ["서울시", "구로구", "항동"],
+            date: new Date().toISOString(),
+            views: 0
           }
           const newComments = old ? [...old, newCommentItem] : [newCommentItem]
           return newComments
