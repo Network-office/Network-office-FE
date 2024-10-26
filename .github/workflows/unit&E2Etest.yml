@@ -1,4 +1,4 @@
-name: Run Unit Test
+name: Run Unit Test & e2e Test
 
 on:
   pull_request:
@@ -7,7 +7,8 @@ on:
 permissions: write-all
 
 jobs:
-  test:
+  e2e-and-unit-test:
+    name: Run E2E and Unit Tests
     runs-on: ubuntu-latest
 
     strategy:
@@ -32,12 +33,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-${{ matrix.node-version }}-
 
-
       - name: Install pnpm
         run: npm install -g pnpm
 
       - name: Install dependencies
         run: pnpm install
+
+      - name: Install Cypress
+        run: pnpm cypress install
 
       - name: Run Jest tests
         run: pnpm test -- --coverage --passWithNoTests
@@ -53,3 +56,13 @@ jobs:
           files: "./test-results/junit/results.xml"
           check_name: "Jest Test Results"
           comment_mode: always
+
+      - name: Run Cypress tests
+        run: pnpm run e2e:ci
+        env:
+          CYPRESS_BASE_URL: http://localhost:3000
+          NEXT_PUBLIC_BASE_URL: http://localhost:8080
+          NEXTAUTH_URL: http://localhost:3000
+          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+          NEXT_PUBLIC_NAVERMAP_API_KEY: ${{ secrets.NEXT_PUBLIC_NAVERMAP_API_KEY }}
+          NEXT_PUBLIC_NAVERMAP_API_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_NAVERMAP_API_CLIENT_ID }}
