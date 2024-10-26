@@ -1,11 +1,7 @@
 "use client"
 import Topbar from "@/_common/_components/Topbar"
 
-interface ClubHeaderProps {
-  onCreateClick: () => void
-}
-
-const ClubHeader = ({ onCreateClick }: ClubHeaderProps) => {
+const ClubHeader = () => {
   return (
     <Topbar
       className="py-3"
