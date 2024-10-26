@@ -52,6 +52,28 @@ const handlers = [
       }),
       { status: 200, headers: { "Content-Type": "application/json" } }
     )
+  }),
+  http.post(`http://localhost:8080/api/club/create`, async ({ request }) => {
+    const requestBody = await request.json()
+    const newClubId = String(Math.floor(Math.random() * 10000))
+
+    const newClub = {
+      clubId: newClubId,
+      name: requestBody.name,
+      imageUrl: "https://picsum.photos/500/300",
+      meetingFrequency: requestBody.schedule,
+      genre: requestBody.category
+    }
+
+    clubData.push(newClub)
+
+    return new HttpResponse(
+      JSON.stringify({
+        success: true,
+        clubId: newClubId
+      }),
+      { status: 200, headers: { "Content-Type": "application/json" } }
+    )
   })
 ]
 
