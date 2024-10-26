@@ -1,7 +1,12 @@
+import { cn } from "@/lib/utils"
+
 const SkeletonLoader = ({ className }: { className?: string }) => {
   return (
     <div
-      className={`animate-pulse bg-gray-200 rounded-lg ${className} shadow-md`}
+      className={cn(
+        "animate-pulse bg-gray-200 rounded-lg shadow-md",
+        className
+      )}
     />
   )
 }
