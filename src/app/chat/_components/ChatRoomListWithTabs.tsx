@@ -1,11 +1,11 @@
 "use client"
 
-import ChatRoomItem from "@/app/chat/_components/ChatRoomItem"
-import useGetChatRoomList from "@/app/chat/_hooks/queries/useGetChatRoomList"
+import ChatRoomList from "@/app/chat/_components/ChatRoomList"
+import ChatRoomListSkeleton from "@/app/chat/_components/skeletons/ChatRoomListSkeleton"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import Link from "next/link"
+import { Loader } from "lucide-react"
 import { useRouter, usePathname } from "next/navigation"
-import { useState } from "react"
+import { Suspense, useState } from "react"
 
 const roleToKorean = {
   all: "전체",
@@ -14,16 +14,13 @@ const roleToKorean = {
 } as const
 
 interface ChatRoomListWithTabsProps {
-  defaultRole: "admin" | "user" | undefined
+  defaultRole: "admin" | "user" | "all"
 }
 
 const ChatRoomListWithTabs = ({ defaultRole }: ChatRoomListWithTabsProps) => {
   const router = useRouter()
   const pathName = usePathname()
-  const [role, setRole] = useState<"admin" | "user" | "all">(
-    defaultRole ?? "all"
-  )
-  const { data: rooms } = useGetChatRoomList(role)
+  const [role, setRole] = useState(defaultRole)
 
   const handleTabClick = (role: "admin" | "user" | "all") => {
     role === "all"
@@ -34,30 +31,25 @@ const ChatRoomListWithTabs = ({ defaultRole }: ChatRoomListWithTabsProps) => {
 
   return (
     <Tabs defaultValue={role}>
-      <TabsList>
-        {Object.entries(roleToKorean).map(([roleEn, roleKo]) => (
-          <TabsTrigger
-            key={roleEn}
-            value={roleEn}
-            onClick={() => handleTabClick(roleEn as "admin" | "user" | "all")}>
-            {roleKo}
-          </TabsTrigger>
-        ))}
-      </TabsList>
-      <TabsContent value={role}>
-        <div className="flex flex-col">
-          {rooms?.map((room) => (
-            <Link
-              key={room.title}
-              href={`/chat/${room.id}`}>
-              <ChatRoomItem
-                key={room.title}
-                room={room}
-              />
-            </Link>
+      <div className="p-2">
+        <TabsList>
+          {Object.entries(roleToKorean).map(([roleEn, roleKo]) => (
+            <TabsTrigger
+              key={roleEn}
+              value={roleEn}
+              onClick={() =>
+                handleTabClick(roleEn as "admin" | "user" | "all")
+              }>
+              {roleKo}
+            </TabsTrigger>
           ))}
-        </div>
-      </TabsContent>
+        </TabsList>
+      </div>
+      <Suspense fallback={<ChatRoomListSkeleton />}>
+        <TabsContent value={role}>
+          <ChatRoomList role={role} />
+        </TabsContent>
+      </Suspense>
     </Tabs>
   )
 }
