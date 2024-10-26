@@ -1,7 +1,6 @@
 import ErrorBoundary from "@/_common/_components/ErrorBoundary"
 import { getQueryClient } from "@/_common/_utils/getClientQuery"
 import { getChatHistory } from "@/app/chat/[chatId]/_apis/getChatHistory"
-import ChatPageTopbar from "@/app/chat/[chatId]/_components/ChatPageTopbar"
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query"
 
 interface ChatPageLayoutProps {
