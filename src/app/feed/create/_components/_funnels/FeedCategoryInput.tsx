@@ -1,7 +1,7 @@
 "use client"
 
 import { useFormContext } from "react-hook-form"
-import { Input } from "@/_common/_components/Input"
+import Input from "@/_common/_components/Input"
 import Button from "@/_common/_components/Button"
 
 interface FeedCategoryInputProps {

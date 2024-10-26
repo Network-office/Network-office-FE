@@ -1,6 +1,6 @@
 "use client"
 
-import { Input } from "@/components/ui/input"
+import Input from "@/components/ui/input"
 import { useFormContext } from "react-hook-form"
 import { useToast } from "@/_common/_hooks/useToast"
 import Button from "@/_common/_components/Button"

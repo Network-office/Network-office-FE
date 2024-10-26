@@ -1,6 +1,6 @@
 import { useState } from "react"
 import Button from "@/_common/_components/Button"
-import { Input } from "@/_common/_components/Input"
+import Input from "@/_common/_components/Input"
 import { X } from "lucide-react"
 
 interface JoinClubModalProps {

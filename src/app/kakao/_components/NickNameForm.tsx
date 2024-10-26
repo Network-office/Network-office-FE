@@ -1,5 +1,5 @@
 import Button from "@/_common/_components/Button"
-import { Input } from "@/_common/_components/Input"
+import Input from "@/_common/_components/Input"
 import { useSignInContext } from "@/app/kakao/_context/signinContext"
 
 const NickNameForm = ({ onSubmit }: { onSubmit?: () => void }) => {
