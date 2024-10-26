@@ -1,4 +1,4 @@
-import { chatRoomListData } from "@/mock/mockData/chatRoomData"
+import { chatRoomListData } from "../mockData/chatRoomData"
 import { http, HttpResponse } from "msw"
 
 const handlers = [

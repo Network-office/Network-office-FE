@@ -35,7 +35,9 @@ const FootBar = ({ setMapPosition }: FootBarProps) => {
           size={48}
         />
       </button>
-      <Link href="meeting/create">
+      <Link
+        aria-label="createMeeting"
+        href="meeting/create">
         <Plus
           className="bg-slate-100 rounded-full px-1 shadow-2xl"
           size={48}

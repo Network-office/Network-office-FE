@@ -1,7 +1,7 @@
 export interface FeedItemTypes {
   feedId: string
   authorId: string
-  authorName: string
+  author: string
   category: string
   title: string
   description: string

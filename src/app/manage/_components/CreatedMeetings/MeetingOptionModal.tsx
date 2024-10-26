@@ -3,6 +3,7 @@ import useCloseMeeting from "../../_hooks/_mutations/useCloseMeeting"
 import useCancelMeeting from "../../_hooks/_mutations/useCancelMeeting"
 import CancelReasonModal from "./CancleReasonModal"
 import Button from "@/_common/_components/Button"
+import { useToast } from "@/_common/_hooks/useToast"
 
 interface MeetingOptionModalProps {
   meetingId: number
@@ -16,11 +17,16 @@ const MeetingOptionModal = ({
   const [showCancelReason, setShowCancelReason] = useState(false)
   const closeMeetingMutation = useCloseMeeting()
   const cancelMeetingMutation = useCancelMeeting(meetingId)
+  const { toast } = useToast()
 
   const handleCloseMeeting = () => {
     closeMeetingMutation.mutate(meetingId, {
       onSuccess: () => {
-        alert("모임이 성공적으로 마감되었습니다.")
+        toast({
+          width: "260px",
+          height: "50px",
+          title: "모집 마감되었습니다."
+        })
         onClose()
       },
       onError: (error) => {
@@ -34,7 +40,11 @@ const MeetingOptionModal = ({
       { reason },
       {
         onSuccess: () => {
-          alert("모임이 성공적으로 취소되었습니다.")
+          toast({
+            width: "260px",
+            height: "50px",
+            title: "모임이 해체되었습니다"
+          })
           setShowCancelReason(false)
           onClose()
         },

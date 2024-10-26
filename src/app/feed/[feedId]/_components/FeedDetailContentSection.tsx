@@ -1,23 +1,19 @@
 import { timestampToString } from "@/_common/_utils/timestampToString"
 
 interface FeedDetailContentSectionProps {
-  authorName: string
+  author: string
   category: string
   description: string
   region: string[]
   date: string
-  views: number
-  likes: number
 }
 
 const FeedDetailContentSection = ({
-  authorName,
+  author,
   category,
   description,
   region,
-  date,
-  views,
-  likes
+  date
 }: FeedDetailContentSectionProps) => {
   return (
     <div>
@@ -25,7 +21,7 @@ const FeedDetailContentSection = ({
         <tbody>
           <tr>
             <td className="text-[#A1824A] p-2">작성자</td>
-            <td>{authorName}</td>
+            <td>{author}</td>
             <td className="text-[#A1824A] p-2">동네</td>
             <td>{region[2]}</td>
           </tr>

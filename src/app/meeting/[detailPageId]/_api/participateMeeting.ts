@@ -23,14 +23,14 @@ const participateMeeting = async (
       }
     )
     if (!result.data.success) {
-      throw new Error("NoData")
+      throw new CustomError("NoData", 400)
     }
     return result.data
   } catch (error: unknown) {
     if (error instanceof CustomError) {
-      throw new Error("NetworkError")
+      throw new CustomError("NetworkError", 400)
     } else {
-      throw new Error("unKnowError")
+      throw new CustomError("unKnowError", 500)
     }
   }
 }

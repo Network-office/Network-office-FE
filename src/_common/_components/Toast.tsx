@@ -14,6 +14,7 @@ interface ToastProps {
 const Toast = ({ children, message, title, width, height }: ToastProps) => {
   return (
     <ShadcnToast
+      role="statusToast"
       className={cn(
         width ? `w-[${width}px]` : "w-[200px]",
         height ? `h-[${height}px]` : "h-[50px]"

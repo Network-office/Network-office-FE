@@ -1,7 +1,5 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react"
-import "@testing-library/jest-dom"
 import { describe, it, expect } from "@jest/globals"
-import React from "react"
 import useModal from ".."
 
 const ModalTestComponent = () => {

@@ -19,7 +19,9 @@ const CreatedMeetings = ({ setMyCreatedMeetingNum }: CreatedMeetingsProps) => {
     <div className="w-screen h-fit mb-4">
       <ul>
         {createdMeetings?.map((meetingItem) => (
-          <li key={meetingItem.id}>
+          <li
+            className="createdMeetingItem"
+            key={meetingItem.id}>
             <MyManagingMeetingItem
               {...meetingItem}
               meetingId={meetingItem.id}
