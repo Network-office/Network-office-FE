@@ -21,8 +21,8 @@ function Login() {
             src="/kakao_login.png"
             alt="kakaoLogin"
             className="object-cover"
-            width={200} // 원하는 크기로 조정
-            height={200} // 원하는 크기로 조정
+            width={200}
+            height={200}
           />
         </button>
       </div>

@@ -3,10 +3,10 @@
 import { useQuery } from "@tanstack/react-query"
 import getUserInform from "../../_api/getUserInform"
 
-const useGetUserInform = (userId: string) => {
-  const { data, isLoading } = useQuery({
-    queryKey: ["userInform", userId],
-    queryFn: () => getUserInform(userId)
+const useGetUserInform = () => {
+  const { data, isLoading } = useSuspenseQuery({
+    queryKey: ["userInform"],
+    queryFn: () => getUserInform()
   })
   return { data, isLoading }
 }

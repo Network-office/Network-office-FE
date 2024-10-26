@@ -53,7 +53,6 @@ const handlers = [
       })
     }
   }),
-
   http.get(`http://localhost:8080/api/meeting/:meetingId`, ({ params }) => {
     const meetingId = Number(params.meetingId)
     const meetingDetail = meetingData.find(
