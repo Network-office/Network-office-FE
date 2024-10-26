@@ -12,7 +12,11 @@ import BaseErrorContent from "@/_common/_components/ErrorBoundary/BaseErrorConte
 const ClubPage = () => {
   return (
     <div className="w-screen mb-16">
-      <ClubHeader />
+      <ClubHeader
+        onCreateClick={() => {
+          console.log("create")
+        }}
+      />
       <ClubSearchBar />
       <ClubGenreList />
       <Tabs

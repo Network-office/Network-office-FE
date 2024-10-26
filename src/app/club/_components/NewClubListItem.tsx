@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 import Image from "next/image"
 import { ClubItemTypes } from "../types"
 
@@ -7,7 +9,9 @@ interface NewClubListItemProps {
 
 const NewClubListItem = ({ clubDetail }: NewClubListItemProps) => {
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden">
+    <Link
+      href={`/club/${clubDetail.clubId}`}
+      className="bg-white rounded-lg shadow-md overflow-hidden">
       <div className="relative h-48 w-full">
         {clubDetail.imageUrl ? (
           <Image
@@ -38,7 +42,7 @@ const NewClubListItem = ({ clubDetail }: NewClubListItemProps) => {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
 
