@@ -16,14 +16,9 @@ const useNaverMap = (
   const mapRef = useRef<naver.maps.Map | null>(null)
 
   useEffect(() => {
-    const checkNaverMapService = () => {
-      if (window.naver && window.naver.maps && window.naver.maps.Service) {
-        initializeMap()
-      } else {
-        setTimeout(checkNaverMapService, 100)
-      }
+    if (window.naver && window.naver.maps && window.naver.maps.Service) {
+      initializeMap()
     }
-    checkNaverMapService()
   }, [])
 
   const initializeMap = () => {
@@ -48,10 +43,6 @@ const useNaverMap = (
   }
 
   const setMeetingMarkers = (makers: MakersProps[]) => {
-    if (!mapRef.current) {
-      setTimeout(() => setMeetingMarkers(makers), 100)
-      return
-    }
     makers?.forEach((newMaker) => {
       const markerContent = ReactDOMServer.renderToString(
         <MarkerIcon categoryName={newMaker.category} />

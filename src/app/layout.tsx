@@ -24,12 +24,13 @@ export default function RootLayout({
         </QueryProvider>
         <Toaster />
         <BottomNavBar />
+        <Script
+          id="naver"
+          strategy="beforeInteractive"
+          type="text/javascript"
+          src={`https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_NAVERMAP_API_CLIENT_ID}&submodules=geocoder`}
+        />
       </body>
-      <Script
-        id="naver"
-        type="text/javascript"
-        src={`https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_NAVERMAP_API_CLIENT_ID}&submodules=geocoder`}
-      />
     </html>
   )
 }
