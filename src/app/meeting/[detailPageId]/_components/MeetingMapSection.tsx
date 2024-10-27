@@ -6,19 +6,21 @@ interface MeetingMapSectionProps {
   lng: number
   place: string
   meetingId: number
+  category: string
 }
 const MeetingMapSection = ({
   lng,
   lat,
   place,
-  meetingId
+  meetingId,
+  category
 }: MeetingMapSectionProps) => {
   const { NaverMapComponent } = useNaverMap(
     {
       lat,
       lng
     },
-    [{ id: meetingId, lat, lng }]
+    [{ id: meetingId, lat, lng, category }]
   )
 
   return (

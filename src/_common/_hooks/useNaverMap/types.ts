@@ -7,4 +7,5 @@ export interface NaverMapComponentProps {
 export interface MakersProps {
   lat: number
   lng: number
+  category: string
 }

@@ -1,6 +1,21 @@
 import { faker } from "@faker-js/faker"
 import { users, TOTAL_MEETINGS, generateUserData } from "./commonData"
 
+const generateRandomCoordinate = (base: number): number => {
+  const randomOffset = (Math.random() - 0.5) * 0.4
+  return Number((base + randomOffset).toFixed(5))
+}
+
+const categories = [
+  "파티",
+  "커피",
+  "맛집",
+  "봉사",
+  "문화생활",
+  "스터디",
+  "산책"
+]
+
 export const meetingData = Array.from(
   { length: TOTAL_MEETINGS },
   (_, index) => {
@@ -24,13 +39,13 @@ export const meetingData = Array.from(
       date: isFirstMeeting ? "09.24" : faker.date.future().toISOString(),
       startTime: "14:00",
       endTime: "18:00",
-      category: "스포츠",
+      category: categories[Math.floor(Math.random() * categories.length)],
       totalPeople,
       nowPeople,
       fee: 5000,
-      detail: "이 모임은 함께 운동을 ��기 위한 모임입니다.",
-      lng: isFirstMeeting ? 127.027619 : faker.location.longitude(),
-      lat: isFirstMeeting ? 37.497942 : faker.location.latitude(),
+      detail: "이 모임은 함께 운동을 기 위한 모임입니다.",
+      lng: generateRandomCoordinate(127.027619),
+      lat: generateRandomCoordinate(37.497942),
       confirmedParticipants
     }
   }

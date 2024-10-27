@@ -28,6 +28,7 @@ const MeetingDetailPage = () => {
         lng={meetingDetail.lng}
         meetingId={meetingDetail.id}
         place={meetingDetail.place}
+        category={meetingDetail.category}
       />
       <hr className="my-1" />
       <div className="w-screen flex justify-between px-6 pb-[4.5rem]">

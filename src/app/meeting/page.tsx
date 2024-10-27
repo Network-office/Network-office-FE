@@ -18,7 +18,7 @@ const Meeting = () => {
     setSelectedMeeting(meeting)
     setModalOpen()
   }
-  const { NaverMapComponent, setMapPosition, setMarkers } = useNaverMap(
+  const { NaverMapComponent, setMapPosition, setMeetingMarkers } = useNaverMap(
     { lat: 37.497942, lng: 127.027619 },
     meetingList,
     { markerClickHandler: handleMarkerClick }
@@ -26,15 +26,15 @@ const Meeting = () => {
 
   useEffect(() => {
     if (meetingList) {
-      setMarkers(meetingList)
+      setMeetingMarkers(meetingList)
     }
-  }, [setMarkers, meetingList])
+  }, [setMeetingMarkers, meetingList])
 
   return (
     <div className="w-screen h-screen relative text-black">
       <div className="absolute z-10">
         <Topbar
-          className=" w-screen h-[14px] mt-2 border-0"
+          className="w-screen h-[14px] mt-2 border-0"
           rightContent={
             <div className="flex gap-2">
               <Topbar.ProfileLink />
