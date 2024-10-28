@@ -1,7 +1,8 @@
 "use client"
 import { useRef, useEffect, useCallback } from "react"
-import { NaverMapComponentProps, MakersProps } from "./types"
+import { MakersProps, NaverMapComponentProps } from "./types"
 import { MeetingPositionTypes } from "@/app/meeting/types"
+import NaverMapComponent from "./_components/NaverMapComponent"
 import MarkerIcon from "./_components/MarkerIcon"
 import ReactDOMServer from "react-dom/server"
 
@@ -65,29 +66,16 @@ const useNaverMap = (
     })
   }
 
-  const NaverMapComponent = useCallback(
-    ({ className, width = 500, height = 1000 }: NaverMapComponentProps) => {
-      return (
-        <div
-          className={className}
-          style={{
-            width: "100%",
-            height: "100%",
-            maxWidth: `${width}px`,
-            maxHeight: `${height}px`
-          }}>
-          <div
-            ref={mapElement}
-            style={{ width: `100%`, height: `100%` }}
-          />
-        </div>
-      )
-    },
-    []
-  )
-
   return {
-    NaverMapComponent,
+    NaverMapComponent: useCallback(
+      (props: NaverMapComponentProps) => (
+        <NaverMapComponent
+          {...props}
+          ref={mapElement}
+        />
+      ),
+      []
+    ),
     setMeetingMarkers,
     setMapPosition
   }
