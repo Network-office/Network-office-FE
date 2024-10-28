@@ -1,16 +1,29 @@
 import ErrorBoundary from "@/_common/_components/ErrorBoundary"
+import { getQueryClient } from "@/_common/_utils/getClientQuery"
+import { getChatHistory } from "@/app/chat/[chatId]/_apis/getChatHistory"
 import ChatPageTopbar from "@/app/chat/[chatId]/_components/ChatPageTopbar"
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query"
 
 interface ChatPageLayoutProps {
   children: React.ReactNode
+  params: {
+    chatId: string
+  }
 }
 
-const ChatPageLayout = ({ children }: ChatPageLayoutProps) => {
+const ChatPageLayout = ({ children, params }: ChatPageLayoutProps) => {
+  const chatId = params.chatId
+  const queryClient = getQueryClient()
+
+  void queryClient.prefetchQuery({
+    queryKey: ["chatHistory", chatId],
+    queryFn: () => getChatHistory(chatId)
+  })
+
   return (
-    <>
-      <ChatPageTopbar title={"채팅방"} />
+    <HydrationBoundary state={dehydrate(queryClient)}>
       <ErrorBoundary>{children}</ErrorBoundary>
-    </>
+    </HydrationBoundary>
   )
 }
 
