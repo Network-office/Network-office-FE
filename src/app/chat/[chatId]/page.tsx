@@ -46,7 +46,7 @@ const ChatPage = ({ params }: ChatPageProps) => {
 
   return (
     <div>
-      <ChatPageTopbar title={data.data.title} />
+      <ChatPageTopbar title={data.data.title ?? "title"} />
       <div>
         <ul aria-label="메세지 리스트">
           {chatHistory.map((messageGroup) => (
@@ -69,10 +69,11 @@ const ChatPage = ({ params }: ChatPageProps) => {
             </li>
           ))}
         </ul>
-        <div className="flex sticky bottom-0 bg-white p-2 gap-2">
+        <div className="flex sticky bottom-2 bg-white px-2 py-2 gap-2 pb-16">
           <Input
             aria-label="메세지 입력"
             placeholder="메세지를 입력하세요"
+            className="sticky top-0"
           />
           <Button
             aria-label="메세지 전송 버튼"
