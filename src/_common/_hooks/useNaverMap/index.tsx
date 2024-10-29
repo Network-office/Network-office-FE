@@ -1,7 +1,9 @@
 "use client"
-import { useRef, useEffect, useCallback } from "react"
+import { useRef, useEffect, useCallback, useState } from "react"
 import { MakersProps, NaverMapComponentProps } from "./types"
 import { MeetingPositionTypes } from "@/app/meeting/types"
+import getMapBoundInMarker from "./_utils/getMapBoundInMarker"
+import getMapBoundOutMarker from "./_utils/getMapBoundOutMarker"
 import NaverMapComponent from "./_components/NaverMapComponent"
 import MarkerIcon from "./_components/MarkerIcon"
 import ReactDOMServer from "react-dom/server"
@@ -13,17 +15,12 @@ const useNaverMap = (
     markerClickHandler: (makerDetail: any) => void
   }
 ) => {
+  const [markerPins, setMarkerPins] = useState<naver.maps.Marker[]>([])
   const mapElement = useRef(null)
   const mapRef = useRef<naver.maps.Map | null>(null)
 
   useEffect(() => {
-    if (window.naver && window.naver.maps && window.naver.maps.Service) {
-      initializeMap()
-    }
-  }, [])
-
-  const initializeMap = () => {
-    if (!mapElement.current || !naver) return
+    if (!window.naver.maps.Service || !mapElement.current) return
 
     const mapOptions = {
       center: new naver.maps.LatLng(initial.lat, initial.lng),
@@ -35,7 +32,32 @@ const useNaverMap = (
     if (makers) {
       setMeetingMarkers(makers)
     }
-  }
+  }, [])
+
+  useEffect(() => {
+    if (!mapRef.current) return
+
+    const zoomListener = naver.maps.Event.addListener(
+      mapRef.current,
+      "zoom_changed",
+      () => {
+        updateMarkerShowing(markerPins)
+      }
+    )
+
+    const dragListener = naver.maps.Event.addListener(
+      mapRef.current,
+      "dragend",
+      () => {
+        updateMarkerShowing(markerPins)
+      }
+    )
+
+    return () => {
+      naver.maps.Event.removeListener(zoomListener)
+      naver.maps.Event.removeListener(dragListener)
+    }
+  }, [markerPins])
 
   const setMapPosition = (newLat: number, newLng: number) => {
     if (!mapRef.current || !naver) return
@@ -44,7 +66,7 @@ const useNaverMap = (
   }
 
   const setMeetingMarkers = (makers: MakersProps[]) => {
-    makers?.forEach((newMaker) => {
+    const newMarkers = makers?.map((newMaker) => {
       const markerContent = ReactDOMServer.renderToString(
         <MarkerIcon categoryName={newMaker.category} />
       )
@@ -60,9 +82,19 @@ const useNaverMap = (
         }
       })
 
-      maker.addListener("click", () => {
-        makerOption?.markerClickHandler(newMaker)
-      })
+      return maker
+    })
+    setMarkerPins(newMarkers)
+    updateMarkerShowing(newMarkers)
+  }
+
+  const updateMarkerShowing = (markerList: naver.maps.Marker[]) => {
+    if (!mapRef.current) return
+    getMapBoundInMarker(mapRef.current, markerList).forEach((element) => {
+      element.setMap(mapRef.current)
+    })
+    getMapBoundOutMarker(mapRef.current, markerList).forEach((element) => {
+      element.setMap(null)
     })
   }
 

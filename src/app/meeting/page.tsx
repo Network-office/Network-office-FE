@@ -28,7 +28,7 @@ const Meeting = () => {
     if (meetingList) {
       setMeetingMarkers(meetingList)
     }
-  }, [setMeetingMarkers, meetingList])
+  }, [meetingList])
 
   return (
     <div className="w-screen h-screen relative text-black">
