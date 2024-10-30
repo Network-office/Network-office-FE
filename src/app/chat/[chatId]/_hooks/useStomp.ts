@@ -14,7 +14,7 @@ const useStomp = (chatRoomId: string) => {
   useEffect(() => {
     if (!client.current) {
       client.current = new Client({
-        brokerURL: "ws://localhost:8080/ws",
+        brokerURL: "ws://localhost:8090/ws",
         connectHeaders: {
           chatRoomId
         }
