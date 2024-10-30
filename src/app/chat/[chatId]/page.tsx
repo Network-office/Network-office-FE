@@ -53,6 +53,7 @@ const ChatPage = ({ params }: ChatPageProps) => {
             <li
               aria-label="메세지 그룹"
               key={messageGroup.id}>
+              {/*TODO 1분단위로 messages 묶기 */}
               {messageGroup.me ? (
                 <MyMessageGroup
                   role={messageGroup.role}
@@ -70,11 +71,13 @@ const ChatPage = ({ params }: ChatPageProps) => {
           ))}
         </ul>
         <div className="flex sticky bottom-2 bg-white px-2 py-2 gap-2 pb-16">
+          {/*TODO text area 로 수정 */}
           <Input
             aria-label="메세지 입력"
             placeholder="메세지를 입력하세요"
             className="sticky top-0"
           />
+          {/*TODO submit 시 아래로 scroll*/}
           <Button
             aria-label="메세지 전송 버튼"
             onClick={() => {
