@@ -24,7 +24,7 @@ const ChatPage = ({ params }: ChatPageProps) => {
 
   useEffect(() => {
     if (data) {
-      setChatHistory(data.data.messageGroupList)
+      setChatHistory(data.messageGroupList)
     }
   }, [data])
 
@@ -36,17 +36,9 @@ const ChatPage = ({ params }: ChatPageProps) => {
     }
   }, [messages])
 
-  if (error) {
-    throw new Error(error.message)
-  }
-
-  if (!data) {
-    return null
-  }
-
   return (
     <div>
-      <ChatPageTopbar title={data.data.title ?? "title"} />
+      <ChatPageTopbar title={data.title ?? "title"} />
       <div>
         <ul aria-label="메세지 리스트">
           {chatHistory.map((messageGroup) => (
