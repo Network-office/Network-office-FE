@@ -29,7 +29,7 @@ export const MessageContent = ({
         />
         {timestamp && (
           <p className="text-xs h-fit text-slate-500">
-            {new Date(timestamp).toLocaleTimeString()}
+            {new Date(timestamp).toTimeString().slice(0, 8)}
           </p>
         )}
       </div>
