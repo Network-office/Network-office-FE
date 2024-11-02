@@ -31,7 +31,7 @@ const ClusterIcon = ({ meetingNumber }: ClusterIconProps) => {
         y="20"
         textAnchor="middle"
         fill="white"
-        fontSize="12"
+        fontSize="11"
         fontWeight="bold"
         fontFamily="Arial">
         {meetingNumber}

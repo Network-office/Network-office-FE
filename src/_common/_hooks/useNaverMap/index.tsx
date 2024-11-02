@@ -30,7 +30,6 @@ const useNaverMap = (
       zoom: 15,
       zoomControl: false
     }
-
     mapRef.current = new naver.maps.Map(mapElement.current, mapOptions)
     if (makers) {
       setMeetingMarkers(makers)
@@ -147,15 +146,20 @@ const useNaverMap = (
 
   const setGroupingGrid = (markerList: naver.maps.Marker[]) => {
     const mapBound = mapRef.current?.getBounds()
+    const mapZoomLevel = mapRef.current?.getZoom()
 
-    if (!mapBound) return
-    const gridWidth = (mapBound?.maxX() - mapBound?.minX()) / 3
-    const gridHeight = (mapBound?.maxY() - mapBound?.minY()) / 4
+    if (!mapBound || !mapZoomLevel) return
+
+    const gridWidthNum = mapZoomLevel >= 14 ? 5 : 3
+    const gridHeightNum = mapZoomLevel >= 14 ? 7 : 4
+
+    const gridWidth = (mapBound?.maxX() - mapBound?.minX()) / gridWidthNum
+    const gridHeight = (mapBound?.maxY() - mapBound?.minY()) / gridHeightNum
 
     const markerGridTable: naver.maps.Marker[][][] = Array.from(
-      { length: 6 },
+      { length: gridHeightNum },
       () => {
-        return Array.from({ length: 8 }, () => {
+        return Array.from({ length: gridWidthNum }, () => {
           return []
         })
       }
