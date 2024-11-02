@@ -48,7 +48,7 @@ const Meeting = () => {
           }}
         />
       </div>
-      <NaverMapComponent className="absolute top-0 z-0" />
+      <NaverMapComponent className="absolute top-0 z-0 pb-16" />
       <FootBar
         setMapPosition={(result) => setMapPosition(result.lat, result.lng)}
       />
