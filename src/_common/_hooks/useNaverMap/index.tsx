@@ -1,4 +1,5 @@
 "use client"
+
 import { useRef, useEffect, useCallback, useState } from "react"
 import { MakersProps, NaverMapComponentProps } from "./types"
 import { MeetingPositionTypes } from "@/app/meeting/types"
@@ -15,6 +16,9 @@ const useNaverMap = (
   makers?: Array<MeetingPositionTypes>,
   makerOption?: {
     markerClickHandler: (makerDetail: any) => void
+  },
+  clusterOption?: {
+    clusterClickHandler: (clusterDetail: any) => void
   }
 ) => {
   const [markerPins, setMarkerPins] = useState<naver.maps.Marker[]>([])
@@ -86,8 +90,15 @@ const useNaverMap = (
         }
       })
 
+      if (makerOption?.markerClickHandler) {
+        naver.maps.Event.addListener(maker, "click", () => {
+          makerOption.markerClickHandler(newMaker)
+        })
+      }
+
       return maker
     })
+
     setMarkerPins(newMarkers)
     updateMarkerShowing(newMarkers)
   }
@@ -132,6 +143,24 @@ const useNaverMap = (
                 anchor: new naver.maps.Point(20, 45)
               }
             })
+
+            if (clusterOption?.clusterClickHandler) {
+              naver.maps.Event.addListener(cluster, "click", () => {
+                const clusterMeetings = gridItem.markers
+                  .map((marker) => {
+                    const position = marker.getPosition()
+                    return makers?.find(
+                      (m) => m.lat === position.y && m.lng === position.x
+                    )
+                  })
+                  .filter(
+                    (meeting): meeting is MeetingPositionTypes =>
+                      meeting !== undefined
+                  )
+
+                clusterOption.clusterClickHandler(clusterMeetings)
+              })
+            }
 
             newClusters.push(cluster)
           } else if (gridItem.length === 1) {

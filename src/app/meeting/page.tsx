@@ -8,20 +8,37 @@ import SearchBar from "./_components/SearchBar"
 import FootBar from "./_components/FootBar"
 import MeetingInformModal from "./_components/MeetingInformModal"
 import useGetMeetingList from "./_hooks/queries/useGetMeetingList"
+import { MeetingPositionTypes } from "./types"
+import ClusterMeetingsModal from "./_components/ClusterMeetingsModal"
 
 const Meeting = () => {
   const { data: meetingList } = useGetMeetingList()
   const [selectedMeeting, setSelectedMeeting] = useState(null)
+  const [clusterMeetings, setClusterMeetings] = useState<
+    MeetingPositionTypes[]
+  >([])
+  const [modalType, setModalType] = useState<"meeting" | "cluster" | null>(null)
   const { ModalComponent, setModalOpen } = useModal()
 
   const handleMarkerClick = (meeting: any) => {
     setSelectedMeeting(meeting)
+    setClusterMeetings([])
+    setModalType("meeting")
     setModalOpen()
   }
+
+  const handleClusterClick = (meetings: MeetingPositionTypes[]) => {
+    setSelectedMeeting(null)
+    setClusterMeetings(meetings)
+    setModalType("cluster")
+    setModalOpen()
+  }
+
   const { NaverMapComponent, setMapPosition, setMeetingMarkers } = useNaverMap(
     { lat: 37.497942, lng: 127.027619 },
     meetingList,
-    { markerClickHandler: handleMarkerClick }
+    { markerClickHandler: handleMarkerClick },
+    { clusterClickHandler: handleClusterClick }
   )
 
   useEffect(() => {
@@ -53,8 +70,14 @@ const Meeting = () => {
         setMapPosition={(result) => setMapPosition(result.lat, result.lng)}
       />
       <ModalComponent className="bottom-0 z-50">
-        {selectedMeeting && (
+        {modalType === "meeting" && selectedMeeting && (
           <MeetingInformModal meetingData={selectedMeeting} />
+        )}
+        {modalType === "cluster" && (
+          <ClusterMeetingsModal
+            meetings={clusterMeetings}
+            onMeetingClick={handleMarkerClick}
+          />
         )}
       </ModalComponent>
     </div>
