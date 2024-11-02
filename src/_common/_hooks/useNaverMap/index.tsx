@@ -6,7 +6,9 @@ import getMapBoundInMarker from "./_utils/getMapBoundInMarker"
 import getMapBoundOutMarker from "./_utils/getMapBoundOutMarker"
 import NaverMapComponent from "./_components/NaverMapComponent"
 import MarkerIcon from "./_components/MarkerIcon"
+import ClusterIcon from "./_components/ClusterIcon"
 import ReactDOMServer from "react-dom/server"
+import { Cluster } from "./types"
 
 const useNaverMap = (
   initial: { lat: number; lng: number },
@@ -16,6 +18,7 @@ const useNaverMap = (
   }
 ) => {
   const [markerPins, setMarkerPins] = useState<naver.maps.Marker[]>([])
+  const [existCluster, setExistCluster] = useState<naver.maps.Marker[]>([])
   const mapElement = useRef(null)
   const mapRef = useRef<naver.maps.Map | null>(null)
 
@@ -37,27 +40,29 @@ const useNaverMap = (
   useEffect(() => {
     if (!mapRef.current) return
 
+    const handleMapChange = () => {
+      existCluster.forEach((cluster) => cluster.setMap(null))
+      setExistCluster([])
+      updateMarkerShowing(markerPins)
+    }
+
     const zoomListener = naver.maps.Event.addListener(
       mapRef.current,
       "zoom_changed",
-      () => {
-        updateMarkerShowing(markerPins)
-      }
+      handleMapChange
     )
 
     const dragListener = naver.maps.Event.addListener(
       mapRef.current,
       "dragend",
-      () => {
-        updateMarkerShowing(markerPins)
-      }
+      handleMapChange
     )
 
     return () => {
       naver.maps.Event.removeListener(zoomListener)
       naver.maps.Event.removeListener(dragListener)
     }
-  }, [markerPins])
+  }, [markerPins, existCluster])
 
   const setMapPosition = (newLat: number, newLng: number) => {
     if (!mapRef.current || !naver) return
@@ -90,12 +95,96 @@ const useNaverMap = (
 
   const updateMarkerShowing = (markerList: naver.maps.Marker[]) => {
     if (!mapRef.current) return
-    getMapBoundInMarker(mapRef.current, markerList).forEach((element) => {
-      element.setMap(mapRef.current)
+
+    existCluster.forEach((cluster) => {
+      cluster.setMap(null)
     })
-    getMapBoundOutMarker(mapRef.current, markerList).forEach((element) => {
-      element.setMap(null)
+    setExistCluster([])
+
+    const outBoundMarker = getMapBoundOutMarker(mapRef.current, markerList)
+    outBoundMarker.forEach((marker) => {
+      marker.setMap(null)
     })
+
+    const inBoundMarker = getMapBoundInMarker(mapRef.current, markerList)
+    const groupingGridTable = setGroupingGrid(inBoundMarker)
+    const clusteringTable = setClusteringGrid(groupingGridTable)
+
+    if (clusteringTable) {
+      const newClusters: naver.maps.Marker[] = []
+
+      clusteringTable.forEach((clusteringXTable) => {
+        clusteringXTable.forEach((gridItem) => {
+          if (gridItem instanceof Cluster) {
+            const clusterContent = ReactDOMServer.renderToString(
+              <ClusterIcon meetingNumber={gridItem.markers.length} />
+            )
+
+            const cluster = new naver.maps.Marker({
+              position: new naver.maps.LatLng(
+                gridItem.lng as number,
+                gridItem.lat as number
+              ),
+              clickable: true,
+              map: mapRef.current!,
+              icon: {
+                content: clusterContent,
+                size: new naver.maps.Size(40, 45),
+                anchor: new naver.maps.Point(20, 45)
+              }
+            })
+
+            newClusters.push(cluster)
+          } else if (gridItem.length === 1) {
+            gridItem[0].setMap(mapRef.current)
+          }
+        })
+      })
+
+      setExistCluster(newClusters)
+    }
+  }
+
+  const setGroupingGrid = (markerList: naver.maps.Marker[]) => {
+    const mapBound = mapRef.current?.getBounds()
+
+    if (!mapBound) return
+    const gridWidth = (mapBound?.maxX() - mapBound?.minX()) / 3
+    const gridHeight = (mapBound?.maxY() - mapBound?.minY()) / 4
+
+    const markerGridTable: naver.maps.Marker[][][] = Array.from(
+      { length: 6 },
+      () => {
+        return Array.from({ length: 8 }, () => {
+          return []
+        })
+      }
+    )
+    markerList.forEach((nowMarker) => {
+      const { x, y } = nowMarker.getPosition()
+      const gridXPos = Math.floor((mapBound.maxX() - x) / gridWidth)
+      const gridYPos = Math.floor((mapBound.maxY() - y) / gridHeight)
+
+      markerGridTable[gridYPos][gridXPos].push(nowMarker)
+    })
+    return markerGridTable
+  }
+
+  const setClusteringGrid = (markerGridTable?: naver.maps.Marker[][][]) => {
+    if (!markerGridTable) return
+
+    const markerMap = markerGridTable.map((markerGridXTable) => {
+      return markerGridXTable.map((markers) => {
+        if (markers.length < 2) {
+          return markers
+        } else {
+          const { x, y } = markers[0].getPosition()
+          markers.forEach((newMarker) => newMarker.setMap(null))
+          return new Cluster(markers, x, y)
+        }
+      })
+    })
+    return markerMap
   }
 
   return {
