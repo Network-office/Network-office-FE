@@ -2,7 +2,13 @@ import { UserInformTypes } from "../types"
 import CustomError from "@/lib/CustomError"
 import { useGetCSRFToken } from "@/app/kakao/_api/auth/csrf"
 
-const getUserInform = async () => {
+export const useUserInform = () => {
+  const { mutate: refreshCSRFToken } = useGetCSRFToken()
+  
+  return { refreshCSRFToken }
+}
+
+const getUserInform = async (onCSRFError?: () => void) => {
   try {
     const xsrfToken = document.cookie
       .split("; ")
@@ -29,18 +35,16 @@ const getUserInform = async () => {
     const data: UserInformTypes = await response.json()
     return data
   } catch (error: unknown) {
-    const getCsrf = useGetCSRFToken()
     if (error instanceof CustomError) {
-      getCsrf.mutate()
+      onCSRFError?.()
+      
       if (error.response?.status === 400) {
         throw new Error("400")
       } else if (error.response?.status === 500) {
         throw new Error("500")
       }
-    } else {
-      // 다른 오류에 대한 처리
-      throw new Error("An unexpected error occurred")
     }
+    throw new Error("An unexpected error occurred")
   }
 }
 

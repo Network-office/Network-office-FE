@@ -4,7 +4,7 @@ import { useSignInContext } from "@/app/kakao/_context/signinContext"
 import { useSession } from "next-auth/react"
 import Button from "@/_common/_components/Button"
 
-import { useAvatarForm } from "@/app/kakao/_hooks/useAvatarForm"
+import { useAvatarForm } from "../_hooks/_useAvatarForm"
 
 const AvatarForm = ({ onSubmit }: { onSubmit?: () => void }) => {
   const { user, setUser } = useSignInContext()
