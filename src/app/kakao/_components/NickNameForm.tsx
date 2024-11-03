@@ -19,10 +19,10 @@ const NickNameForm = ({ onSubmit }: { onSubmit?: () => void }) => {
             defaultValue={""}
             onChange={(e) => {
               setUser({
-                nickname: e.target.value,
+                nickName: e.target.value,
                 social_id: "",
                 social_type: "KAKAO",
-                profile_image_url: "",
+                profileImg: "",
                 phone_number: ""
               })
             }}

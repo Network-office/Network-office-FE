@@ -15,7 +15,7 @@ const AvatarForm = ({ onSubmit }: { onSubmit?: () => void }) => {
   const handleNextStep = () => {
     setUser((prevUser) => ({
       ...prevUser,
-      profile_image_url: avatarSrc ?? ""
+      profileImg: avatarSrc ?? ""
     }))
     if (onSubmit) onSubmit()
   }
@@ -24,7 +24,7 @@ const AvatarForm = ({ onSubmit }: { onSubmit?: () => void }) => {
     <div className="flex items-center justify-center min-h-screen bg-white">
       <div className="w-full max-w-md text-center bg-white rounded-3xl shadow-lg p-8">
         <h1 className="text-2xl font-bold mb-4 text-gray-900">
-          {user.nickname}님의 프로필 사진
+          {user.nickName}님의 프로필 사진
         </h1>
         <p className="text-base text-gray-600 mb-6">
           프로필 사진을 선택해 주세요
