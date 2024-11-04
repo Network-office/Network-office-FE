@@ -1,7 +1,6 @@
 import { AvatarImage, Avatar } from "@/components/ui/avatar"
 import { useRef } from "react"
 import { useSignInContext } from "@/app/kakao/_context/signinContext"
-import { useSession } from "next-auth/react"
 import Button from "@/_common/_components/Button"
 
 import { useAvatarForm } from "../_hooks/_useAvatarForm"
