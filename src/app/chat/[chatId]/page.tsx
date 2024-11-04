@@ -9,18 +9,18 @@ import OtherMessageGroup from "@/app/chat/[chatId]/_components/OtherMessageGroup
 import { useFetchChatHistory } from "@/app/chat/[chatId]/_hooks/useFetchChatHistory"
 import useStomp from "@/app/chat/[chatId]/_hooks/useStomp"
 import { addMessageToChatHistory } from "@/app/chat/[chatId]/_utils/addMessageToChatHistory"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
+import useChatScroll from "@/app/chat/[chatId]/_hooks/useChatScroll"
+import { useParams } from "next/navigation"
 
-interface ChatPageProps {
-  params: {
-    chatId: string
-  }
-}
+const ChatPage = () => {
+  const params = useParams() as { chatId: string }
 
-const ChatPage = ({ params }: ChatPageProps) => {
   const [chatHistory, setChatHistory] = useState<MessageGroup[]>([])
   const { messages, sendMessage } = useStomp(params.chatId)
-  const { data, error } = useFetchChatHistory(params.chatId)
+  const { data } = useFetchChatHistory(params.chatId)
+
+  const { bottomRef } = useChatScroll([messages])
 
   useEffect(() => {
     if (data) {
@@ -61,6 +61,7 @@ const ChatPage = ({ params }: ChatPageProps) => {
               )}
             </li>
           ))}
+          <div ref={bottomRef} />
         </ul>
         <div className="flex sticky bottom-2 bg-white px-2 py-2 gap-2 pb-16">
           {/*TODO text area 로 수정 */}
