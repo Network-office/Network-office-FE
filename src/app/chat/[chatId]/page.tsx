@@ -12,15 +12,32 @@ import { addMessageToChatHistory } from "@/app/chat/[chatId]/_utils/addMessageTo
 import { useEffect, useRef, useState } from "react"
 import useChatScroll from "@/app/chat/[chatId]/_hooks/useChatScroll"
 import { useParams } from "next/navigation"
+import { useForm } from "react-hook-form"
 
 const ChatPage = () => {
   const params = useParams() as { chatId: string }
 
   const [chatHistory, setChatHistory] = useState<MessageGroup[]>([])
+  const {
+    register,
+    handleSubmit,
+    setFocus,
+    setValue,
+    formState: { errors }
+  } = useForm<{ message: string }>()
   const { messages, sendMessage } = useStomp(params.chatId)
   const { data } = useFetchChatHistory(params.chatId)
 
   const { bottomRef } = useChatScroll([messages])
+
+  const onSubmit = (data: { message: string }) => {
+    sendMessage({
+      text: data.message,
+      userId: "5909c522-8202-4ef3-9c99-e2774c673279"
+    })
+    setValue("message", "")
+    setFocus("message")
+  }
 
   useEffect(() => {
     if (data) {
@@ -63,9 +80,12 @@ const ChatPage = () => {
           ))}
           <div ref={bottomRef} />
         </ul>
-        <div className="flex sticky bottom-2 bg-white px-2 py-2 gap-2 pb-16">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex sticky bottom-2 bg-white px-2 py-2 gap-2 pb-16">
           {/*TODO text area 로 수정 */}
           <Input
+            {...register("message", { required: true })}
             aria-label="메세지 입력"
             placeholder="메세지를 입력하세요"
             className="sticky top-0"
@@ -73,16 +93,10 @@ const ChatPage = () => {
           {/*TODO submit 시 아래로 scroll*/}
           <Button
             aria-label="메세지 전송 버튼"
-            onClick={() => {
-              const input = document.querySelector("input")
-              if (input) {
-                sendMessage({ text: input.value })
-                input.value = ""
-              }
-            }}>
+            disabled={!!errors.message}>
             전송
           </Button>
-        </div>
+        </form>
       </div>
     </div>
   )
