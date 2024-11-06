@@ -1,21 +1,23 @@
-import useInfiniteScroll from "@/_common/_hooks/useInfiniteScroll"
-import { useEffect, useState } from "react"
+import useIntersecting from "@/_common/_hooks/useIntersecting"
+import { useEffect, useRef, useState } from "react"
 
 const useChatScroll = (dependencies: unknown[]) => {
-  const [scrollDown, setScrollDown] = useState(false)
+  const [auto, setAuto] = useState(true)
 
-  const { ref: bottomRef } = useInfiniteScroll(() => setScrollDown(true), {
-    threshold: 1.0
-  })
+  const { ref: bottomRef } = useIntersecting(
+    (isInterSect) => setAuto(isInterSect),
+    {
+      threshold: 1.0
+    }
+  )
 
   useEffect(() => {
     if (bottomRef.current) {
-      if (scrollDown) {
+      if (auto) {
         bottomRef.current.scrollIntoView({ behavior: "smooth" })
-        setScrollDown(false)
       }
     }
-  }, [scrollDown, bottomRef, ...dependencies])
+  }, [bottomRef, ...dependencies])
 
   return { bottomRef }
 }
