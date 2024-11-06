@@ -11,6 +11,7 @@ export interface UserInfo {
 }
 export interface SocketMessageRequest {
   text: string
+  userId: string
 }
 
 export interface SocketMessageResponse {

@@ -33,7 +33,7 @@ const ChatPage = () => {
   const onSubmit = (data: { message: string }) => {
     sendMessage({
       text: data.message,
-      userId: "5909c522-8202-4ef3-9c99-e2774c673279"
+      userId: "5909c522-8202-4ef3-9c99-e2774c673279" // TODO: Auth 로직 추가
     })
     setValue("message", "")
     setFocus("message")
