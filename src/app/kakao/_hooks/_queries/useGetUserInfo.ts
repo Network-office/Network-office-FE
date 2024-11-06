@@ -2,11 +2,11 @@ import { useQuery } from "@tanstack/react-query"
 import { http } from "@/lib/http"
 
 interface GetUserInfoResponse {
-  id: number
-  nickname: string
+  userId: number
+  nickName: string
   social_id: string
   social_type: string
-  profile_image_url: string
+  profileImg: string
   phone_number: string | null
 }
 export const getUserInfo = async () => {

@@ -1,17 +1,19 @@
 "use client"
 
+import { Suspense } from "react"
 import Image from "next/image"
 import React, { useEffect } from "react"
-import { useSearchParams, useRouter } from "next/navigation"
+import { useSearchParams } from "next/navigation"
 
-function Login() {
+function LoginContent() {
   const params = useSearchParams()
 
   useEffect(() => {
-    if (params.get("code")) {
-      window.location.href = `https://localhost:3000/kakao/login/${params.get("code")}`
+    const code = params.get("code")
+    if (code) {
+      window.location.href = `https://localhost:3000/kakao/login/${code}`
     }
-  }, [params.get("code")])
+  }, [params])
 
   const handleKakaoLogin = () => {
     window.location.href = `https://kauth.kakao.com/oauth/authorize?redirect_uri=${process.env.NEXT_PUBLIC_REDIRECT_URL}`
@@ -41,4 +43,12 @@ function Login() {
   )
 }
 
-export default Login
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div>로딩중...</div>}>
+      <LoginContent />
+    </Suspense>
+  )
+}
+
+export const dynamic = "force-dynamic"
