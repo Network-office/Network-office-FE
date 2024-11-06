@@ -2,7 +2,6 @@
 
 import ChatPageTopbar from "@/app/chat/[chatId]/_components/ChatPageTopbar"
 import Button from "@/_common/_components/Button"
-import Input from "@/_common/_components/Input"
 import { MessageGroup } from "@/app/chat/[chatId]/_apis/getChatHistory"
 import MyMessageGroup from "@/app/chat/[chatId]/_components/MyMessageGroup"
 import OtherMessageGroup from "@/app/chat/[chatId]/_components/OtherMessageGroup"
@@ -13,6 +12,7 @@ import { useEffect, useRef, useState } from "react"
 import useChatScroll from "@/app/chat/[chatId]/_hooks/useChatScroll"
 import { useParams } from "next/navigation"
 import { useForm } from "react-hook-form"
+import { Textarea } from "@/components/ui/textarea"
 
 const ChatPage = () => {
   const params = useParams() as { chatId: string }
@@ -28,7 +28,7 @@ const ChatPage = () => {
   const { messages, sendMessage } = useStomp(params.chatId)
   const { data } = useFetchChatHistory(params.chatId)
 
-  const { bottomRef } = useChatScroll([messages])
+  const { bottomRef } = useChatScroll([chatHistory])
 
   const onSubmit = (data: { message: string }) => {
     sendMessage({
@@ -37,6 +37,13 @@ const ChatPage = () => {
     })
     setValue("message", "")
     setFocus("message")
+  }
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault()
+      handleSubmit(onSubmit)()
+    }
   }
 
   useEffect(() => {
@@ -54,7 +61,7 @@ const ChatPage = () => {
   }, [messages])
 
   return (
-    <div>
+    <>
       <ChatPageTopbar title={data.title ?? "title"} />
       <div>
         <ul aria-label="메세지 리스트">
@@ -62,7 +69,6 @@ const ChatPage = () => {
             <li
               aria-label="메세지 그룹"
               key={messageGroup.id}>
-              {/*TODO 1분단위로 messages 묶기 */}
               {messageGroup.me ? (
                 <MyMessageGroup
                   role={messageGroup.role}
@@ -78,19 +84,21 @@ const ChatPage = () => {
               )}
             </li>
           ))}
-          <div ref={bottomRef} />
+          <div
+            className="z-50"
+            ref={bottomRef}></div>
+          <div className="h-28"></div>
         </ul>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex sticky bottom-2 bg-white px-2 py-2 gap-2 pb-16">
-          {/*TODO text area 로 수정 */}
-          <Input
+          className="flex fixed bottom-2 bg-white px-2 py-2 gap-2 pb-16 w-full">
+          <Textarea
             {...register("message", { required: true })}
             aria-label="메세지 입력"
             placeholder="메세지를 입력하세요"
-            className="sticky top-0"
+            className=" top-0 min-h-10 h-8 m-0"
+            onKeyDown={handleKeyDown}
           />
-          {/*TODO submit 시 아래로 scroll*/}
           <Button
             aria-label="메세지 전송 버튼"
             disabled={!!errors.message}>
@@ -98,7 +106,7 @@ const ChatPage = () => {
           </Button>
         </form>
       </div>
-    </div>
+    </>
   )
 }
 
