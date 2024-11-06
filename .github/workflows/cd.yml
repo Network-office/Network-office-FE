@@ -17,9 +17,9 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           port: 22
           script: |
-            cd /home/ubuntu/Server-V2
+            cd /home/ubuntu/Network-office-FE
             git pull origin released
             pm2 kill
             pnpm i --force
             pnpm run build
-            pm2 start dist/main.js
+            pm2 restart Network-office-FE
