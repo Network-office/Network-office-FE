@@ -18,6 +18,7 @@ jobs:
           port: 22
           script: |
             cd /home/ubuntu/Network-office-FE
+            git fetch
             git checkout released
             git pull origin released
             pnpm i
