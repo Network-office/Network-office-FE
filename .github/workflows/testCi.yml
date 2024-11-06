@@ -1,25 +1,26 @@
-name: Run Unit Test & e2e Test
+name: Run Test
 
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+
 permissions: write-all
 
 jobs:
-  e2e-and-unit-test:
-    name: Run E2E and Unit Tests
+  setup:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [20.x]
+    outputs:
+      workspace: ${{ steps.workspace.outputs.workspace-path }}
     steps:
       - name: Checkout code
+        id: checkout
         uses: actions/checkout@v3
+
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 20.x
+
       - name: Cache pnpm store
         uses: actions/cache@v3
         with:
@@ -29,17 +30,47 @@ jobs:
           key: ${{ runner.os }}-pnpm-${{ matrix.node-version }}-${{ hashFiles('pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-${{ matrix.node-version }}-
+
       - name: Install pnpm
         run: npm install -g pnpm
 
       - name: Install dependencies
         run: pnpm install
 
+      - name: Output workspace path
+        id: workspace
+        run: echo "::set-output name=workspace-path::${{ github.workspace }}"
+
+  unit-test:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.x
+      - name: Install pnpm
+        run: npm install -g pnpm
+      - name: Restore cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.pnpm-store
+            node_modules
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
+      - name: Install dependencies
+        run: pnpm install
       - name: Run Jest tests
         run: pnpm test -- --coverage --passWithNoTests
         continue-on-error: true
+
       - name: Save coverage report
         run: mv coverage/lcov-report ./coverage-output
+
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
@@ -47,6 +78,37 @@ jobs:
           files: "./test-results/junit/results.xml"
           check_name: "Jest Test Results"
           comment_mode: always
+
+  e2e-test:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.x
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Restore cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.pnpm-store
+            node_modules
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Install Cypress
+        run: pnpm cypress install
 
       - name: Run Cypress tests
         run: pnpm run e2e:ci
