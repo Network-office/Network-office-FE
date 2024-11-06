@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { useFormContext } from "react-hook-form"
-import { Input } from "@/_common/_components/Input"
+import Input from "@/_common/_components/Input"
 import Button from "@/_common/_components/Button"
 import searchPlace from "@/_common/_utils/searchPlace"
 import PlaceTypes from "@/_common/_utils/searchPlace/type"

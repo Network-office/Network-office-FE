@@ -1,11 +1,11 @@
 import React, { createContext, useContext, useState } from "react"
 
 interface UserInfo {
-  id?: number
-  nickname: string
+  userId?: number
+  nickName: string
   social_id: string
   social_type: string
-  profile_image_url: string
+  profileImg: string
   phone_number: string | null
 }
 
@@ -22,10 +22,10 @@ export const UserSignInProvider: React.FC<{ children: React.ReactNode }> = ({
   children
 }) => {
   const [user, setUser] = useState<UserInfo>({
-    nickname: "",
+    nickName: "",
     social_id: "",
     social_type: "",
-    profile_image_url: "",
+    profileImg: "",
     phone_number: null
   })
 

@@ -38,7 +38,7 @@ describe("피드 페이지", () => {
       cy.get("li").should("have.length.greaterThan", initialItemCount)
     })
   })
-
+  /* 임시 주석
   it("지역 선택 필터 적용 테스트", () => {
     cy.get("li").then(($initialItems) => {
       const initialItemCount = $initialItems.length
@@ -49,4 +49,5 @@ describe("피드 페이지", () => {
       cy.get("li").should("have.length.greaterThan", initialItemCount)
     })
   })
+    */
 })

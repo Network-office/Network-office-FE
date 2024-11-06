@@ -1,5 +1,5 @@
 import Button from "@/_common/_components/Button"
-import { Input } from "@/_common/_components/Input"
+import Input from "@/_common/_components/Input"
 import { useSignInContext } from "@/app/kakao/_context/signinContext"
 
 const NickNameForm = ({ onSubmit }: { onSubmit?: () => void }) => {
@@ -19,10 +19,10 @@ const NickNameForm = ({ onSubmit }: { onSubmit?: () => void }) => {
             defaultValue={""}
             onChange={(e) => {
               setUser({
-                nickname: e.target.value,
+                nickName: e.target.value,
                 social_id: "",
                 social_type: "KAKAO",
-                profile_image_url: "",
+                profileImg: "",
                 phone_number: ""
               })
             }}

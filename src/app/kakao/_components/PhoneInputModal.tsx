@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { Input } from "@/_common/_components/Input"
+import Input from "@/_common/_components/Input"
 import Button from "@/_common/_components/Button"
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
 import { useGeneratePhoneVerification } from "@/app/kakao/_hooks/_mutations/useGeneratePhoneVerfification"

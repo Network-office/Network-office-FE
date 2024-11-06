@@ -4,6 +4,8 @@ export interface MeetingPositionTypes {
   id: number
   lat: number
   lng: number
+  category: string
+  title?: string
 }
 
 export interface MeetingInform extends MeetingPositionTypes {

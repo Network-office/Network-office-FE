@@ -15,7 +15,7 @@ const Topbar = ({
   return (
     <header
       className={cn(
-        "flex justify-between p-4 items-center border-b-2 sticky top-0 bg-white z-50",
+        "flex justify-between p-4 items-center border-b-2 sticky top-0z-50",
         className
       )}>
       <div className="flex gap-2 w-fit-content">

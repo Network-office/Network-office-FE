@@ -1,5 +1,5 @@
+import Input from "@/_common/_components/Input"
 import { Search } from "lucide-react"
-import { Input } from "@/components/ui/input"
 
 const ClubSearchBar = () => {
   return (

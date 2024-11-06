@@ -13,11 +13,7 @@ import ClubFootBar from "./_components/ClubFootBar"
 const ClubPage = () => {
   return (
     <div className="w-screen mb-16">
-      <ClubHeader
-        onCreateClick={() => {
-          console.log("create")
-        }}
-      />
+      <ClubHeader />
       <ClubSearchBar />
       <ClubGenreList />
       <Tabs

@@ -2,16 +2,10 @@
 
 import Image from "next/image"
 import React from "react"
-import { signIn } from "next-auth/react"
 import { cva } from "class-variance-authority"
 
 function Login() {
-  const handleKakaoLogin = async () => {
-    await signIn("kakao", {
-      redirect: true,
-      callbackUrl: "/"
-    })
-  }
+  const handleKakaoLogin = async () => {}
 
   return (
     <div className="flex items-center justify-center h-screen">

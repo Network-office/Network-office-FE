@@ -1,4 +1,3 @@
-import { NextAuthContext } from "@/app/provider"
 import BottomNavBar from "@/_common/_components/BottomNavBar"
 import { Toaster } from "@/components/ui/toaster"
 import type { Metadata } from "next"
@@ -19,17 +18,16 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
-        <QueryProvider>
-          <NextAuthContext>{children}</NextAuthContext>
-        </QueryProvider>
+        <QueryProvider>{children}</QueryProvider>
         <Toaster />
         <BottomNavBar />
+        <Script
+          id="naver"
+          strategy="beforeInteractive"
+          type="text/javascript"
+          src={`https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_NAVERMAP_API_CLIENT_ID}&submodules=geocoder`}
+        />
       </body>
-      <Script
-        id="naver"
-        type="text/javascript"
-        src={`https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_NAVERMAP_API_CLIENT_ID}&submodules=geocoder`}
-      />
     </html>
   )
 }
