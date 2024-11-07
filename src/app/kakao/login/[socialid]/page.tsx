@@ -8,11 +8,12 @@ import { SuccessLogin } from "@/app/kakao/_components/SuccessLogin"
 import { useToast } from "@/_common/_hooks/useToast"
 import { useRouter } from "next/navigation"
 import { useGetCSRFToken } from "@/app/kakao/_api/auth/csrf"
+import { useUpdateProfileImageMutation } from "@/app/kakao/_hooks/_mutations/useUpdateProfile"
 import { useUpdateNicknameMutation } from "@/app/kakao/_hooks/_mutations/useUpdateNickname"
 import { useEffect } from "react"
-import NickNameForm from "../../_components/NickNameForm"
+import NickNameForm from "@/app/kakao/_components/NickNameForm"
 import Step from "@/_common/_hooks/useFunnel/_component/Step"
-import AvatarForm from "../../_components/AvatarForm"
+import AvatarForm from "@/app/kakao/_components/AvatarForm"
 
 const KakaoLoginWithSocialId = ({
   params
@@ -23,6 +24,7 @@ const KakaoLoginWithSocialId = ({
   const router = useRouter()
   const { mutate } = useGetCSRFToken()
   const { mutate: updateNickname } = useUpdateNicknameMutation()
+  const { mutate: updateProfileImage } = useUpdateProfileImageMutation()
   const { toast } = useToast()
 
   useEffect(() => {
@@ -42,8 +44,7 @@ const KakaoLoginWithSocialId = ({
 
           router.push("/meeting")
         },
-        onError: (e) => {
-          console.log(e)
+        onError: () => {
           toast({
             type: "background",
             title: "로그인에 실패하였습니다!",
@@ -70,10 +71,10 @@ const KakaoLoginWithSocialId = ({
                     onSuccess: () => {
                       setStep("profileAvatar")
                     },
-                    onError: () => {
+                    onError: (e) => {
                       toast({
                         duration: 1000,
-                        title: "사비스를 이용할 수 없어요!",
+                        title: e.message,
                         type: "background"
                       })
                     }
@@ -83,7 +84,22 @@ const KakaoLoginWithSocialId = ({
             />
           </Step>
           <Step name="profileAvatar">
-            <AvatarForm />
+            <AvatarForm
+              onSubmit={(profileimage) => {
+                updateProfileImage(profileimage, {
+                  onSuccess: () => {
+                    setStep("verify-user-info")
+                  },
+                  onError: (err) => {
+                    toast({
+                      duration: 1000,
+                      title: "사비스를 이용할 수 없어요!",
+                      type: "background"
+                    })
+                  }
+                })
+              }}
+            />
           </Step>
           <Step name="verify-user-info">
             <SuccessLogin onLoginSuccess={handleLoginSuccess} />

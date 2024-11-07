@@ -9,6 +9,20 @@ const NickNameForm = ({
 }) => {
   const { setUser, user } = useSignInContext()
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newNickName = e.target.value
+
+    if (newNickName.length <= 20) {
+      setUser({
+        nickName: newNickName,
+        social_id: "",
+        social_type: "KAKAO",
+        profileImg: "",
+        phone_number: ""
+      })
+    }
+  }
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-white">
       <div className="w-full max-w-md text-center">
@@ -18,26 +32,23 @@ const NickNameForm = ({
         <p className="text-base text-gray-600 mb-6">
           다른 사람들에게 보여질 이름이에요
         </p>
-        <form className="flex flex-col space-y-4">
+        <form
+          className="flex flex-col space-y-4"
+          onSubmit={(e) => e.preventDefault()}>
           <Input
-            defaultValue={""}
-            onChange={(e) => {
-              setUser({
-                nickName: e.target.value,
-                social_id: "",
-                social_type: "KAKAO",
-                profileImg: "",
-                phone_number: ""
-              })
-            }}
-            placeholder="닉네임 (2~15자)"
+            defaultValue={user?.nickName}
+            value={user?.nickName}
+            onChange={handleInputChange}
+            placeholder="닉네임 (2~20자)"
             className="border border-gray-300 rounded-xl p-4 w-full focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-200"
           />
           <Button
             type="button"
             onClick={() => {
-              if (user.nickName) {
+              if (user.nickName.length >= 2 && user.nickName.length <= 20) {
                 onSubmit?.(user.nickName)
+              } else {
+                alert("닉네임은 2자 이상 20자 이하로 입력해 주세요.")
               }
             }}
             className="bg-blue-500 hover:bg-blue-600 text-white py-4 rounded-xl text-base font-medium transition duration-200">
