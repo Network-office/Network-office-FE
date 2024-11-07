@@ -1,5 +1,6 @@
 import returnFetch, { FetchArgs } from "return-fetch"
 import CustomError from "@/lib/CustomError"
+import { postCSRF } from "@/app/kakao/_api/auth/csrf"
 
 const createHTTP = () => {
   return async <T>(
@@ -7,7 +8,6 @@ const createHTTP = () => {
     init?: RequestInit
   ): Promise<{ data: T; status?: number }> => {
     return returnFetch({
-      baseUrl: "",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
@@ -21,7 +21,9 @@ const createHTTP = () => {
           return config
         },
         response: async (response: Response) => {
-          const responseBody = await response.json()
+          let responseBody
+          const text = await response.text()
+          responseBody = text ? JSON.parse(text) : { data: "success" }
 
           if (response.status >= 400) {
             throw new CustomError(

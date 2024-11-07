@@ -16,9 +16,9 @@ const MyPageClient = () => {
     <div>
       <MyPageTopBar />
       <ProfileSection
-        profileImg={userInform.profileImg}
-        nickName={userInform.nickName}
-        profileIntroduce=""
+        profileImg={userInform.profile_image_url}
+        nickName={userInform.display_name}
+        profileIntroduce={userInform.description}
       />
       <MeetingSummarySection
         participatedMeetingList={userInform.participatedMeetingList ?? []}

@@ -2,8 +2,12 @@ import Button from "@/_common/_components/Button"
 import Input from "@/_common/_components/Input"
 import { useSignInContext } from "@/app/kakao/_context/signinContext"
 
-const NickNameForm = ({ onSubmit }: { onSubmit?: () => void }) => {
-  const { setUser } = useSignInContext()
+const NickNameForm = ({
+  onSubmit
+}: {
+  onSubmit?: (nickname: string) => void
+}) => {
+  const { setUser, user } = useSignInContext()
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-white">
@@ -30,7 +34,12 @@ const NickNameForm = ({ onSubmit }: { onSubmit?: () => void }) => {
             className="border border-gray-300 rounded-xl p-4 w-full focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-200"
           />
           <Button
-            onClick={onSubmit}
+            type="button"
+            onClick={() => {
+              if (user.nickName) {
+                onSubmit?.(user.nickName)
+              }
+            }}
             className="bg-blue-500 hover:bg-blue-600 text-white py-4 rounded-xl text-base font-medium transition duration-200">
             다음
           </Button>

@@ -1,7 +1,10 @@
 export interface UserInformTypes {
-  profileImg: string
-  nickName: string
-  userId: string
-  profileIntroduce: string
+  id: number
+  display_name: string
+  social_id: string
+  social_type: string
+  profile_image_url: string
+  description: string
+  phone_number: string
   participatedMeetingList: string[]
 }
