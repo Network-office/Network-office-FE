@@ -21,7 +21,7 @@ describe("Message", () => {
     )
 
     expect(
-      getByText(new Date(timestamp).toLocaleTimeString())
+      getByText(new Date(timestamp).toTimeString().slice(0, 8))
     ).toBeInTheDocument()
   })
 

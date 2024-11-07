@@ -68,7 +68,7 @@ describe("MyMessageGroup", () => {
 
     // 타임스탬프가 한번만 출력되어야 한다
     const renderedTimestamp = getByText(
-      new Date(timestamp).toLocaleTimeString()
+      new Date(timestamp).toTimeString().slice(0, 8)
     )
 
     expect(renderedTimestamp).toBeInTheDocument()
@@ -159,7 +159,7 @@ describe("OtherMessageGroup", () => {
 
     // 타임스탬프가 한번만 출력되어야 한다
     const renderedTimestamp = getByText(
-      new Date(timestamp).toLocaleTimeString()
+      new Date(timestamp).toTimeString().slice(0, 8)
     )
 
     expect(renderedTimestamp).toBeInTheDocument()
