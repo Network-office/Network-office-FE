@@ -31,7 +31,7 @@ const MeetingDetailInput = ({ onNextStep }: MeetingDetailInputProps) => {
     <div className="w-screen">
       <textarea
         placeholder="최소 10글자 이상 작성해주세요."
-        {...register("detail", {
+        {...register("description", {
           required: "상세 설명 작성은 필수 입력입니다.",
           minLength: {
             value: 10,

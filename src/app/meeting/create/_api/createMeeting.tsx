@@ -1,5 +1,6 @@
 import { http } from "@/lib/http"
 import { CreateMeetingFormTypes } from "../types"
+import CustomError from "@/lib/CustomError"
 
 interface CreateMeetingResponse {
   error: string
@@ -8,22 +9,18 @@ interface CreateMeetingResponse {
 
 const createMeeting = async (data: CreateMeetingFormTypes) => {
   try {
-    const request = await http<CreateMeetingResponse>(
-      `http://localhost:8080/api/meeting/create`,
-      {
-        cache: "no-store",
-        method: "POST",
-        body: JSON.stringify(data)
-      }
-    )
-
-    if (request.data.error) {
-      throw new Error(request.data.error)
-    }
+    const request = await http<CreateMeetingResponse>("/api/v1/gathering", {
+      cache: "no-store",
+      method: "POST",
+      body: JSON.stringify(data)
+    })
 
     return request.data
-  } catch (error) {
-    throw new Error("error")
+  } catch (error: unknown) {
+    if (error instanceof CustomError && error.response) {
+      throw new CustomError(error.message, error.response.status)
+    }
+    throw new CustomError("Unknown Error", 500)
   }
 }
 
