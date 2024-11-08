@@ -5,18 +5,18 @@ import Button from "@/_common/_components/Button"
 
 import { useAvatarForm } from "../_hooks/_useAvatarForm"
 
-const AvatarForm = ({ onSubmit }: { onSubmit?: () => void }) => {
+const AvatarForm = ({
+  onSubmit
+}: {
+  onSubmit?: (profileimage: string) => void
+}) => {
   const { user, setUser } = useSignInContext()
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const { avatarSrc, handleFileChange } = useAvatarForm()
 
   const handleNextStep = () => {
-    setUser((prevUser) => ({
-      ...prevUser,
-      profileImg: avatarSrc ?? ""
-    }))
-    if (onSubmit) onSubmit()
+    if (onSubmit && avatarSrc) onSubmit(avatarSrc)
   }
 
   return (
@@ -49,6 +49,7 @@ const AvatarForm = ({ onSubmit }: { onSubmit?: () => void }) => {
               사진 업로드
             </Button>
             <Button
+              type="button"
               onClick={handleNextStep}
               className="bg-black hover:bg-gray-800 text-white py-2 px-4 rounded-xl text-base font-medium transition duration-200">
               다음
