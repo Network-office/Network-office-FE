@@ -3,7 +3,7 @@ import { meetingData } from "../mockData/meetingData"
 import { newParticipateData } from "../mockData/participateData"
 
 const handlers = [
-  http.get("http://localhost:8080/api/meeting", ({ request }) => {
+  http.get("/api/v1/gathering", ({ request }) => {
     const { searchParams } = new URL(request.url)
     const authorId = searchParams.get("authorId")
 
@@ -11,12 +11,9 @@ const handlers = [
       ? meetingData.filter((item) => item.authorId === authorId)
       : meetingData
 
-    return HttpResponse.json(
-      { content: filteredMeetings },
-      {
-        status: 200
-      }
-    )
+    return new HttpResponse(JSON.stringify({ gatherings: filteredMeetings }), {
+      status: 200
+    })
   }),
   http.post(`http://localhost:8080/api/meeting/create`, async ({ request }) => {
     const data = await request.json()

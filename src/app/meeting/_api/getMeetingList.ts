@@ -1,20 +1,19 @@
 import { MeetingListResponse } from "../types"
 import { http } from "@/lib/http"
+import CustomError from "@/lib/CustomError"
 
-const getMeetingList = async (authorId?: number) => {
+const getMeetingList = async (si?: string, gu?: string, dong?: string) => {
   try {
-    const response = await http<MeetingListResponse>(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/meeting${authorId ? `?authorId=${authorId}` : ""}`,
-      {
-        cache: "no-store",
-        method: "GET"
-      }
-    )
-    return response.data
-  } catch (error) {
-    console.log(error)
-    throw new Error("error")
-    
+    const response = await http<MeetingListResponse>(`/api/v1/gathering`, {
+      cache: "no-store",
+      method: "GET"
+    })
+    return response.data.gatherings
+  } catch (error: unknown) {
+    if (error instanceof CustomError && error.response) {
+      throw new CustomError(error.message, error.response.status)
+    }
+    throw new CustomError("Unknown Error", 500)
   }
 }
 

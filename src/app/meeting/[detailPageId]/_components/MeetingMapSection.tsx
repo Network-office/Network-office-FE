@@ -22,7 +22,6 @@ const MeetingMapSection = ({
     },
     [{ id: meetingId, lat, lng, category }]
   )
-
   return (
     <>
       <h1 className="w-[350px] mx-auto mt-3 mb-3 font-semibold">위치</h1>
