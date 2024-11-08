@@ -53,23 +53,6 @@ const handlers = [
       })
     }
   }),
-  http.get(`http://localhost:8080/api/meeting/:meetingId`, ({ params }) => {
-    const meetingId = Number(params.meetingId)
-    const meetingDetail = meetingData.find(
-      (meetingItem) => meetingItem.id === meetingId
-    )
-    if (meetingDetail) {
-      return new HttpResponse(JSON.stringify(meetingDetail), {
-        status: 200
-      })
-    }
-    return new HttpResponse(
-      JSON.stringify({ error: "해당 모임 정보가 존재하지 않습니다." }),
-      {
-        status: 400
-      }
-    )
-  }),
   http.post(
     `http://localhost:8080/api/meeting/participate`,
     async ({ request }) => {
@@ -197,47 +180,51 @@ const handlers = [
       }
     )
   }),
-  http.post("http://localhost:8080/api/meeting/cancel", async ({ request }) => {
-    const { meetingId, reason } = await request.json()
+  http.post(
+    "/api/v1/gathering/:gatheringId/success",
+    async ({ params, request }) => {
+      const { gatheringId } = params
+      const { reason } = await request.json()
 
-    if (!meetingId || !reason) {
-      return new HttpResponse(
-        JSON.stringify({ message: "유효하지 않은 요청입니다." }),
-        {
-          status: 400,
-          headers: { "Content-Type": "application/json" }
-        }
-      )
-    }
-
-    const meetingIndex = meetingData.findIndex(
-      (meeting) => meeting.id === meetingId
-    )
-
-    if (meetingIndex === -1) {
-      return new HttpResponse(
-        JSON.stringify({ message: "해당 모임을 찾을 수 없습니다." }),
-        {
-          status: 404,
-          headers: { "Content-Type": "application/json" }
-        }
-      )
-    }
-
-    meetingData[meetingIndex].status = "모임 취소"
-    meetingData[meetingIndex].cancelReason = reason
-
-    return new HttpResponse(
-      JSON.stringify({
-        message: "모임이 성공적으로 취소되었습니다.",
-        meeting: meetingData[meetingIndex]
-      }),
-      {
-        status: 200,
-        headers: { "Content-Type": "application/json" }
+      if (!gatheringId || !reason) {
+        return new HttpResponse(
+          JSON.stringify({ message: "유효하지 않은 요청입니다." }),
+          {
+            status: 400,
+            headers: { "Content-Type": "application/json" }
+          }
+        )
       }
-    )
-  }),
+
+      const meetingIndex = meetingData.findIndex(
+        (meeting) => meeting.id === Number(gatheringId)
+      )
+
+      if (meetingIndex === -1) {
+        return new HttpResponse(
+          JSON.stringify({ message: "해당 모임을 찾을 수 없습니다." }),
+          {
+            status: 404,
+            headers: { "Content-Type": "application/json" }
+          }
+        )
+      }
+
+      meetingData[meetingIndex].status = "모임 취소"
+      meetingData[meetingIndex].cancelReason = reason
+
+      return new HttpResponse(
+        JSON.stringify({
+          message: "모임이 성공적으로 취소되었습니다.",
+          meeting: meetingData[meetingIndex]
+        }),
+        {
+          status: 200,
+          headers: { "Content-Type": "application/json" }
+        }
+      )
+    }
+  ),
   http.post(
     "http://localhost:8080/api/meeting/:meetingId/expel",
     async ({ params, request }) => {

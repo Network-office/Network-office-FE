@@ -2,13 +2,13 @@ import { http } from "@/lib/http"
 import { MeetingDetailTypes } from "@/app/meeting/[detailPageId]/types"
 import CustomError from "@/lib/CustomError"
 
-const cancelMeeting = async (meetingId: number, reason: string) => {
+const cancelMeeting = async (gatheringId: number, reason: string) => {
   try {
     const response = await http<MeetingDetailTypes>(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/meeting/cancel`,
+      `/api/v1/gathering/${gatheringId}/success`,
       {
         method: "POST",
-        body: JSON.stringify({ meetingId, reason })
+        body: JSON.stringify({ reason })
       }
     )
     return response.data
