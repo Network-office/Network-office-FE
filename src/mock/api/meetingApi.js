@@ -53,16 +53,12 @@ const handlers = [
       })
     }
   }),
-  http.post(
-    `http://localhost:8080/api/meeting/participate`,
-    async ({ request }) => {
-      const { meetingId, message, userId } = await request.json()
-
-      return new HttpResponse(JSON.stringify({ success: true }), {
-        status: 200
-      })
-    }
-  ),
+  http.post(`/api/v1/gathering-user/:gatheringId`, async ({ params }) => {
+    const { gatheringId } = params
+    return new HttpResponse(JSON.stringify({ success: true }), {
+      status: 200
+    })
+  }),
   http.post(
     "http://localhost:8080/api/meeting/newparticipator",
     async ({ request }) => {
@@ -181,7 +177,7 @@ const handlers = [
     )
   }),
   http.post(
-    "/api/v1/gathering/:gatheringId/success",
+    "/api/v1/gathering/:gatheringId/cancel",
     async ({ params, request }) => {
       const { gatheringId } = params
       const { reason } = await request.json()
