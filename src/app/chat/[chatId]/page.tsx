@@ -8,15 +8,18 @@ import OtherMessageGroup from "@/app/chat/[chatId]/_components/OtherMessageGroup
 import { useFetchChatHistory } from "@/app/chat/[chatId]/_hooks/useFetchChatHistory"
 import useStomp from "@/app/chat/[chatId]/_hooks/useStomp"
 import { addMessageToChatHistory } from "@/app/chat/[chatId]/_utils/addMessageToChatHistory"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import useChatScroll from "@/app/chat/[chatId]/_hooks/useChatScroll"
-import { useParams } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { Textarea } from "@/components/ui/textarea"
 
-const ChatPage = () => {
-  const params = useParams() as { chatId: string }
+type ChatPageProps = {
+  params: {
+    chatId: string
+  }
+}
 
+const ChatPage = ({ params }: ChatPageProps) => {
   const [chatHistory, setChatHistory] = useState<MessageGroup[]>([])
   const {
     register,

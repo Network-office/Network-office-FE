@@ -7,7 +7,6 @@ import {
   mockPublish,
   subscribeCallback
 } from "../../../../../__mocks__/@stomp/stompjs"
-import { useParams } from "../../../../../__mocks__/next/navigation"
 import { SocketMessageResponse } from "@/app/chat/[chatId]/_components/types"
 import { act } from "react-dom/test-utils"
 import { generateMyMessage } from "@/mock/mockData/chatMessageData"
@@ -42,9 +41,7 @@ global.HTMLElement.prototype.scrollIntoView = jest.fn()
 
 describe("ChatPage", () => {
   test("이전 대화 내용을 불러옵니다", async () => {
-    useParams.mockReturnValue({ chatId: "adminMe" })
-
-    render(<ChatPage />, {
+    render(<ChatPage params={{ chatId: "adminMe" }} />, {
       wrapper
     })
 
@@ -55,9 +52,7 @@ describe("ChatPage", () => {
   })
 
   test("대화 내용이 없을 때", async () => {
-    useParams.mockReturnValue({ chatId: "empty" })
-
-    render(<ChatPage />, {
+    render(<ChatPage params={{ chatId: "empty" }} />, {
       wrapper
     })
 
@@ -68,9 +63,7 @@ describe("ChatPage", () => {
   })
 
   test("메세지 전송이 가능합니다", async () => {
-    useParams.mockReturnValue({ chatId: "adminMe" })
-
-    render(<ChatPage />, {
+    render(<ChatPage params={{ chatId: "adminMe" }} />, {
       wrapper
     })
 
@@ -91,9 +84,7 @@ describe("ChatPage", () => {
   })
 
   test("메세지 전송 후 입력값이 초기화됩니다", async () => {
-    useParams.mockReturnValue({ chatId: "adminMe" })
-
-    render(<ChatPage />, {
+    render(<ChatPage params={{ chatId: "adminMe" }} />, {
       wrapper
     })
 
@@ -109,9 +100,7 @@ describe("ChatPage", () => {
   })
 
   test("메세지 수신 시 대화 내용이 추가됩니다", async () => {
-    useParams.mockReturnValue({ chatId: "adminMe" })
-
-    render(<ChatPage />, {
+    render(<ChatPage params={{ chatId: "adminMe" }} />, {
       wrapper
     })
 
