@@ -15,7 +15,7 @@ const handlers = [
       status: 200
     })
   }),
-  http.post(`http://localhost:8080/api/meeting/create`, async ({ request }) => {
+  http.post("/api/v1/gathering", async ({ request }) => {
     const data = await request.json()
     const meetingDataFields = [
       "title",
@@ -23,11 +23,14 @@ const handlers = [
       "place",
       "x",
       "y",
+      "si",
+      "gu",
+      "dong",
       "startTime",
       "endTime",
       "date",
       "peopleNumber",
-      "detail"
+      "description"
     ]
     console.log(data)
     try {
