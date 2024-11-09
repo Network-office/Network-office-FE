@@ -14,6 +14,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactNode } from "react"
 import { SocketMessageResponse } from "@/app/chat/[chatId]/_components/types"
 import { generateMyMessage } from "@/mock/mockData/chatMessageData"
+import { faker } from "@faker-js/faker"
 
 jest.mock("@stomp/stompjs")
 
@@ -42,15 +43,16 @@ describe("useStomp", () => {
 
   test("메시지를 보낼 수 있다", () => {
     const { result } = renderHook(() => useStomp("1"), { wrapper })
+    const userId = faker.string.uuid()
 
     act(() => {
-      result.current.sendMessage({ text: "test" })
+      result.current.sendMessage({ text: "test", userId })
     })
 
     // stompjs.Client#publish 메서드가 호출되었는지 확인
     expect(mockPublish).toHaveBeenCalledWith({
       destination: "/app/chat/1",
-      body: JSON.stringify({ text: "test" })
+      body: JSON.stringify({ text: "test", userId: userId })
     })
   })
 

@@ -5,7 +5,8 @@ import { useSuspenseQuery } from "@tanstack/react-query"
 export const useFetchChatHistory = (chatRoomId: string) => {
   const queryData = useSuspenseQuery({
     queryKey: ["chatHistory", chatRoomId],
-    queryFn: () => getChatHistory(chatRoomId)
+    queryFn: () => getChatHistory(chatRoomId),
+    select: (data) => data.data
   })
 
   if (queryData.error && !(queryData.error instanceof CustomError)) {

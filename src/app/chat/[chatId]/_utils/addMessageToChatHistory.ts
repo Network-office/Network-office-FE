@@ -41,8 +41,19 @@ export const addMessageToChatHistory = (
   }
 
   const latestMessageGroup = messageGroupList[messageGroupList.length - 1]
+  const isSameUser = latestMessageGroup.userInfo.id === message.userInfo.id
+  const latestMessageTime = new Date(
+    latestMessageGroup.messages[
+      latestMessageGroup.messages.length - 1
+    ].timestamp
+  )
+  const messageTime = new Date(message.message.timestamp)
 
-  if (latestMessageGroup.userInfo.id === message.userInfo.id) {
+  const isSameMinute =
+    latestMessageTime.getHours() === messageTime.getHours() &&
+    latestMessageTime.getMinutes() === messageTime.getMinutes()
+
+  if (isSameUser && isSameMinute) {
     const modifiedMessageGroup = addSocketMessageToMessageGroup(
       message,
       latestMessageGroup

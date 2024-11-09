@@ -2,7 +2,6 @@
 
 import ChatPageTopbar from "@/app/chat/[chatId]/_components/ChatPageTopbar"
 import Button from "@/_common/_components/Button"
-import Input from "@/_common/_components/Input"
 import { MessageGroup } from "@/app/chat/[chatId]/_apis/getChatHistory"
 import MyMessageGroup from "@/app/chat/[chatId]/_components/MyMessageGroup"
 import OtherMessageGroup from "@/app/chat/[chatId]/_components/OtherMessageGroup"
@@ -10,8 +9,11 @@ import { useFetchChatHistory } from "@/app/chat/[chatId]/_hooks/useFetchChatHist
 import useStomp from "@/app/chat/[chatId]/_hooks/useStomp"
 import { addMessageToChatHistory } from "@/app/chat/[chatId]/_utils/addMessageToChatHistory"
 import { useEffect, useState } from "react"
+import useChatScroll from "@/app/chat/[chatId]/_hooks/useChatScroll"
+import { useForm } from "react-hook-form"
+import { Textarea } from "@/components/ui/textarea"
 
-interface ChatPageProps {
+type ChatPageProps = {
   params: {
     chatId: string
   }
@@ -19,12 +21,37 @@ interface ChatPageProps {
 
 const ChatPage = ({ params }: ChatPageProps) => {
   const [chatHistory, setChatHistory] = useState<MessageGroup[]>([])
+  const {
+    register,
+    handleSubmit,
+    setFocus,
+    setValue,
+    formState: { errors }
+  } = useForm<{ message: string }>()
   const { messages, sendMessage } = useStomp(params.chatId)
-  const { data, error } = useFetchChatHistory(params.chatId)
+  const { data } = useFetchChatHistory(params.chatId)
+
+  const { bottomRef } = useChatScroll([chatHistory])
+
+  const onSubmit = (data: { message: string }) => {
+    sendMessage({
+      text: data.message,
+      userId: "5909c522-8202-4ef3-9c99-e2774c673279" // TODO: Auth 로직 추가
+    })
+    setValue("message", "")
+    setFocus("message")
+  }
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault()
+      handleSubmit(onSubmit)()
+    }
+  }
 
   useEffect(() => {
     if (data) {
-      setChatHistory(data.data.messageGroupList)
+      setChatHistory(data.messageGroupList)
     }
   }, [data])
 
@@ -36,24 +63,15 @@ const ChatPage = ({ params }: ChatPageProps) => {
     }
   }, [messages])
 
-  if (error) {
-    throw new Error(error.message)
-  }
-
-  if (!data) {
-    return null
-  }
-
   return (
-    <div>
-      <ChatPageTopbar title={data.data.title ?? "title"} />
+    <>
+      <ChatPageTopbar title={data.title ?? "title"} />
       <div>
         <ul aria-label="메세지 리스트">
           {chatHistory.map((messageGroup) => (
             <li
               aria-label="메세지 그룹"
               key={messageGroup.id}>
-              {/*TODO 1분단위로 messages 묶기 */}
               {messageGroup.me ? (
                 <MyMessageGroup
                   role={messageGroup.role}
@@ -69,29 +87,29 @@ const ChatPage = ({ params }: ChatPageProps) => {
               )}
             </li>
           ))}
+          <div
+            className="z-50"
+            ref={bottomRef}></div>
+          <div className="h-28"></div>
         </ul>
-        <div className="flex sticky bottom-2 bg-white px-2 py-2 gap-2 pb-16">
-          {/*TODO text area 로 수정 */}
-          <Input
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex fixed bottom-2 bg-white px-2 py-2 gap-2 pb-16 w-full">
+          <Textarea
+            {...register("message", { required: true })}
             aria-label="메세지 입력"
             placeholder="메세지를 입력하세요"
-            className="sticky top-0"
+            className=" top-0 min-h-10 h-8 m-0"
+            onKeyDown={handleKeyDown}
           />
-          {/*TODO submit 시 아래로 scroll*/}
           <Button
             aria-label="메세지 전송 버튼"
-            onClick={() => {
-              const input = document.querySelector("input")
-              if (input) {
-                sendMessage({ text: input.value })
-                input.value = ""
-              }
-            }}>
+            disabled={!!errors.message}>
             전송
           </Button>
-        </div>
+        </form>
       </div>
-    </div>
+    </>
   )
 }
 
