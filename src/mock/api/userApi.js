@@ -27,6 +27,9 @@ const handlers = [
     }
 
     return HttpResponse.json(findUser, { status: 200 })
+  }),
+  http.get("/api/v1/users/profile", () => {
+    return HttpResponse.json(users[0], { status: 200 })
   })
 ]
 

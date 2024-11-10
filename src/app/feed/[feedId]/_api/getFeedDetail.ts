@@ -5,7 +5,7 @@ import { FeedItemTypes } from "../../types"
 const getFeedDetail = async (feedId: string) => {
   try {
     const request = await http<FeedItemTypes>(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/feed/${feedId}`,
+      `/api/v1/feed/${feedId}`,
       {
         method: "GET"
       }

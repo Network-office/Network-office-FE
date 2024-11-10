@@ -15,7 +15,7 @@ export const postFeedComment = async (
 ): Promise<PostCommentResponse> => {
   try {
     const response = await http<PostCommentResponse>(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/feed/${feedId}/comments/create`,
+      `/api/v1/feed/${feedId}/comments/create`,
       {
         method: "POST",
         body: JSON.stringify({ content })

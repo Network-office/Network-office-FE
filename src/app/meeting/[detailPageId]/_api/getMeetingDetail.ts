@@ -7,7 +7,7 @@ const getMeetingDetail = async (
 ): Promise<MeetingDetailTypes> => {
   try {
     const response = await http<MeetingDetailTypes>(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/meeting/${meetingId}`,
+      `/api/v1/meeting/${meetingId}`,
       {
         cache: "no-store",
         method: "GET"

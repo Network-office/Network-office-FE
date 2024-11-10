@@ -5,7 +5,7 @@ import { GetNewParticipatorResponse } from "../types"
 const getNewParticipator = async (meetingId: number) => {
   try {
     const result = await http<GetNewParticipatorResponse>(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/meeting/newparticipator`,
+      `/api/v1/meeting/newparticipator`,
       {
         method: "post",
         cache: `no-store`,

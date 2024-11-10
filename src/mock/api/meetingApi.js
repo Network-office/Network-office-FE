@@ -59,39 +59,36 @@ const handlers = [
       status: 200
     })
   }),
-  http.post(
-    "http://localhost:8080/api/meeting/newparticipator",
-    async ({ request }) => {
-      const { meetingId } = await request.json()
+  http.post("/api/v1/meeting/newparticipator", async ({ request }) => {
+    const { meetingId } = await request.json()
 
-      const newParticipants = newParticipateData.filter(
-        (p) => p.meetingId === meetingId
-      )
+    const newParticipants = newParticipateData.filter(
+      (p) => p.meetingId === meetingId
+    )
 
-      if (newParticipants.length === 0) {
-        return new HttpResponse(
-          JSON.stringify({ error: "새로운 참가자가 없습니다." }),
-          {
-            status: 404,
-            headers: { "Content-Type": "application/json" }
-          }
-        )
-      }
-
+    if (newParticipants.length === 0) {
       return new HttpResponse(
-        JSON.stringify({
-          contents: newParticipants
-        }),
+        JSON.stringify({ error: "새로운 참가자가 없습니다." }),
         {
-          status: 200,
+          status: 404,
           headers: { "Content-Type": "application/json" }
         }
       )
     }
-  ),
+
+    return new HttpResponse(
+      JSON.stringify({
+        contents: newParticipants
+      }),
+      {
+        status: 200,
+        headers: { "Content-Type": "application/json" }
+      }
+    )
+  }),
 
   http.post(
-    `http://localhost:8080/api/meeting/newparticipator/accept`,
+    `/api/v1/meeting/newparticipator/accept`,
     async ({ request }) => {
       const { meetingId, userId } = await request.json()
 
@@ -128,7 +125,7 @@ const handlers = [
   ),
 
   http.post(
-    `http://localhost:8080/api/meeting/newparticipator/refuse`,
+    `/api/v1/meeting/newparticipator/refuse`,
     async ({ request }) => {
       const { meetingId, userId } = await request.json()
 
@@ -152,7 +149,7 @@ const handlers = [
       })
     }
   ),
-  http.post("http://localhost:8080/api/meeting/close", async ({ request }) => {
+  http.post("/api/v1/meeting/close", async ({ request }) => {
     const { meetingId } = await request.json()
 
     if (!meetingId) {
@@ -222,7 +219,7 @@ const handlers = [
     }
   ),
   http.post(
-    "http://localhost:8080/api/meeting/:meetingId/expel",
+    "/api/v1/meeting/:meetingId/expel",
     async ({ params, request }) => {
       const { meetingId } = params
       const { userId, reason } = await request.json()
@@ -274,7 +271,7 @@ const handlers = [
     }
   ),
   http.get(
-    "http://localhost:8080/api/meeting/participating/:userId",
+    "/api/v1/meeting/participating/:userId",
     ({ params }) => {
       const userId = params.userId
 
@@ -306,7 +303,7 @@ const handlers = [
     }
   ),
   http.post(
-    "http://localhost:8080/api/meetings/:meetingId/leave",
+    "/api/v1/meetings/:meetingId/leave",
     async ({ params, request }) => {
       const { meetingId } = params
       const { userId } = await request.json()

@@ -15,7 +15,7 @@ const getFeedList = async (
 ) => {
   try {
     const request = await http<GetFeedListRequest>(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/feed?page=${page.toString()}&size=${size.toString()}`,
+      `/api/v1/feed?page=${page.toString()}&size=${size.toString()}`,
       {
         method: "POST",
         body: JSON.stringify({ searchRegion })

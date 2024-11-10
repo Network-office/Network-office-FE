@@ -9,7 +9,7 @@ interface GetLocalClubsResponse {
 const getLocalClubs = async () => {
   try {
     const response = await http<GetLocalClubsResponse>(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/club/local`,
+      `/api/v1/club/local`,
       {
         method: "GET"
       }
