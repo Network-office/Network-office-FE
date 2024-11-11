@@ -31,7 +31,7 @@ const ChatPage = ({ params }: ChatPageProps) => {
   const { messages, sendMessage } = useStomp(params.chatId)
   const { data } = useFetchChatHistory(params.chatId)
 
-  const { bottomRef } = useChatScroll([chatHistory])
+  const { BottomDiv, ScrollDown } = useChatScroll([chatHistory])
 
   const onSubmit = (data: { message: string }) => {
     sendMessage({
@@ -67,31 +67,33 @@ const ChatPage = ({ params }: ChatPageProps) => {
     <>
       <ChatPageTopbar title={data.title ?? "title"} />
       <div>
-        <ul aria-label="메세지 리스트">
-          {chatHistory.map((messageGroup) => (
-            <li
-              aria-label="메세지 그룹"
-              key={messageGroup.id}>
-              {messageGroup.me ? (
-                <MyMessageGroup
-                  role={messageGroup.role}
-                  messages={messageGroup.messages}
-                  userInfo={messageGroup.userInfo}
-                />
-              ) : (
-                <OtherMessageGroup
-                  role={messageGroup.role}
-                  messages={messageGroup.messages}
-                  userInfo={messageGroup.userInfo}
-                />
-              )}
-            </li>
-          ))}
-          <div
-            className="z-50"
-            ref={bottomRef}></div>
-          <div className="h-28"></div>
-        </ul>
+        <ScrollDown className=" bottom-32">
+          <ul
+            aria-label="메세지 리스트"
+            className="relative">
+            {chatHistory.map((messageGroup) => (
+              <li
+                aria-label="메세지 그룹"
+                key={messageGroup.id}>
+                {messageGroup.me ? (
+                  <MyMessageGroup
+                    role={messageGroup.role}
+                    messages={messageGroup.messages}
+                    userInfo={messageGroup.userInfo}
+                  />
+                ) : (
+                  <OtherMessageGroup
+                    role={messageGroup.role}
+                    messages={messageGroup.messages}
+                    userInfo={messageGroup.userInfo}
+                  />
+                )}
+              </li>
+            ))}
+            <BottomDiv />
+            <div className="h-28"></div>
+          </ul>
+        </ScrollDown>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex fixed bottom-2 bg-white px-2 py-2 gap-2 pb-16 w-full">
