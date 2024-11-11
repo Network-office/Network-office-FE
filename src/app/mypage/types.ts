@@ -1,10 +1,10 @@
 export interface UserInformTypes {
-  id: number
+  id: string
+  profile_image_url: string
   display_name: string
+  description: string
   social_id: string
   social_type: string
-  profile_image_url: string
-  description: string
-  phone_number: string
-  participatedMeetingList: string[]
+  profileIntroduce: string
+  participatedMeetingList?: string[]
 }

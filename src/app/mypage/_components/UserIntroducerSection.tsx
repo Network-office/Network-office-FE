@@ -1,17 +1,17 @@
 import Avatar from "@/_common/_components/Avatar"
 import { Pencil } from "lucide-react"
 
-interface ProfileSectionProps {
+interface UserIntroduceSectionProps {
   profileImg: string
   nickName: string
   profileIntroduce: string
 }
 
-const ProfileSection = ({
+const UserIntroducerSection = ({
   profileImg,
   nickName,
   profileIntroduce
-}: ProfileSectionProps) => {
+}: UserIntroduceSectionProps) => {
   return (
     <div className=" border-[1px] mt-[10px] w-[90%] py-[10px] mx-auto rounded-2xl shadow-lg">
       <div className="h-[120px] flex justify-between mr-[20px] mt-[10px]">
@@ -34,4 +34,4 @@ const ProfileSection = ({
   )
 }
 
-export default ProfileSection
+export default UserIntroducerSection

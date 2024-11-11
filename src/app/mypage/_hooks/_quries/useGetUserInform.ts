@@ -1,14 +1,14 @@
 "use client"
 
-import { useSuspenseQuery } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query"
 import getUserInform from "../../_api/getUserInform"
 
 const useGetUserInform = () => {
-  const { data, isLoading } = useSuspenseQuery({
+  return useQuery({
     queryKey: ["userInform"],
-    queryFn: () => getUserInform()
+    queryFn: () => getUserInform(),
+    retry: 1
   })
-  return { data, isLoading }
 }
 
 export default useGetUserInform

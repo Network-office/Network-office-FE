@@ -48,18 +48,15 @@ const handler = [
       headers: { "Content-Type": "application/json" }
     })
   }),
-  http.get(
-    `/api/v1/feed/:feedId/comments`,
-    async ({ params }) => {
-      const { feedId } = params
-      const comments = commentMockData[feedId] || []
+  http.get(`/api/v1/feed/:feedId/comments`, async ({ params }) => {
+    const { feedId } = params
+    const comments = commentMockData[feedId] || []
 
-      return new HttpResponse(JSON.stringify(comments), {
-        status: 200,
-        headers: { "Content-Type": "application/json" }
-      })
-    }
-  ),
+    return new HttpResponse(JSON.stringify(comments), {
+      status: 200,
+      headers: { "Content-Type": "application/json" }
+    })
+  }),
   http.post(
     `/api/v1/feed/:feedId/comments/create`,
     async ({ params, request }) => {

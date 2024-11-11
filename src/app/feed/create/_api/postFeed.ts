@@ -17,13 +17,10 @@ export const postFeed = async (
   feedData: FeedFormTypes
 ): Promise<PostFeedResponse> => {
   try {
-    const response = await http<PostFeedResponse>(
-      `http://localhost:8080/api/feed/create`,
-      {
-        method: "POST",
-        body: JSON.stringify(feedData)
-      }
-    )
+    const response = await http<PostFeedResponse>(`/api/v1/feed/create`, {
+      method: "POST",
+      body: JSON.stringify(feedData)
+    })
     return response.data
   } catch (error) {
     throw new CustomError("network-error", 500)

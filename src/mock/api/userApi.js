@@ -1,8 +1,8 @@
 import { http, HttpResponse } from "msw"
-import { users } from "../mockData/commonData"
+import userMockData from "../mockData/userData"
 
 const handlers = [
-  http.get("http://localhost:8080/api/user", ({ request }) => {
+  http.get("/api/v1/user", ({ request }) => {
     const url = new URL(request.url)
     const userId = url.searchParams.get("userId")
 
@@ -29,7 +29,7 @@ const handlers = [
     return HttpResponse.json(findUser, { status: 200 })
   }),
   http.get("/api/v1/users/profile", () => {
-    return HttpResponse.json(users[0], { status: 200 })
+    return HttpResponse.json(userMockData[0], { status: 200 })
   })
 ]
 

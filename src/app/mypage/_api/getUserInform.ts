@@ -40,7 +40,7 @@ const getUserInform = async (onCSRFError?: () => void) => {
         throw new Error("500")
       }
     }
-    throw new Error("An unexpected error occurred")
+    throw new CustomError("Unknown Error", 500)
   }
 }
 
