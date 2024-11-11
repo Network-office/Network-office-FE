@@ -21,11 +21,17 @@ const useChatScroll = (dependencies: unknown[]) => {
   }, [bottomRef, ...dependencies])
 
   const ScrollDownComponent = ({ children, ...props }: ScrollDownProps) => (
-    <ScrollDown
-      {...props}
-      ref={bottomRef}>
-      {children}
-    </ScrollDown>
+    <>
+      {auto ? (
+        children
+      ) : (
+        <ScrollDown
+          {...props}
+          ref={bottomRef}>
+          {children}
+        </ScrollDown>
+      )}
+    </>
   )
 
   const BottomDiv = (props: React.HTMLAttributes<HTMLDivElement>) => (

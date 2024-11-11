@@ -68,9 +68,7 @@ const ChatPage = ({ params }: ChatPageProps) => {
       <ChatPageTopbar title={data.title ?? "title"} />
       <div>
         <ScrollDown className=" bottom-32">
-          <ul
-            aria-label="메세지 리스트"
-            className="relative">
+          <ul aria-label="메세지 리스트">
             {chatHistory.map((messageGroup) => (
               <li
                 aria-label="메세지 그룹"
