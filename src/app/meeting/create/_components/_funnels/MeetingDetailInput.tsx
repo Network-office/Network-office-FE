@@ -12,7 +12,7 @@ const MeetingDetailInput = ({ onNextStep }: MeetingDetailInputProps) => {
   const { toast } = useToast()
 
   const onClickNextButton = async () => {
-    const isValid = await trigger("detail")
+    const isValid = await trigger("description")
 
     if (isValid) {
       onNextStep()
@@ -23,7 +23,6 @@ const MeetingDetailInput = ({ onNextStep }: MeetingDetailInputProps) => {
         width: "280px",
         height: "80px"
       })
-      alert()
     }
   }
 
@@ -38,10 +37,10 @@ const MeetingDetailInput = ({ onNextStep }: MeetingDetailInputProps) => {
             message: "최소 10글자 이상 작성해주세요!"
           }
         })}
-        className="w-[320px] min-h-[500px] max-h-[2000px] border-[1px] border-slate-200 flex justify-center mx-auto mt-8 px-2 py-2"
+        className="w-[320px] min-h-[480px] max-h-[2000px] border-[1px] border-slate-200 flex justify-center mx-auto mt-8 px-2 py-2"
       />
       <Button
-        className="w-[70%] h-[40px] mt-8 mb-16 mx-auto rounded-md flex justify-center text-center py-auto"
+        className="w-[70%] h-[40px] mt-4 mb-20 mx-auto rounded-md flex justify-center text-center py-auto"
         onClick={onClickNextButton}>
         <span className="my-auto text-white font-semibold">다음으로</span>
       </Button>

@@ -84,8 +84,8 @@ describe("모임 생성 페이지", () => {
     cy.wait(500)
 
     //// 상세 정보 정상 작동 확인
-    cy.get('textarea[name="detail"]').clear()
-    cy.get('textarea[name="detail"]').type("상세 정보 정상 작동 확인 ")
+    cy.get('textarea[name="description"]').clear()
+    cy.get('textarea[name="description"]').type("상세 정보 정상 작동 확인 ")
     cy.contains("다음으로").click()
 
     // 성공 페이지 확인

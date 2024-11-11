@@ -17,41 +17,10 @@ const handlers = [
   }),
   http.post("/api/v1/gathering", async ({ request }) => {
     const data = await request.json()
-    const meetingDataFields = [
-      "title",
-      "category",
-      "place",
-      "x",
-      "y",
-      "si",
-      "gu",
-      "dong",
-      "startTime",
-      "endTime",
-      "date",
-      "peopleNumber",
-      "description"
-    ]
-    try {
-      console.log(data)
-      meetingDataFields.forEach((item) => {
-        if (
-          data[item] === undefined ||
-          data[item] === null ||
-          data[item] === ""
-        ) {
-          throw new Error(`필드가 유효하지 않음`)
-        }
-      })
 
-      return new HttpResponse(JSON.stringify({ success: true }), {
-        status: 200
-      })
-    } catch (error) {
-      return new HttpResponse(JSON.stringify({ error: error.message }), {
-        status: 400
-      })
-    }
+    return new HttpResponse(JSON.stringify({ success: true }), {
+      status: 200
+    })
   }),
   http.post(`/api/v1/gathering-user/:gatheringId`, async ({ params }) => {
     const { gatheringId } = params
