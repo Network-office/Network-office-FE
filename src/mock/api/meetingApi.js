@@ -3,15 +3,8 @@ import { meetingData } from "../mockData/meetingData"
 import { newParticipateData } from "../mockData/participateData"
 
 const handlers = [
-  http.get("/api/v1/gathering", ({ request }) => {
-    const { searchParams } = new URL(request.url)
-    const authorId = searchParams.get("authorId")
-
-    const filteredMeetings = authorId
-      ? meetingData.filter((item) => item.authorId === authorId)
-      : meetingData
-
-    return new HttpResponse(JSON.stringify({ gatherings: filteredMeetings }), {
+  http.get("/api/v1/gathering", () => {
+    return new HttpResponse(JSON.stringify({ gatherings: meetingData }), {
       status: 200
     })
   }),
@@ -28,7 +21,12 @@ const handlers = [
       status: 200
     })
   }),
-  http.post("/api/v1/meeting/newparticipator", async ({ request }) => {
+  http.get(`/api/v1/gathering/:gatheringId`, async ({ params }) => {
+    return new HttpResponse(JSON.stringify({ ...meetingData[0] }), {
+      status: 200
+    })
+  }),
+  http.post("/api/v1/gathering/newparticipator", async ({ request }) => {
     const { meetingId } = await request.json()
 
     const newParticipants = newParticipateData.filter(
@@ -56,7 +54,7 @@ const handlers = [
     )
   }),
 
-  http.post(`/api/v1/meeting/newparticipator/accept`, async ({ request }) => {
+  http.post(`/api/v1/gathering/newparticipator/accept`, async ({ request }) => {
     const { meetingId, userId } = await request.json()
 
     const participantIndex = newParticipateData.findIndex(
@@ -88,7 +86,7 @@ const handlers = [
     })
   }),
 
-  http.post(`/api/v1/meeting/newparticipator/refuse`, async ({ request }) => {
+  http.post(`/api/v1/gathering/newparticipator/refuse`, async ({ request }) => {
     const { meetingId, userId } = await request.json()
 
     const participantIndex = newParticipateData.findIndex(
@@ -110,7 +108,7 @@ const handlers = [
       status: 200
     })
   }),
-  http.post("/api/v1/meeting/close", async ({ request }) => {
+  http.post("/api/v1/gathering/close", async ({ request }) => {
     const { meetingId } = await request.json()
 
     if (!meetingId) {
@@ -179,63 +177,68 @@ const handlers = [
       )
     }
   ),
-  http.post("/api/v1/meeting/:meetingId/expel", async ({ params, request }) => {
-    const { meetingId } = params
-    const { userId, reason } = await request.json()
+  http.post(
+    "/api/v1/gathering/:meetingId/expel",
+    async ({ params, request }) => {
+      const { meetingId } = params
+      const { userId, reason } = await request.json()
 
-    const meetingIndex = meetingData.findIndex(
-      (meeting) => meeting.id === Number(meetingId)
-    )
-    if (meetingIndex === -1) {
-      return new HttpResponse(
-        JSON.stringify({ message: "해당 모임을 찾을 수 없습니다." }),
-        {
-          status: 404,
-          headers: { "Content-Type": "application/json" }
-        }
+      const meetingIndex = meetingData.findIndex(
+        (meeting) => meeting.id === Number(meetingId)
       )
-    }
-
-    const participantIndex = meetingData[
-      meetingIndex
-    ].confirmedParticipants.findIndex(
-      (participant) => participant.userId === userId
-    )
-    if (participantIndex === -1) {
-      return new HttpResponse(
-        JSON.stringify({ message: "해당 참가자를 찾을 수 없습니다." }),
-        {
-          status: 404,
-          headers: { "Content-Type": "application/json" }
-        }
-      )
-    }
-
-    meetingData[meetingIndex].confirmedParticipants.splice(participantIndex, 1)
-    meetingData[meetingIndex].nowPeople -= 1
-
-    return new HttpResponse(
-      JSON.stringify({
-        message: "참가자가 성공적으로 추방되었습니다.",
-        expelledUser: { userId, reason }
-      }),
-      {
-        status: 200,
-        headers: { "Content-Type": "application/json" }
+      if (meetingIndex === -1) {
+        return new HttpResponse(
+          JSON.stringify({ message: "해당 모임을 찾을 수 없습니다." }),
+          {
+            status: 404,
+            headers: { "Content-Type": "application/json" }
+          }
+        )
       }
-    )
-  }),
-  http.get("/api/v1/meeting/participating/:userId", ({ params }) => {
-    const userId = params.userId
+
+      const participantIndex = meetingData[
+        meetingIndex
+      ].confirmedParticipants.findIndex(
+        (participant) => participant.userId === userId
+      )
+      if (participantIndex === -1) {
+        return new HttpResponse(
+          JSON.stringify({ message: "해당 참가자를 찾을 수 없습니다." }),
+          {
+            status: 404,
+            headers: { "Content-Type": "application/json" }
+          }
+        )
+      }
+
+      meetingData[meetingIndex].confirmedParticipants.splice(
+        participantIndex,
+        1
+      )
+      meetingData[meetingIndex].nowPeople -= 1
+
+      return new HttpResponse(
+        JSON.stringify({
+          message: "참가자가 성공적으로 추방되었습니다.",
+          expelledUser: { userId, reason }
+        }),
+        {
+          status: 200,
+          headers: { "Content-Type": "application/json" }
+        }
+      )
+    }
+  ),
+  http.get("/api/v1/gathering/participating/:userId", ({ params }) => {
+    const { userId } = params
 
     const participatingMeetings = meetingData.filter((meeting) =>
       meeting.confirmedParticipants.some(
         (participant) => participant.userId === userId
       )
     )
-
-    const response = {
-      content: participatingMeetings.map((meeting) => ({
+    const result = {
+      gatherings: participatingMeetings.map((meeting) => ({
         id: meeting.id,
         title: meeting.title,
         date: meeting.date,
@@ -250,18 +253,18 @@ const handlers = [
       }))
     }
 
-    return HttpResponse.json(response, {
+    return HttpResponse.json(result, {
       status: 200
     })
   }),
   http.post(
-    "/api/v1/meetings/:meetingId/leave",
+    "/api/v1/gathering/:gatheringId/leave",
     async ({ params, request }) => {
-      const { meetingId } = params
+      const { gatheringId } = params
       const { userId } = await request.json()
 
       const meetingIndex = meetingData.findIndex(
-        (meeting) => meeting.id === Number(meetingId)
+        (meeting) => meeting.id === Number(gatheringId)
       )
       if (meetingIndex === -1) {
         return new HttpResponse(
@@ -310,7 +313,17 @@ const handlers = [
         }
       )
     }
-  )
+  ),
+  http.get("/api/v1/gathering/creating/:userId", ({ params }) => {
+    const { userId } = params
+
+    const filteredMeetings = meetingData.filter(
+      (item) => item.authorId === userId
+    )
+    return new HttpResponse(JSON.stringify({ gatherings: filteredMeetings }), {
+      status: 200
+    })
+  })
 ]
 
 export default handlers

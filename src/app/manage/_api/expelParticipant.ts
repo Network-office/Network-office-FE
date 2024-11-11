@@ -8,7 +8,7 @@ const expelParticipant = async (
 ) => {
   try {
     const result = await http(
-      `/api/v1/meeting/${meetingId}/expel`,
+      `/api/v1/gathering/${meetingId}/expel`,
       {
         method: "POST",
         body: JSON.stringify({ userId, reason })

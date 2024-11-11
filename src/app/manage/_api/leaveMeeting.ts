@@ -5,7 +5,7 @@ import { GetNewParticipatorResponse } from "../types"
 export const leaveMeeting = async (userId: number, meetingId: string) => {
   try {
     const result = await http<GetNewParticipatorResponse>(
-      `/api/v1/meetings/${meetingId}/leave`,
+      `/api/v1/gathering/${meetingId}/leave`,
       {
         method: "post",
         cache: `no-store`,

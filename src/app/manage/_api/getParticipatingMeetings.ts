@@ -5,7 +5,7 @@ import CustomError from "@/lib/CustomError"
 const getParticipatingMeetings = async (userId: number) => {
   try {
     const response = await http<MeetingListResponse>(
-      `/api/v1/meeting/participating/${userId}`
+      `/api/v1/gathering/participating/${userId.toString()}`
     )
     return response.data.gatherings
   } catch (error: unknown) {

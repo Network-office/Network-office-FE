@@ -5,7 +5,7 @@ import CustomError from "@/lib/CustomError"
 const cancelMeeting = async (gatheringId: number, reason: string) => {
   try {
     const response = await http<MeetingDetailTypes>(
-      `/api/v1/gathering/${gatheringId}/success`,
+      `/api/v1/gathering/${gatheringId}/cancel`,
       {
         method: "POST",
         body: JSON.stringify({ reason })

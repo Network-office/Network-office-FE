@@ -5,7 +5,7 @@ import { AcceptNewParticipatorResponse } from "../types"
 const acceptNewParticipator = async (meetingId: number, userId: number) => {
   try {
     const result = await http<AcceptNewParticipatorResponse>(
-      `/api/v1/meeting/newparticipator/accept`,
+      `/api/v1/gathering/newparticipator/accept`,
       {
         method: "post",
         cache: `no-store`,

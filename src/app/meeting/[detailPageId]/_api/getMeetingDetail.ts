@@ -7,15 +7,13 @@ const getMeetingDetail = async (
 ): Promise<MeetingDetailTypes> => {
   try {
     const response = await http<MeetingDetailTypes>(
-      `/api/v1/meeting/${meetingId}`,
+      `/api/v1/gathering/${meetingId}`,
       {
         cache: "no-store",
         method: "GET"
       }
     )
-    if (!response.data) {
-      throw new Error("NoData")
-    }
+
     return response.data
   } catch (error: unknown) {
     if (error instanceof CustomError) {

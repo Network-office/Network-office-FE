@@ -9,7 +9,7 @@ const refuseNewParticipator = async (
 ) => {
   try {
     const result = await http<AcceptNewParticipatorResponse>(
-      `/api/v1/meeting/newparticipator/refuse`,
+      `/api/v1/gathering/newparticipator/refuse`,
       {
         method: "post",
         cache: `no-store`,

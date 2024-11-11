@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query"
-import getMeetingList from "@/app/meeting/_api/getMeetingList"
+import getCreatingMeetings from "@/app/manage/_api/getCreateingMeeting"
 
-const useGetCreatedMeetingList = () => {
+const useGetCreatedMeetingList = (userId: string) => {
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["meetingList"],
-    queryFn: () => getMeetingList()
+    queryKey: ["createdMeetingList", userId],
+    queryFn: () => getCreatingMeetings(userId)
   })
   return { data, isLoading, isError }
 }
