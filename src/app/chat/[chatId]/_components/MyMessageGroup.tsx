@@ -9,7 +9,7 @@ export interface MyMessageGroupProps {
 }
 const MyMessageGroup = ({ messages, userInfo, role }: MyMessageGroupProps) => {
   return (
-    <div className="flex flex-col gap-4 w-full pb-4">
+    <div className="flex flex-col gap-4 w-full pb-4 pl-4">
       <MessageHeader
         username={userInfo.username}
         avatarSrc={userInfo.avatarSrc}
