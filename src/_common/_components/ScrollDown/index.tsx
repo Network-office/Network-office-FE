@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils"
 import { ChevronDownIcon } from "lucide-react"
 import React, { forwardRef, useEffect, useRef } from "react"
 
-interface ScrollDownProps {
+export interface ScrollDownProps {
   children: React.ReactNode
   className?: string
 }

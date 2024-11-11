@@ -1,5 +1,6 @@
+import ScrollDown, { ScrollDownProps } from "@/_common/_components/ScrollDown"
 import useIntersecting from "@/_common/_hooks/useIntersecting"
-import { useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 
 const useChatScroll = (dependencies: unknown[]) => {
   const [auto, setAuto] = useState(true)
@@ -19,7 +20,22 @@ const useChatScroll = (dependencies: unknown[]) => {
     }
   }, [bottomRef, ...dependencies])
 
-  return { bottomRef }
+  const ScrollDownComponent = ({ children, ...props }: ScrollDownProps) => (
+    <ScrollDown
+      {...props}
+      ref={bottomRef}>
+      {children}
+    </ScrollDown>
+  )
+
+  const BottomDiv = (props: React.HTMLAttributes<HTMLDivElement>) => (
+    <div
+      {...props}
+      ref={bottomRef}
+    />
+  )
+
+  return { BottomDiv, ScrollDown: ScrollDownComponent }
 }
 
 export default useChatScroll
