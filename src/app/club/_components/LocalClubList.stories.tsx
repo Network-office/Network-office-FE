@@ -19,7 +19,7 @@ const meta: Meta<typeof LocalClubList> = {
     layout: "fullscreen",
     msw: {
       handlers: [
-        http.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/club/local`, () => {
+        http.get(`/api/v1/club/local`, () => {
           return HttpResponse.json({
             clubList: [
               {
@@ -63,7 +63,7 @@ export const Empty: Story = {
   parameters: {
     msw: {
       handlers: [
-        http.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/club/local`, () => {
+        http.get(`/api/v1/club/local`, () => {
           return HttpResponse.json({ clubList: [] })
         })
       ]

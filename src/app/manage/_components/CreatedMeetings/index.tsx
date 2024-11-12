@@ -7,7 +7,7 @@ interface CreatedMeetingsProps {
 }
 
 const CreatedMeetings = ({ setMyCreatedMeetingNum }: CreatedMeetingsProps) => {
-  const { data: createdMeetings } = useGetCreatedMeetingList(1)
+  const { data: createdMeetings } = useGetCreatedMeetingList("1")
 
   useEffect(() => {
     if (createdMeetings) {

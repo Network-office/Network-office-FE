@@ -1,21 +1,17 @@
+import { MeetingListResponse } from "@/app/meeting/types"
 import { http } from "@/lib/http"
 import CustomError from "@/lib/CustomError"
-import { ClubItemTypes } from "../types"
 
-interface GetLocalClubsResponse {
-  clubList: ClubItemTypes[]
-}
-
-const getLocalClubs = async () => {
+const getCreatingMeetings = async (userId: string) => {
   try {
-    const response = await http<GetLocalClubsResponse>(
-      `/api/v1/club/local`,
+    const response = await http<MeetingListResponse>(
+      `/api/v1/gathering/creating/${userId}`,
       {
+        cache: "no-store",
         method: "GET"
       }
     )
-
-    return response.data
+    return response.data.gatherings
   } catch (error: unknown) {
     if (error instanceof CustomError && error.response) {
       throw new CustomError(error.message, error.response.status)
@@ -24,4 +20,4 @@ const getLocalClubs = async () => {
   }
 }
 
-export default getLocalClubs
+export default getCreatingMeetings

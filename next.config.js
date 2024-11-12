@@ -8,12 +8,25 @@ const nextConfig = {
     domains: ["placekitten.com", "picsum.photos", "source.unsplash.com"]
   },
   async rewrites() {
-    return [
-      {
-        source: "/api/v1/:path*",
-        destination: `${process.env.NEXT_PUBLIC_API_URL}/dev/api/v1/:path*`
-      }
-    ]
+    const useMock = process.env.NEXT_PUBLIC_MOCKING === "enabled"
+    console.log(process.env.NEXT_PUBLIC_MOCKING)
+    if (useMock) {
+      console.log("Using MSW mock server")
+      return [
+        {
+          source: "/api/v1/:path*",
+          destination: "http://localhost:8080/api/v1/:path*"
+        }
+      ]
+    } else {
+      console.log("Using real API server")
+      return [
+        {
+          source: "/api/v1/:path*",
+          destination: `${process.env.NEXT_PUBLIC_API_URL}/dev/api/v1/:path*`
+        }
+      ]
+    }
   }
 }
 

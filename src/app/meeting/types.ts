@@ -29,5 +29,5 @@ export interface MeetingInform extends MeetingPositionTypes {
 }
 
 export interface MeetingListResponse {
-  content: MeetingInform[]
+  gatherings: MeetingInform[]
 }

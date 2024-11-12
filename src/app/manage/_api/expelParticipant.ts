@@ -8,7 +8,7 @@ const expelParticipant = async (
 ) => {
   try {
     const result = await http(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/meeting/${meetingId}/expel`,
+      `/api/v1/gathering/${meetingId}/expel`,
       {
         method: "POST",
         body: JSON.stringify({ userId, reason })

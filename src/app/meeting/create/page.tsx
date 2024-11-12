@@ -3,6 +3,7 @@
 import { useForm } from "react-hook-form"
 import { useFunnel } from "@/_common/_hooks/useFunnel"
 import { FormProvider } from "react-hook-form"
+import { useToast } from "@/_common/_hooks/useToast"
 import useCreateMeeting from "./_hooks/_mutations/useCreateMeeting"
 import MeetingTitleInput from "./_components/_funnels/MeetingTitleInput"
 import MeetingCategory from "./_components/_funnels/MeetingCategory"
@@ -14,8 +15,10 @@ import MeetingDetailInput from "./_components/_funnels/MeetingDetailInput"
 import MeetingCreateSuccess from "./_components/_funnels/MeetingCreateSuccess"
 import MeetingDateInput from "./_components/_funnels/MeetingDate"
 import { CreateMeetingFormTypes } from "./types"
+import Toast from "@/_common/_components/Toast"
 
 const CreateMeeting = () => {
+  const { toast } = useToast()
   const useFormMethod = useForm<CreateMeetingFormTypes>({ mode: "onBlur" })
   const { Funnel, setStep, popStep, step } = useFunnel(
     [
@@ -38,7 +41,12 @@ const CreateMeeting = () => {
         setStep("finish")
       },
       onError: () => {
-        alert("오류가 발생했습니다. 잠시후 다시 시도해주세요")
+        toast({
+          title: "모임 생성 실패",
+          description: "잠시후 다시 시도해주세요",
+          width: "280px",
+          height: "80px"
+        })
       }
     })
   }

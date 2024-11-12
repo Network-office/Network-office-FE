@@ -4,7 +4,7 @@ import commentMockData from "../mockData/commentData"
 import { faker } from "@faker-js/faker"
 
 const handler = [
-  http.post(`http://localhost:8080/api/feed`, async ({ request }) => {
+  http.post(`/api/v1/feed`, async ({ request }) => {
     const { searchParams } = new URL(request.url)
     const size = Number(searchParams.get("size") || 5)
     const page = Number(searchParams.get("page") || 0)
@@ -29,7 +29,7 @@ const handler = [
       { status: 200, headers: { "Content-Type": "application/json" } }
     )
   }),
-  http.get(`http://localhost:8080/api/feed/:feedId`, async ({ params }) => {
+  http.get(`/api/v1/feed/:feedId`, async ({ params }) => {
     const { feedId } = params
     const result = feedMockData.find((item) => item.feedId === feedId)
 
@@ -48,20 +48,17 @@ const handler = [
       headers: { "Content-Type": "application/json" }
     })
   }),
-  http.get(
-    `http://localhost:8080/api/feed/:feedId/comments`,
-    async ({ params }) => {
-      const { feedId } = params
-      const comments = commentMockData[feedId] || []
+  http.get(`/api/v1/feed/:feedId/comments`, async ({ params }) => {
+    const { feedId } = params
+    const comments = commentMockData[feedId] || []
 
-      return new HttpResponse(JSON.stringify(comments), {
-        status: 200,
-        headers: { "Content-Type": "application/json" }
-      })
-    }
-  ),
+    return new HttpResponse(JSON.stringify(comments), {
+      status: 200,
+      headers: { "Content-Type": "application/json" }
+    })
+  }),
   http.post(
-    `http://localhost:8080/api/feed/:feedId/comments/create`,
+    `/api/v1/feed/:feedId/comments/create`,
     async ({ params, request }) => {
       const { feedId } = params
       const { content } = await request.json()
@@ -89,7 +86,7 @@ const handler = [
       })
     }
   ),
-  http.post(`http://localhost:8080/api/feed/create`, async ({ request }) => {
+  http.post(`/api/v1/feed/create`, async ({ request }) => {
     try {
       const feedData = await request.json()
       if (!feedData) {

@@ -1,3 +1,5 @@
+"use client"
+
 import Topbar from "@/_common/_components/Topbar"
 
 const MyPageTopBar = () => {

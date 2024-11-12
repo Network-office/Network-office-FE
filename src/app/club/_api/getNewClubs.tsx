@@ -9,7 +9,7 @@ interface GetNewClubsResponse {
 const getNewClubs = async () => {
   try {
     const request = await http<GetNewClubsResponse>(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/club/new?limit=4`,
+      `/api/v1/club/new?limit=4`,
       {
         method: "GET"
       }

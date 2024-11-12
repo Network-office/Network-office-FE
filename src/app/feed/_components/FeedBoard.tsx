@@ -5,7 +5,6 @@ import useInfiniteScroll from "@/_common/_hooks/useInfiniteScroll"
 import useGetFeedList from "../_hooks/_quries/useGetFeedList"
 import { useEffect, useState } from "react"
 import { Ghost } from "lucide-react"
-import Loading from "@/app/mypage/loading"
 import BaseErrorContent from "@/_common/_components/ErrorBoundary/BaseErrorContent"
 
 interface FeedBoardProps {
@@ -59,7 +58,6 @@ const FeedBoard = ({ region }: FeedBoardProps) => {
             </p>
           </div>
         )}
-        {!isFetch && <Loading />}
         <div ref={ref} />
       </ul>
     </div>

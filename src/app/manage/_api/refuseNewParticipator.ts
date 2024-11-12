@@ -9,7 +9,7 @@ const refuseNewParticipator = async (
 ) => {
   try {
     const result = await http<AcceptNewParticipatorResponse>(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/meeting/newparticipator/refuse`,
+      `/api/v1/gathering/newparticipator/refuse`,
       {
         method: "post",
         cache: `no-store`,

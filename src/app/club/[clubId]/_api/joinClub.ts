@@ -9,7 +9,7 @@ interface JoinClubResponse {
 const joinClub = async (clubId: string, message: string) => {
   try {
     const request = await http<JoinClubResponse>(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/club/${clubId}/join`,
+      `/api/v1/club/${clubId}/join`,
       {
         method: "POST",
         body: JSON.stringify({ message })

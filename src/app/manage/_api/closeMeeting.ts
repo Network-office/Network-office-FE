@@ -4,7 +4,7 @@ import CustomError from "@/lib/CustomError"
 const closeMeeting = async (meetingId: number) => {
   try {
     const result = await http<any>(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/meeting/close`,
+      `/api/v1/gathering/close`,
       {
         method: "post",
         cache: "no-store",

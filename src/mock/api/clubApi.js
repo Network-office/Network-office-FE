@@ -2,7 +2,7 @@ import { http, HttpResponse } from "msw"
 import clubData from "../mockData/clubData"
 
 const handlers = [
-  http.get(`http://localhost:8080/api/club/new`, () => {
+  http.get(`/api/v1/club/new`, () => {
     return new HttpResponse(
       JSON.stringify({
         clubList: clubData.slice(0, 4)
@@ -10,7 +10,7 @@ const handlers = [
       { status: 200, headers: { "Content-Type": "application/json" } }
     )
   }),
-  http.get(`http://localhost:8080/api/club/local`, () => {
+  http.get(`/api/v1/club/local`, () => {
     return new HttpResponse(
       JSON.stringify({
         clubList: clubData.slice(4, 8)
@@ -18,7 +18,7 @@ const handlers = [
       { status: 200, headers: { "Content-Type": "application/json" } }
     )
   }),
-  http.get(`http://localhost:8080/api/club/:clubId`, () => {
+  http.get(`/api/v1/club/:clubId`, () => {
     return new HttpResponse(
       JSON.stringify({
         clubId: "1231",
@@ -44,7 +44,7 @@ const handlers = [
       { status: 200, headers: { "Content-Type": "application/json" } }
     )
   }),
-  http.post(`http://localhost:8080/api/club/:clubId/join`, async () => {
+  http.post(`/api/v1/club/:clubId/join`, async () => {
     return new HttpResponse(
       JSON.stringify({
         success: true,
@@ -53,7 +53,7 @@ const handlers = [
       { status: 200, headers: { "Content-Type": "application/json" } }
     )
   }),
-  http.post(`http://localhost:8080/api/club/create`, async ({ request }) => {
+  http.post(`/api/v1/club/create`, async ({ request }) => {
     const requestBody = await request.json()
     const newClubId = String(Math.floor(Math.random() * 10000))
 

@@ -1,21 +1,16 @@
 "use client"
 
-import ProfileSection from "../_componets/ProfileSection"
-import MeetingSummarySection from "../_componets/MeetingSummarySection"
-import MyPageTopBar from "../_componets/MyPageTobbar"
-import MyPageMenuSection from "../_componets/MyPageMenuSection"
+import UserIntroducerSection from "./UserIntroducerSection"
+import MeetingSummarySection from "./MeetingSummarySection"
 import useGetUserInform from "../_hooks/_quries/useGetUserInform"
 
 const MyPageClient = () => {
-  const { data: userInform, isLoading } = useGetUserInform()
+  const { data: userInform } = useGetUserInform()
 
-  if (isLoading) return <div>로딩중...</div>
   if (!userInform) return null
-
   return (
-    <div>
-      <MyPageTopBar />
-      <ProfileSection
+    <>
+      <UserIntroducerSection
         profileImg={userInform.profile_image_url}
         nickName={userInform.display_name}
         profileIntroduce={userInform.description}
@@ -23,8 +18,7 @@ const MyPageClient = () => {
       <MeetingSummarySection
         participatedMeetingList={userInform.participatedMeetingList ?? []}
       />
-      <MyPageMenuSection />
-    </div>
+    </>
   )
 }
 

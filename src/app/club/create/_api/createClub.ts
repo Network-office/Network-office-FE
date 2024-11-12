@@ -11,9 +11,9 @@ interface CreateClubData {
 
 const createClub = async (data: CreateClubData) => {
   try {
-    console.log(`${process.env.NEXT_PUBLIC_BASE_URL}/api/club/create`)
+    console.log(`/api/v1/club/create`)
     const result = await http<{ success: boolean; clubId: string }>(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/club/create`,
+      `/api/v1/club/create`,
       {
         method: "POST",
         cache: "no-store",

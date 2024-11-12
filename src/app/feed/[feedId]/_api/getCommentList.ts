@@ -5,7 +5,7 @@ import { FeedCommentType } from "../../types"
 const getFeedComments = async (feedId: string) => {
   try {
     const request = await http<FeedCommentType[]>(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/feed/${feedId}/comments`,
+      `/api/v1/feed/${feedId}/comments`,
       {
         method: "GET"
       }

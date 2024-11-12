@@ -1,3 +1,5 @@
+"use client"
+
 import useModal from "@/_common/_hooks/useModal"
 import LikdeMeetingModal from "./LikdeMeetingModal"
 import { PhoneInputModal } from "@/app/kakao/_components/PhoneInputModal"

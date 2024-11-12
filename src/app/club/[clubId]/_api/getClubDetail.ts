@@ -5,7 +5,7 @@ import { ClubDetailData } from "../types"
 const getClubDetail = async (clubId: string) => {
   try {
     const request = await http<ClubDetailData>(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/club/${clubId}`,
+      `/api/v1/club/${clubId}`,
       {
         method: "GET"
       }
