@@ -5,23 +5,23 @@ export interface NaverMapComponentProps {
 }
 
 export interface MakersProps {
-  lat: number
-  lng: number
+  x: number
+  y: number
   category: string
 }
 
 export class Cluster {
   markers: naver.maps.Marker[]
-  lat: number | string
-  lng: number | string
+  x: number | string
+  y: number | string
 
   constructor(
     markers: naver.maps.Marker[],
-    lat: number | string,
-    lng: number | string
+    x: number | string,
+    y: number | string
   ) {
     this.markers = markers
-    this.lat = lat
-    this.lng = lng
+    this.x = x
+    this.y = y
   }
 }

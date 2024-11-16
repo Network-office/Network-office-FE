@@ -1,6 +1,16 @@
 import { faker } from "@faker-js/faker"
 import { users, TOTAL_MEETINGS, generateUserData } from "./commonData"
 
+const categories = [
+  "파티",
+  "커피",
+  "맛집",
+  "봉사",
+  "문화생활",
+  "스터디",
+  "산책"
+]
+
 export const meetingData = Array.from(
   { length: TOTAL_MEETINGS },
   (_, index) => {
@@ -24,13 +34,13 @@ export const meetingData = Array.from(
       date: isFirstMeeting ? "09.24" : faker.date.future().toISOString(),
       startTime: "14:00",
       endTime: "18:00",
-      category: "스포츠",
+      category: categories[Math.floor(Math.random() * categories.length)],
       totalPeople,
       nowPeople,
       fee: 5000,
       detail: "이 모임은 함께 운동을 ��기 위한 모임입니다.",
-      lng: isFirstMeeting ? 127.027619 : faker.location.longitude(),
-      lat: isFirstMeeting ? 37.497942 : faker.location.latitude(),
+      y: 127.027619 + (Math.random() - 0.5) * 0.4,
+      x: 37.497942 + (Math.random() - 0.5) * 0.4,
       confirmedParticipants
     }
   }
@@ -41,8 +51,8 @@ meetingData[0] = {
   id: 1,
   authorId: "1",
   author: users[0].nickName,
-  lng: 127.027619,
-  lat: 37.497942
+  y: 127.027619,
+  x: 37.497942
 }
 
 meetingData[1] = {
@@ -50,8 +60,8 @@ meetingData[1] = {
   id: 2,
   authorId: "1",
   author: users[0].nickName,
-  lng: 127.024619,
-  lat: 37.497942
+  y: 127.024619,
+  x: 37.497942
 }
 
 meetingData[2] = {
@@ -59,8 +69,8 @@ meetingData[2] = {
   id: 3,
   authorId: "1",
   author: users[0].nickName,
-  lng: 127.024619,
-  lat: 37.457942
+  y: 127.024619,
+  x: 37.457942
 }
 
 meetingData[3] = {
@@ -68,8 +78,8 @@ meetingData[3] = {
   id: 4,
   authorId: "2",
   author: users[0].nickName,
-  lng: 127.024619,
-  lat: 37.457942,
+  y: 127.024619,
+  x: 37.457942,
   nowPeople: 2,
   confirmedParticipants: [
     {
@@ -94,8 +104,8 @@ meetingData[4] = {
   id: 5,
   authorId: "2",
   author: users[0].nickName,
-  lng: 127.024619,
-  lat: 37.457942,
+  y: 127.024619,
+  x: 37.457942,
   nowPeople: 3,
   confirmedParticipants: [
     {

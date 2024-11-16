@@ -11,7 +11,6 @@ interface CreateClubData {
 
 const createClub = async (data: CreateClubData) => {
   try {
-    console.log(`/api/v1/club/create`)
     const result = await http<{ success: boolean; clubId: string }>(
       `/api/v1/club/create`,
       {

@@ -80,7 +80,7 @@ const useNaverMap = (
       )
 
       const maker = new naver.maps.Marker({
-        position: new naver.maps.LatLng(newMaker.lat, newMaker.lng),
+        position: new naver.maps.LatLng(newMaker.x, newMaker.y),
         clickable: true,
         map: mapRef.current!,
         icon: {
@@ -98,7 +98,6 @@ const useNaverMap = (
 
       return maker
     })
-
     setMarkerPins(newMarkers)
     updateMarkerShowing(newMarkers)
   }
@@ -115,7 +114,6 @@ const useNaverMap = (
     outBoundMarker.forEach((marker) => {
       marker.setMap(null)
     })
-
     const inBoundMarker = getMapBoundInMarker(mapRef.current, markerList)
     const groupingGridTable = setGroupingGrid(inBoundMarker)
     const clusteringTable = setClusteringGrid(groupingGridTable)
@@ -132,8 +130,8 @@ const useNaverMap = (
 
             const cluster = new naver.maps.Marker({
               position: new naver.maps.LatLng(
-                gridItem.lng as number,
-                gridItem.lat as number
+                gridItem.y as number,
+                gridItem.x as number
               ),
               clickable: true,
               map: mapRef.current!,
@@ -150,7 +148,7 @@ const useNaverMap = (
                   .map((marker) => {
                     const position = marker.getPosition()
                     return makers?.find(
-                      (m) => m.lat === position.y && m.lng === position.x
+                      (m) => m.y === position.y && m.x === position.x
                     )
                   })
                   .filter(
