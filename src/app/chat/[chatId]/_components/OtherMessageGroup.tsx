@@ -14,7 +14,7 @@ const OtherMessageGroup = ({
   messages
 }: OtherMessageGroupProps) => {
   return (
-    <div className="flex flex-col gap-4 pb-4">
+    <div className="flex flex-col gap-4 pb-4 pr-4">
       <MessageHeader
         username={username}
         avatarSrc={avatarSrc}
