@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "mock": "npx tsx watch ./src/mock/http.js",
+    "mock:ws": "npx tsx watch ./src/mock/stompServer.js",
     "test": "jest --coverage --runInBand",
     "test:watch": "jest --coverage --watch --runInBand",
     "storybook": "storybook dev -p 6006",
