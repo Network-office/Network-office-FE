@@ -23,7 +23,7 @@ export interface GetChatHistoryResponse {
 }
 
 export const getChatHistory = async (chatRoomId: string) => {
-  return await http<GetChatHistoryResponse>(`/api/chat/${chatRoomId}`, {
+  return await http<GetChatHistoryResponse>(`/api/v1/chat/${chatRoomId}`, {
     method: "GET",
     cache: "no-cache"
   })
