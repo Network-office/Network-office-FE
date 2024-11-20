@@ -1,17 +1,20 @@
-import { Message } from "@/app/chat/[chatId]/_components/types"
+import {
+  SocketMessageRequest,
+  SocketMessageResponse
+} from "@/app/chat/[chatId]/_components/types"
 import { useEffect, useRef, useState } from "react"
 import { Client } from "@stomp/stompjs"
 import { useQueryClient } from "@tanstack/react-query"
 
 const useStomp = (chatRoomId: string) => {
   const client = useRef<Client | null>(null)
-  const [messages, setMessages] = useState<Message[]>([])
+  const [messages, setMessages] = useState<SocketMessageResponse[]>([])
   const queryClient = useQueryClient()
 
   useEffect(() => {
     if (!client.current) {
       client.current = new Client({
-        brokerURL: "ws://localhost:8080/ws",
+        brokerURL: "ws://localhost:8090/ws",
         connectHeaders: {
           chatRoomId
         }
@@ -31,7 +34,7 @@ const useStomp = (chatRoomId: string) => {
     }
   }, [chatRoomId])
 
-  const sendMessage = (message: Message) => {
+  const sendMessage = (message: SocketMessageRequest) => {
     client.current?.publish({
       destination: `/app/chat/${chatRoomId}`,
       body: JSON.stringify(message)

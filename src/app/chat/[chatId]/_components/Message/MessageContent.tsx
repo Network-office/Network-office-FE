@@ -13,6 +13,7 @@ export const MessageContent = ({
 }: MessageContentProps) => {
   return (
     <div
+      aria-label="메세지 내용"
       className={cn(
         "flex flex-col gap-1",
         align === "right" ? "items-end" : "items-start"
@@ -28,7 +29,7 @@ export const MessageContent = ({
         />
         {timestamp && (
           <p className="text-xs h-fit text-slate-500">
-            {new Date(timestamp).toLocaleTimeString()}
+            {new Date(timestamp).toTimeString().slice(0, 8)}
           </p>
         )}
       </div>

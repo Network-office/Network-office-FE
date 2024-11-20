@@ -3,7 +3,7 @@ import { chatHistoryDataMap } from "../mockData/chatHistoryData"
 import { http, HttpResponse } from "msw"
 
 const handlers = [
-  http.get(`http://localhost:8080/api/chat/:chatRoomId`, ({ params }) => {
+  http.get(`/api/v1/chat/:chatRoomId`, ({ params }) => {
     const chatRoomId = params.chatRoomId as keyof typeof chatHistoryDataMap
 
     const chatHistoryData = chatHistoryDataMap[chatRoomId]

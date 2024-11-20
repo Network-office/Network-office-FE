@@ -12,6 +12,9 @@ import {
 } from "../../../../../../__mocks__/@stomp/stompjs"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactNode } from "react"
+import { SocketMessageResponse } from "@/app/chat/[chatId]/_components/types"
+import { generateMyMessage } from "@/mock/mockData/chatMessageData"
+import { faker } from "@faker-js/faker"
 
 jest.mock("@stomp/stompjs")
 
@@ -40,15 +43,16 @@ describe("useStomp", () => {
 
   test("메시지를 보낼 수 있다", () => {
     const { result } = renderHook(() => useStomp("1"), { wrapper })
+    const userId = faker.string.uuid()
 
     act(() => {
-      result.current.sendMessage({ id: "1", text: "test" })
+      result.current.sendMessage({ text: "test", userId })
     })
 
     // stompjs.Client#publish 메서드가 호출되었는지 확인
     expect(mockPublish).toHaveBeenCalledWith({
       destination: "/app/chat/1",
-      body: '{"id":"1","text":"test"}'
+      body: JSON.stringify({ text: "test", userId: userId })
     })
   })
 
@@ -56,12 +60,15 @@ describe("useStomp", () => {
     const { result } = renderHook(() => useStomp("1"), { wrapper })
 
     // subscribeCallback 함수를 호출하여 메시지를 전달
+
+    const recivedMessage: SocketMessageResponse = generateMyMessage("test")
+
     act(() => {
-      subscribeCallback({ body: '{"id":"1","text":"test"}' })
+      subscribeCallback({ body: JSON.stringify(recivedMessage) })
     })
 
     await waitFor(() =>
-      expect(result.current.messages).toEqual([{ id: "1", text: "test" }])
+      expect(result.current.messages).toEqual([recivedMessage])
     )
   })
 })

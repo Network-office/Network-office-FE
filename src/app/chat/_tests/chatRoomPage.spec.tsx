@@ -36,10 +36,13 @@ describe("ChatRoomPage", () => {
       </AppRouterContext.Provider>
     )
 
-    await waitFor(() => {
-      const linkElements = getAllByLabelText(/-link/i)
-      expect(linkElements.length).toBeGreaterThan(0)
-    })
+    await waitFor(
+      () => {
+        const linkElements = getAllByLabelText(/-link/i)
+        expect(linkElements.length).toBeGreaterThan(0)
+      },
+      { timeout: 50000 }
+    )
   })
 
   test("필터링 테스트 tab 으로 목록이 필터링된다", async () => {

@@ -10,6 +10,7 @@ export interface MessageGroup {
     timestamp: number
   }[]
   userInfo: {
+    id: string
     username: string
     avatarSrc: string
   }
@@ -22,11 +23,8 @@ export interface GetChatHistoryResponse {
 }
 
 export const getChatHistory = async (chatRoomId: string) => {
-  return await http<GetChatHistoryResponse>(
-    `http://localhost:8080/api/chat/${chatRoomId}`,
-    {
-      method: "GET",
-      cache: "no-cache"
-    }
-  )
+  return await http<GetChatHistoryResponse>(`/api/v1/chat/${chatRoomId}`, {
+    method: "GET",
+    cache: "no-cache"
+  })
 }
