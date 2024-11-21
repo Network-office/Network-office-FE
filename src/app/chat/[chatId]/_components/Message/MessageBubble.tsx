@@ -13,5 +13,11 @@ const triangleClasses = {
 }
 
 export const MessageBubble = ({ align, text }: MessageBubbleProps) => {
-  return <p className={cn(baseClasses, triangleClasses[align])}>{text}</p>
+  const content = text.split("\n").map((line, i) => (
+    <span key={i}>
+      {line}
+      <br />
+    </span>
+  ))
+  return <p className={cn(baseClasses, triangleClasses[align])}>{content}</p>
 }
