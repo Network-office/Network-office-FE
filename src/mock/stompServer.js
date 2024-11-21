@@ -1,6 +1,9 @@
 const StompServer = require("stomp-broker-js")
 const http = require("http")
-const { faker } = require("@faker-js/faker")
+const {
+  generateMyMessage,
+  generateAdminMessage
+} = require("./mockData/chatMessageData")
 
 const server = http.createServer((req, res) => {
   res.writeHead(200, { "Content-Type": "text/plain" })
@@ -17,48 +20,26 @@ server.listen(8090, () => {
 })
 
 const sourcePath = "/topic/chat"
-
 let roomId = ""
 
-stompServer.subscribe("**", (msg, headers) => {
-  roomId = headers.destination.split("/").pop()
-  const request = JSON.parse(msg)
-  console.log("Received message:", request, headers)
-  const response = genResponse(request.text, true, "user", userInfo)
+stompServer.subscribe("**", (req, headers) => {
+  const request = JSON.parse(req)
+  const response = generateMyMessage(request.text)
 
-  stompServer.send(`${sourcePath}/${roomId}`, {}, response)
+  roomId = headers.destination.split("/").pop()
+  stompServer.send(
+    `${sourcePath}/${roomId}`,
+    {},
+    Buffer.from(JSON.stringify(response), "utf8")
+  )
 })
 
 setInterval(() => {
-  const response = genResponse("Hello!", false, "admin", adminInfo)
+  const response = generateAdminMessage("Hello!")
 
-  stompServer.send(`${sourcePath}/${roomId}`, {}, response)
-  console.log("Published message:", response)
+  stompServer.send(
+    `${sourcePath}/${roomId}`,
+    {},
+    Buffer.from(JSON.stringify(response), "utf8")
+  )
 }, 2000)
-
-const adminInfo = {
-  id: faker.string.uuid(),
-  username: "admin",
-  avatarSrc: faker.image.avatar()
-}
-
-const userInfo = {
-  id: faker.string.uuid(),
-  username: faker.internet.userName(),
-  avatarSrc: faker.image.avatar()
-}
-
-function genResponse(message, me, role, userInfo) {
-  const response = {
-    id: faker.string.uuid(),
-    message: {
-      text: message,
-      timestamp: Date.now()
-    },
-    me,
-    role,
-    userInfo
-  }
-
-  return JSON.stringify(response)
-}
