@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils"
+import { Fragment } from "react"
 export interface MessageBubbleProps {
   align: "left" | "right"
   text: string
@@ -13,5 +14,11 @@ const triangleClasses = {
 }
 
 export const MessageBubble = ({ align, text }: MessageBubbleProps) => {
-  return <p className={cn(baseClasses, triangleClasses[align])}>{text}</p>
+  const content = text.split("\n").map((line, i) => (
+    <Fragment key={i}>
+      {line}
+      <br />
+    </Fragment>
+  ))
+  return <p className={cn(baseClasses, triangleClasses[align])}>{content}</p>
 }
