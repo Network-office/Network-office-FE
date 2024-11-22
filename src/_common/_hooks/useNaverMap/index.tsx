@@ -46,13 +46,12 @@ const useNaverMap = (
     const handleMapChange = () => {
       existCluster.forEach((cluster) => cluster.setMap(null))
       setExistCluster([])
-      updateMarkerShowing(markerPins)
     }
 
     const zoomListener = naver.maps.Event.addListener(
       mapRef.current,
       "zoom_changed",
-      handleMapChange
+      () => updateMarkerShowing(markerPins)
     )
 
     const dragListener = naver.maps.Event.addListener(
@@ -215,6 +214,7 @@ const useNaverMap = (
         }
       })
     })
+    console.log("markerMap", markerMap)
     return markerMap
   }
 

@@ -2,7 +2,7 @@ import { faker } from "@faker-js/faker"
 
 export const TOTAL_USERS = 50
 export const TOTAL_FEEDS = 25
-export const TOTAL_MEETINGS = 1000
+export const TOTAL_MEETINGS = 2000
 
 export const CATEGORIES = ["스포츠", "술", "음식", "여행", "기타"]
 

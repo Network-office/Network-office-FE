@@ -49,37 +49,7 @@ const Meeting = () => {
 
   return (
     <div className="w-screen h-screen relative text-black">
-      <div className="absolute z-10">
-        <Topbar
-          className="w-screen h-[14px] mt-2 border-0"
-          rightContent={
-            <div className="flex gap-2">
-              <Topbar.ProfileLink />
-              <Topbar.AlarmLink />
-            </div>
-          }
-        />
-        <SearchBar
-          setMapPosition={(newPosition) => {
-            setMapPosition(newPosition.lat, newPosition.lng)
-          }}
-        />
-      </div>
       <NaverMapComponent className="absolute top-0 z-0 pb-16" />
-      <FootBar
-        setMapPosition={(result) => setMapPosition(result.lat, result.lng)}
-      />
-      <ModalComponent className="bottom-0 z-50">
-        {modalType === "meeting" && selectedMeeting && (
-          <MeetingInformModal meetingData={selectedMeeting} />
-        )}
-        {modalType === "cluster" && (
-          <ClusterMeetingsModal
-            meetings={clusterMeetings}
-            onMeetingClick={handleMarkerClick}
-          />
-        )}
-      </ModalComponent>
     </div>
   )
 }

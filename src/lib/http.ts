@@ -1,16 +1,21 @@
 import returnFetch, { FetchArgs } from "return-fetch"
 import CustomError from "@/lib/CustomError"
-import { postCSRF } from "@/app/kakao/_api/auth/csrf"
 
 const createHTTP = () => {
   return async <T>(
     input: URL | RequestInfo,
     init?: RequestInit
   ): Promise<{ data: T; status?: number }> => {
+    const xsrfToken = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("XSRF-TOKEN="))
+      ?.split("=")[1]
+
     return returnFetch({
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "XSRF-TOKEN": xsrfToken + ""
       },
       interceptors: {
         request: async (config: FetchArgs) => {
