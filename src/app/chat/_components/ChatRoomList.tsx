@@ -8,8 +8,7 @@ interface ChatRoomListProps {
 }
 
 const ChatRoomList = ({ role }: ChatRoomListProps) => {
-  const { fetchNextPage, data: rooms } = useGetChatRoomList(role, 10)
-  const { ref } = useInfiniteScroll(fetchNextPage)
+  const { data: rooms } = useGetChatRoomList(role)
 
   return (
     <div
@@ -26,7 +25,6 @@ const ChatRoomList = ({ role }: ChatRoomListProps) => {
           />
         </Link>
       ))}
-      <div ref={ref} />
     </div>
   )
 }

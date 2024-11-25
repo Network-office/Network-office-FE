@@ -17,22 +17,13 @@ export interface ChatRoom {
 
 export interface ChatRoomListResponse {
   rooms: ChatRoom[]
-  totalPage: number
-  hasNext: boolean
 }
 
-const getChatRoomList = async (
-  role: "admin" | "user" | "all",
-  size: number,
-  page: number
-) => {
-  return await http<ChatRoomListResponse>(
-    `/api/v1/chat-room/${role}?size=${size}&page=${page}`,
-    {
-      cache: "no-store",
-      method: "GET"
-    }
-  )
+const getChatRoomList = async (role: "admin" | "user" | "all") => {
+  return await http<ChatRoomListResponse>(`/api/v1/chat-room/${role}`, {
+    cache: "no-store",
+    method: "GET"
+  })
 }
 
 export default getChatRoomList

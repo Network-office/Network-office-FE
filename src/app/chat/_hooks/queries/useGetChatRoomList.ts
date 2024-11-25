@@ -1,20 +1,13 @@
 import getChatRoomList from "@/app/chat/_apis/getChatRoomList"
 import CustomError from "@/lib/CustomError"
 
-import { useSuspenseInfiniteQuery } from "@tanstack/react-query"
+import { useSuspenseQuery } from "@tanstack/react-query"
 
-const useGetChatRoomList = (role: "admin" | "user" | "all", size: number) => {
-  const queryData = useSuspenseInfiniteQuery({
-    queryKey: ["chatRoomList", role, size],
-    queryFn: ({ pageParam = 0 }) => getChatRoomList(role, size, pageParam),
-    initialPageParam: 0,
-    retry: 0,
-    staleTime: 0,
-    getNextPageParam: (lastPage, allPages) => {
-      if (!lastPage.data.hasNext) return undefined
-      return allPages.length
-    },
-    select: (data) => data?.pages.map((item) => item.data.rooms).flat() ?? []
+const useGetChatRoomList = (role: "admin" | "user" | "all") => {
+  const queryData = useSuspenseQuery({
+    queryKey: ["chatRoomList", role],
+    queryFn: ({ pageParam = 0 }) => getChatRoomList(role),
+    select: (data) => data?.data.rooms
   })
 
   if (queryData.error && !(queryData.error instanceof CustomError)) {

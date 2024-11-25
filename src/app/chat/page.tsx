@@ -15,7 +15,7 @@ const ChatRoomPage = ({ searchParams }: ChatRoomPageProps) => {
 
   void queryClient.prefetchQuery({
     queryKey: ["chatRoomList", role],
-    queryFn: () => getChatRoomList(role, 10, 1)
+    queryFn: () => getChatRoomList(role)
   })
 
   return (
