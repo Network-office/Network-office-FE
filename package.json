@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "mock": "sudo npx tsx watch ./src/mock/http.js",
+    "mock": "npx tsx watch ./src/mock/http.js",
     "test": "jest --coverage --runInBand",
     "test:watch": "jest --coverage --watch --runInBand",
     "storybook": "storybook dev -p 6006",
