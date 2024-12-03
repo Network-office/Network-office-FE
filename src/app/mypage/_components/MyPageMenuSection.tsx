@@ -1,11 +1,13 @@
 "use client"
 
 import useModal from "@/_common/_hooks/useModal"
+import { useRouter } from "next/navigation"
 import LikdeMeetingModal from "./LikdeMeetingModal"
 import { useVerifyPhoneCode } from "@/app/kakao/_hooks/_mutations/useVerifiyPhone"
 import { PhoneInputModal } from "@/app/kakao/_components/PhoneInputModal"
 
 const MyPageMenuSection = () => {
+  const router = useRouter()
   const getVerifyPhoneCode =
     typeof window !== "undefined" &&
     localStorage.getItem("networkoffice-phone-verify")
@@ -44,6 +46,7 @@ const MyPageMenuSection = () => {
                   onSuccess: () => {
                     typeof window !== "undefined" &&
                       localStorage.setItem("networkoffice-phone-verify", "true")
+                    router.refresh()
                   }
                 }
               )
