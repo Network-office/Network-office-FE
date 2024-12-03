@@ -51,8 +51,9 @@ export const PhoneInputModal = ({
       {
         onSuccess: (data) => {
           setIsVerifying(true)
-          const verificationUrl = `/dev.networkoffice@gmail.com/${data.code}`
+          const verificationUrl = `sms:dev.networkoffice@gmail.com?body=${data.code}`
           window.open(verificationUrl, "_blank")
+          onSubmit({ phoneNumber })
         }
       }
     )

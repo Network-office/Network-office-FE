@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation"
 import { useGetCSRFToken } from "@/app/kakao/_api/auth/csrf"
 import { useUpdateProfileImageMutation } from "@/app/kakao/_hooks/_mutations/useUpdateProfile"
 import { useUpdateNicknameMutation } from "@/app/kakao/_hooks/_mutations/useUpdateNickname"
-import { useEffect } from "react"
+import { useState } from "react"
 import NickNameForm from "@/app/kakao/_components/NickNameForm"
 import Step from "@/_common/_hooks/useFunnel/_component/Step"
 import AvatarForm from "@/app/kakao/_components/AvatarForm"
@@ -23,36 +23,37 @@ const KakaoLoginWithSocialId = ({
   const mutation = useKakaoOAuthMutation()
   const router = useRouter()
   const { mutate } = useGetCSRFToken()
+  const [errorState, setErrorState] = useState(false)
   const { mutate: updateNickname } = useUpdateNicknameMutation()
   const { mutate: updateProfileImage } = useUpdateProfileImageMutation()
   const { toast } = useToast()
 
-  useEffect(() => {
-    mutate()
-  }, [])
-
   const handleLoginSuccess = () => {
-    mutation.mutate(
-      { code: params.socialid },
-      {
-        onSuccess: () => {
-          toast({
-            title: "로그인 성공",
-            description: "로그인에 성공하셨어요"
-          })
-          mutate()
+    if (errorState) {
+      mutation.mutate(
+        { code: params.socialid },
+        {
+          onSuccess: () => {
+            toast({
+              title: "로그인 성공",
+              description: "로그인에 성공하셨어요"
+            })
+            mutate()
 
-          router.push("/meeting")
-        },
-        onError: () => {
-          toast({
-            type: "background",
-            title: "로그인에 실패하였습니다!",
-            color: "red"
-          })
+            router.push("/meeting")
+          },
+          onError: () => {
+            toast({
+              type: "background",
+              title: "로그인에 실패하였습니다!",
+              color: "red"
+            })
+          }
         }
-      }
-    )
+      )
+    } else {
+      router.push("/meeting")
+    }
   }
 
   const steps = ["nickname", "profileAvatar", "verify-user-info"]
@@ -65,18 +66,29 @@ const KakaoLoginWithSocialId = ({
           <Step name="nickname">
             <NickNameForm
               onSubmit={(nickname: string) => {
-                updateNickname(
-                  { nickname },
+                mutation.mutate(
+                  { code: params.socialid },
                   {
                     onSuccess: () => {
-                      setStep("profileAvatar")
+                      setErrorState(false)
+                      updateNickname(
+                        { nickname },
+                        {
+                          onSuccess: () => {
+                            setStep("profileAvatar")
+                          },
+                          onError: (e) => {
+                            toast({
+                              duration: 1000,
+                              title: e.message,
+                              type: "background"
+                            })
+                          }
+                        }
+                      )
                     },
-                    onError: (e) => {
-                      toast({
-                        duration: 1000,
-                        title: e.message,
-                        type: "background"
-                      })
+                    onError: () => {
+                      setErrorState(true)
                     }
                   }
                 )

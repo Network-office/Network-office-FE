@@ -25,7 +25,7 @@ const NickNameForm = ({
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-white">
-      <div className="w-full max-w-md text-center">
+      <div className="w-80 max-w-md text-center">
         <h1 className="text-2xl font-bold mb-2 text-gray-900">
           닉네임을 입력해 주세요
         </h1>
