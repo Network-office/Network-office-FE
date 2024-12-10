@@ -11,12 +11,13 @@ const generatePhoneVerificationCode = async ({
       .split("; ")
       .find((row) => row.startsWith("XSRF-TOKEN="))
       ?.split("=")[1]
-    const response = await fetch("/dev/api/v1/verification/phone/code", {
+
+    const response = await fetch("/api/v1/verification/phone/code", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
-        "XSRF-TOKEN": xsrfToken + ""
+        "X-XSRF-TOKEN": xsrfToken + ""
       },
       credentials: "include",
       body: JSON.stringify({ phoneNumber: phoneNumber.replaceAll("-", "") })
