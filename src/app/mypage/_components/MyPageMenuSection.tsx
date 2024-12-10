@@ -41,7 +41,7 @@ const MyPageMenuSection = () => {
           onConfirm={(phoneNum) => {
             setTimeout(() => {
               verifyPhoneCode(
-                { phoneNumber: phoneNum.replaceAll("-", "") },
+                { phoneNumber: phoneNum?.replaceAll("-", "") },
                 {
                   onSuccess: () => {
                     typeof window !== "undefined" &&

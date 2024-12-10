@@ -1,3 +1,4 @@
+import { http } from "@/lib/http"
 import { useMutation } from "@tanstack/react-query"
 
 const verifyPhoneCode = async ({ phoneNumber }: { phoneNumber: string }) => {
@@ -6,7 +7,8 @@ const verifyPhoneCode = async ({ phoneNumber }: { phoneNumber: string }) => {
       .split("; ")
       .find((row) => row.startsWith("XSRF-TOKEN="))
       ?.split("=")[1]
-    const response = await fetch("/api/v1/verification/phone/verify", {
+
+    const response = await http("/api/v1/verification/phone/verify", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -16,7 +18,12 @@ const verifyPhoneCode = async ({ phoneNumber }: { phoneNumber: string }) => {
       credentials: "include",
       body: JSON.stringify({ phoneNumber })
     })
-    return response
+      .then((res) => {
+        return res
+      })
+      .catch((e) => {
+        throw e
+      })
   } catch (e) {
     throw e
   }
