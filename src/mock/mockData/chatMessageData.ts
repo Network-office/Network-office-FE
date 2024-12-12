@@ -18,7 +18,7 @@ const generateMessage = (
   role,
   message: {
     text,
-    timestamp: faker.date.soon().getTime()
+    timestamp: Date.now()
   },
   userInfo
 })
